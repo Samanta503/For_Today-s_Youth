@@ -1,15 +1,76 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const animationStyles = `
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  .animate-fade-in-down {
+    animation: fadeInDown 0.6s ease-out forwards;
+  }
+  .animate-slide-in-left {
+    animation: slideInLeft 0.6s ease-out forwards;
+  }
+  .animate-slide-in-right {
+    animation: slideInRight 0.6s ease-out forwards;
+  }
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
+`;
+
 export const LandingPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 via-sky-50 to-cyan-50">
+      <style>{animationStyles}</style>
       {/* Hero Section - Energy Usage Card Inspired Theme */}
       <section className="pt-20 pb-32 px-4">
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto">
             {/* Main Card with Energy Usage Theme */}
-            <div className="bg-gradient-to-br from-blue-950 via-blue-900 to-cyan-900 rounded-3xl shadow-2xl p-12 text-white mb-12 relative overflow-hidden border border-blue-700">
+            <div className="bg-gradient-to-br from-blue-950 via-blue-900 to-cyan-900 rounded-3xl shadow-2xl p-12 text-white mb-12 relative overflow-hidden border border-blue-700 animate-fade-in-up transition-all duration-500 hover:shadow-cyan-500/30 hover:shadow-2xl">
               {/* Background Pattern - More vibrant */}
               <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-400 opacity-20 rounded-full -mr-48 -mt-48 blur-3xl"></div>
               <div className="absolute bottom-0 left-0 w-72 h-72 bg-blue-400 opacity-15 rounded-full -ml-36 -mb-36 blur-3xl"></div>
@@ -17,9 +78,9 @@ export const LandingPage = () => {
 
               <div className="relative z-10">
                 {/* Month Display */}
-                <div className="text-center mb-8">
+                <div className="text-center mb-8 animate-fade-in-down stagger-1">
                   <h2 className="text-sm text-cyan-300 uppercase tracking-widest mb-2 font-bold">Career Opportunity Platform</h2>
-                  <h1 className="text-6xl md:text-7xl font-bold mb-3 bg-gradient-to-r from-cyan-300 via-sky-300 to-blue-300 bg-clip-text text-transparent">
+                  <h1 className="text-6xl md:text-7xl font-bold mb-3 bg-gradient-to-r from-cyan-300 via-sky-300 to-blue-300 bg-clip-text text-transparent hover:scale-105 transition-transform duration-500">
                     Today's Potential
                   </h1>
                   <p className="text-cyan-200 text-xl font-medium">Your Gateway to Career Success</p>
@@ -27,16 +88,16 @@ export const LandingPage = () => {
 
                 {/* Stats Display */}
                 <div className="grid grid-cols-2 md:grid-cols-2 gap-8 mt-12 mb-12">
-                  <div className="text-center bg-blue-900 bg-opacity-50 p-6 rounded-2xl border border-cyan-500 border-opacity-30 hover:border-cyan-400 transition-all">
-                    <div className="text-sm text-cyan-300 mb-2 font-semibold">Suitable Jobs</div>
-                    <div className="text-5xl md:text-6xl font-bold text-transparent bg-gradient-to-r from-cyan-300 to-sky-300 bg-clip-text mb-1">
+                  <div className="text-center bg-blue-900 bg-opacity-50 p-6 rounded-2xl border border-cyan-500 border-opacity-30 hover:border-cyan-400 transition-all duration-500 animate-slide-in-left stagger-2 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50 hover:-translate-y-1">
+                    <div className="text-sm text-cyan-300 mb-2 font-semibold animate-pulse">Suitable Jobs</div>
+                    <div className="text-5xl md:text-6xl font-bold text-transparent bg-gradient-to-r from-cyan-300 to-sky-300 bg-clip-text mb-1 hover:scale-110 transition-transform duration-300">
                       150+
                     </div>
                     <div className="text-xs text-cyan-200">Based on Your Skills</div>
                   </div>
-                  <div className="text-center bg-blue-900 bg-opacity-50 p-6 rounded-2xl border border-sky-500 border-opacity-30 hover:border-sky-400 transition-all">
-                    <div className="text-sm text-sky-300 mb-2 font-semibold">Recommended Courses</div>
-                    <div className="text-5xl md:text-6xl font-bold text-transparent bg-gradient-to-r from-sky-300 to-cyan-300 bg-clip-text mb-1">
+                  <div className="text-center bg-blue-900 bg-opacity-50 p-6 rounded-2xl border border-sky-500 border-opacity-30 hover:border-sky-400 transition-all duration-500 animate-slide-in-right stagger-3 hover:scale-105 hover:shadow-lg hover:shadow-sky-500/50 hover:-translate-y-1">
+                    <div className="text-sm text-sky-300 mb-2 font-semibold animate-pulse">Recommended Courses</div>
+                    <div className="text-5xl md:text-6xl font-bold text-transparent bg-gradient-to-r from-sky-300 to-cyan-300 bg-clip-text mb-1 hover:scale-110 transition-transform duration-300">
                       50+
                     </div>
                     <div className="text-xs text-sky-200">For Skill Enhancement</div>
@@ -44,16 +105,16 @@ export const LandingPage = () => {
                 </div>
 
                 {/* CTA Buttons */}
-                <div className="flex flex-col md:flex-row gap-4 justify-center mt-12">
+                <div className="flex flex-col md:flex-row gap-4 justify-center mt-12 animate-fade-in-up stagger-4">
                   <Link
                     to="/signup"
-                    className="px-8 py-4 text-lg bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 text-blue-900 font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all"
+                    className="px-8 py-4 text-lg bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 text-blue-900 font-bold rounded-lg shadow-lg hover:shadow-xl hover:shadow-cyan-400/50 transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 active:scale-95"
                   >
                     Get Started Now →
                   </Link>
                   <Link
                     to="/login"
-                    className="px-8 py-4 text-lg border-2 border-cyan-300 text-cyan-300 hover:bg-cyan-500 hover:bg-opacity-10 font-semibold rounded-lg transition-all"
+                    className="px-8 py-4 text-lg border-2 border-cyan-300 text-cyan-300 hover:bg-cyan-500 hover:bg-opacity-10 font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 hover:-translate-y-1 hover:border-cyan-200 active:scale-95"
                   >
                     I'm Already a Member
                   </Link>

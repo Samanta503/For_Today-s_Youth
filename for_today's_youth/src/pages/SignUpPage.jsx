@@ -4,6 +4,41 @@ import { registerUser } from '../services/authService';
 import { createUserProfile } from '../services/userService';
 import toast from 'react-hot-toast';
 
+const animationStyles = `
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes slideInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  .animate-slide-in-down {
+    animation: slideInDown 0.6s ease-out forwards;
+  }
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
+  .stagger-6 { animation-delay: 0.6s; }
+`;
+
 export const SignUpPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -125,229 +160,232 @@ export const SignUpPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-cyan-50 to-sky-50 flex items-center justify-center px-4 py-8">
-      <div className="w-full max-w-3xl">
-        {/* Card */}
-        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border-t-4 border-cyan-500">
-          {/* Gradient Header */}
-          <div className="bg-gradient-to-r from-blue-900 via-cyan-800 to-sky-900 p-8 text-white">
-            <div className="flex items-center justify-center gap-4 mb-4">
-              <div className="w-14 h-14 bg-gradient-to-br from-cyan-400 to-sky-400 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-blue-900 font-bold text-2xl">FTY</span>
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold">Create Your Account</h1>
-                <p className="text-cyan-200 mt-1">Build your professional profile</p>
+    <>
+      <style>{animationStyles}</style>
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 via-cyan-50 to-sky-50 flex items-center justify-center px-4 py-8">
+        <div className="w-full max-w-3xl">
+          {/* Card */}
+          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border-t-4 border-cyan-500 animate-fade-in-up">
+            {/* Gradient Header */}
+            <div className="bg-gradient-to-r from-blue-900 via-cyan-800 to-sky-900 p-8 text-white animate-slide-in-down">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <div className="w-14 h-14 bg-gradient-to-br from-cyan-400 to-sky-400 rounded-xl flex items-center justify-center shadow-lg hover:scale-110 transform transition-all duration-300">
+                  <span className="text-blue-900 font-bold text-2xl">FTY</span>
+                </div>
+                <div>
+                  <h1 className="text-3xl font-bold">Create Your Account</h1>
+                  <p className="text-cyan-200 mt-1">Build your professional profile</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="p-8">
-            {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Row 1: Basic Info */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-bold text-blue-900 mb-2">Full Name *</label>
-                  <input
-                    type="text"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    placeholder="John Doe"
-                    className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition"
-                    disabled={loading}
-                  />
-                  {errors.fullName && <span className="text-red-500 text-sm mt-1">{errors.fullName}</span>}
+            <div className="p-8">
+              {/* Form */}
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Row 1: Basic Info */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="animate-fade-in-up stagger-1">
+                    <label className="block text-sm font-bold text-blue-900 mb-2">Full Name *</label>
+                    <input
+                      type="text"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                      placeholder="John Doe"
+                      className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition-all duration-300 hover:border-blue-300"
+                      disabled={loading}
+                    />
+                    {errors.fullName && <span className="text-red-500 text-sm mt-1">{errors.fullName}</span>}
+                  </div>
+
+                  <div className="animate-fade-in-up stagger-2">
+                    <label className="block text-sm font-bold text-blue-900 mb-2">Email Address *</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="you@example.com"
+                      className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition-all duration-300 hover:border-blue-300"
+                      disabled={loading}
+                    />
+                    {errors.email && <span className="text-red-500 text-sm mt-1">{errors.email}</span>}
+                  </div>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-bold text-blue-900 mb-2">Email Address *</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="you@example.com"
-                    className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition"
-                    disabled={loading}
-                  />
-                  {errors.email && <span className="text-red-500 text-sm mt-1">{errors.email}</span>}
-                </div>
-              </div>
+                {/* Row 2: Password */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="animate-fade-in-up stagger-3">
+                    <label className="block text-sm font-bold text-blue-900 mb-2">Password *</label>
+                    <input
+                      type="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      placeholder="••••••••"
+                      className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition-all duration-300 hover:border-blue-300"
+                      disabled={loading}
+                    />
+                    {errors.password && <span className="text-red-500 text-sm mt-1">{errors.password}</span>}
+                  </div>
 
-              {/* Row 2: Password */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-bold text-blue-900 mb-2">Password *</label>
-                  <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    placeholder="••••••••"
-                    className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition"
-                    disabled={loading}
-                  />
-                  {errors.password && <span className="text-red-500 text-sm mt-1">{errors.password}</span>}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-bold text-blue-900 mb-2">Confirm Password *</label>
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    placeholder="••••••••"
-                    className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition"
-                    disabled={loading}
-                  />
-                  {errors.confirmPassword && <span className="text-red-500 text-sm mt-1">{errors.confirmPassword}</span>}
-                </div>
-              </div>
-
-              {/* Row 3: Education & Career Interests */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-bold text-blue-900 mb-2">Current Education Level</label>
-                  <select
-                    name="educationLevel"
-                    value={formData.educationLevel}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition"
-                    disabled={loading}
-                  >
-                    {educationLevels.map((level) => (
-                      <option key={level.value} value={level.value}>
-                        {level.label}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="animate-fade-in-up stagger-4">
+                    <label className="block text-sm font-bold text-blue-900 mb-2">Confirm Password *</label>
+                    <input
+                      type="password"
+                      name="confirmPassword"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                      placeholder="••••••••"
+                      className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition-all duration-300 hover:border-blue-300"
+                      disabled={loading}
+                    />
+                    {errors.confirmPassword && <span className="text-red-500 text-sm mt-1">{errors.confirmPassword}</span>}
+                  </div>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-bold text-blue-900 mb-2">Career Interests</label>
-                  <input
-                    type="text"
-                    name="careerInterests"
-                    value={formData.careerInterests}
-                    onChange={handleChange}
-                    placeholder="e.g., Web Development, Data Science"
-                    className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition"
-                    disabled={loading}
-                  />
-                </div>
-              </div>
+                {/* Row 3: Education & Career Interests */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="animate-fade-in-up stagger-5">
+                    <label className="block text-sm font-bold text-blue-900 mb-2">Current Education Level</label>
+                    <select
+                      name="educationLevel"
+                      value={formData.educationLevel}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition-all duration-300 hover:border-blue-300"
+                      disabled={loading}
+                    >
+                      {educationLevels.map((level) => (
+                        <option key={level.value} value={level.value}>
+                          {level.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
 
-              {/* Row 4: Skills & Languages */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-bold text-blue-900 mb-2">Skills (comma-separated)</label>
+                  <div className="animate-fade-in-up stagger-6">
+                    <label className="block text-sm font-bold text-blue-900 mb-2">Career Interests</label>
+                    <input
+                      type="text"
+                      name="careerInterests"
+                      value={formData.careerInterests}
+                      onChange={handleChange}
+                      placeholder="e.g., Web Development, Data Science"
+                      className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition-all duration-300 hover:border-blue-300"
+                      disabled={loading}
+                    />
+                  </div>
+                </div>
+
+                {/* Row 4: Skills & Languages */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="animate-fade-in-up stagger-1">
+                    <label className="block text-sm font-bold text-blue-900 mb-2">Skills (comma-separated)</label>
+                    <textarea
+                      name="skills"
+                      value={formData.skills}
+                      onChange={handleChange}
+                      placeholder={`e.g., ${skillOptions.slice(0, 3).join(', ')}`}
+                      className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition-all duration-300 hover:border-blue-300 h-24 resize-none"
+                      disabled={loading}
+                    />
+                    <p className="text-xs text-blue-600 mt-1">Popular: {skillOptions.join(', ')}</p>
+                  </div>
+
+                  <div className="animate-fade-in-up stagger-2">
+                    <label className="block text-sm font-bold text-blue-900 mb-2">Languages (comma-separated)</label>
+                    <textarea
+                      name="languages"
+                      value={formData.languages}
+                      onChange={handleChange}
+                      placeholder={`e.g., ${languageOptions.slice(0, 3).join(', ')}`}
+                      className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition-all duration-300 hover:border-blue-300 h-24 resize-none"
+                      disabled={loading}
+                    />
+                    <p className="text-xs text-blue-600 mt-1">Popular: {languageOptions.join(', ')}</p>
+                  </div>
+                </div>
+
+                {/* Row 5: Programming & Experience */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="animate-fade-in-up stagger-3">
+                    <label className="block text-sm font-bold text-blue-900 mb-2">Programming Languages (comma-separated)</label>
+                    <textarea
+                      name="programmingLanguages"
+                      value={formData.programmingLanguages}
+                      onChange={handleChange}
+                      placeholder={`e.g., ${programmingLanguageOptions.slice(0, 3).join(', ')}`}
+                      className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition-all duration-300 hover:border-blue-300 h-24 resize-none"
+                      disabled={loading}
+                    />
+                    <p className="text-xs text-blue-600 mt-1">Popular: {programmingLanguageOptions.join(', ')}</p>
+                  </div>
+
+                  <div className="animate-fade-in-up stagger-4">
+                    <label className="block text-sm font-bold text-blue-900 mb-2">Work Experience</label>
+                    <textarea
+                      name="workExperience"
+                      value={formData.workExperience}
+                      onChange={handleChange}
+                      placeholder="e.g., Intern at Company XYZ (2023-2024), Freelance Web Developer"
+                      className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition-all duration-300 hover:border-blue-300 h-24 resize-none"
+                      disabled={loading}
+                    />
+                  </div>
+                </div>
+
+                {/* Row 6: Extracurricular */}
+                <div className="animate-fade-in-up stagger-5">
+                  <label className="block text-sm font-bold text-blue-900 mb-2">Extracurricular Activities (comma-separated)</label>
                   <textarea
-                    name="skills"
-                    value={formData.skills}
+                    name="extracurricularActivities"
+                    value={formData.extracurricularActivities}
                     onChange={handleChange}
-                    placeholder={`e.g., ${skillOptions.slice(0, 3).join(', ')}`}
-                    className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition h-24 resize-none"
+                    placeholder={`e.g., ${activityOptions.slice(0, 4).join(', ')}`}
+                    className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition-all duration-300 hover:border-blue-300 h-24 resize-none"
                     disabled={loading}
                   />
-                  <p className="text-xs text-blue-600 mt-1">Popular: {skillOptions.join(', ')}</p>
+                  <p className="text-xs text-blue-600 mt-1">Popular: {activityOptions.join(', ')}</p>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-bold text-blue-900 mb-2">Languages (comma-separated)</label>
-                  <textarea
-                    name="languages"
-                    value={formData.languages}
-                    onChange={handleChange}
-                    placeholder={`e.g., ${languageOptions.slice(0, 3).join(', ')}`}
-                    className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition h-24 resize-none"
-                    disabled={loading}
-                  />
-                  <p className="text-xs text-blue-600 mt-1">Popular: {languageOptions.join(', ')}</p>
-                </div>
-              </div>
-
-              {/* Row 5: Programming & Experience */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-bold text-blue-900 mb-2">Programming Languages (comma-separated)</label>
-                  <textarea
-                    name="programmingLanguages"
-                    value={formData.programmingLanguages}
-                    onChange={handleChange}
-                    placeholder={`e.g., ${programmingLanguageOptions.slice(0, 3).join(', ')}`}
-                    className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition h-24 resize-none"
-                    disabled={loading}
-                  />
-                  <p className="text-xs text-blue-600 mt-1">Popular: {programmingLanguageOptions.join(', ')}</p>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-bold text-blue-900 mb-2">Work Experience</label>
-                  <textarea
-                    name="workExperience"
-                    value={formData.workExperience}
-                    onChange={handleChange}
-                    placeholder="e.g., Intern at Company XYZ (2023-2024), Freelance Web Developer"
-                    className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition h-24 resize-none"
-                    disabled={loading}
-                  />
-                </div>
-              </div>
-
-              {/* Row 6: Extracurricular */}
-              <div>
-                <label className="block text-sm font-bold text-blue-900 mb-2">Extracurricular Activities (comma-separated)</label>
-                <textarea
-                  name="extracurricularActivities"
-                  value={formData.extracurricularActivities}
-                  onChange={handleChange}
-                  placeholder={`e.g., ${activityOptions.slice(0, 4).join(', ')}`}
-                  className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-cyan-500 bg-blue-50 focus:bg-white transition h-24 resize-none"
+                {/* Submit Button */}
+                <button
+                  type="submit"
                   disabled={loading}
-                />
-                <p className="text-xs text-blue-600 mt-1">Popular: {activityOptions.join(', ')}</p>
+                  className="w-full py-4 text-lg font-bold text-white bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 text-blue-900 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed mt-8 animate-fade-in-up stagger-6"
+                >
+                  {loading ? 'Creating Account...' : 'Create Account & Get Started'}
+                </button>
+              </form>
+
+              {/* Divider */}
+              <div className="relative my-8 animate-fade-in-up stagger-1">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t-2 border-blue-200"></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-white text-blue-600 font-semibold">or</span>
+                </div>
               </div>
 
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-4 text-lg font-bold text-white bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 text-blue-900 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-8"
-              >
-                {loading ? 'Creating Account...' : 'Create Account & Get Started'}
-              </button>
-            </form>
+              {/* Login Link */}
+              <p className="text-center text-blue-900 animate-fade-in-up stagger-2">
+                Already have an account?{' '}
+                <Link to="/login" className="text-cyan-600 font-bold hover:text-cyan-700 hover:underline underline transition-all duration-300">
+                  Login Here
+                </Link>
+              </p>
 
-            {/* Divider */}
-            <div className="relative my-8">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t-2 border-blue-200"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-blue-600 font-semibold">or</span>
-              </div>
+              {/* Footer Text */}
+              <p className="text-center text-blue-600 text-xs mt-6 leading-relaxed animate-fade-in-up stagger-3">
+                By creating an account, you agree to our Terms of Service and Privacy Policy.
+                <br />
+                Your information helps us provide personalized career recommendations.
+              </p>
             </div>
-
-            {/* Login Link */}
-            <p className="text-center text-blue-900">
-              Already have an account?{' '}
-              <Link to="/login" className="text-cyan-600 font-bold hover:text-cyan-700 underline">
-                Login Here
-              </Link>
-            </p>
-
-            {/* Footer Text */}
-            <p className="text-center text-blue-600 text-xs mt-6 leading-relaxed">
-              By creating an account, you agree to our Terms of Service and Privacy Policy.
-              <br />
-              Your information helps us provide personalized career recommendations.
-            </p>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
