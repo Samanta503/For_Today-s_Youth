@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../services/authService';
-import { createUserProfile } from '../services/userService';
 import toast from 'react-hot-toast';
 
 const animationStyles = `
@@ -125,32 +124,30 @@ export const SignUpPage = () => {
 
     setLoading(true);
     try {
-      const authResult = await registerUser(formData.email, formData.password, formData.fullName);
+      // Prepare profile data object
+      const profileData = {
+        fullName: formData.fullName,
+        email: formData.email,
+        educationLevel: formData.educationLevel,
+        careerInterests: formData.careerInterests,
+        skills: formData.skills ? formData.skills.split(',').map(s => s.trim()).filter(s => s) : [],
+        languages: formData.languages ? formData.languages.split(',').map(l => l.trim()).filter(l => l) : [],
+        programmingLanguages: formData.programmingLanguages ? formData.programmingLanguages.split(',').map(p => p.trim()).filter(p => p) : [],
+        workExperience: formData.workExperience,
+        extracurricularActivities: formData.extracurricularActivities ? formData.extracurricularActivities.split(',').map(a => a.trim()).filter(a => a) : [],
+        qualifications: {},
+        interests: [],
+        profileComplete: false,
+      };
+
+      // Register user with password only, profile data passed along
+      const authResult = await registerUser(formData.email, formData.password, profileData);
 
       if (authResult.success) {
-        const profileResult = await createUserProfile(authResult.user.uid, {
-          fullName: formData.fullName,
-          email: formData.email,
-          educationLevel: formData.educationLevel,
-          skills: formData.skills ? formData.skills.split(',').map(s => s.trim()) : [],
-          workExperience: formData.workExperience,
-          languages: formData.languages ? formData.languages.split(',').map(l => l.trim()) : [],
-          programmingLanguages: formData.programmingLanguages ? formData.programmingLanguages.split(',').map(p => p.trim()) : [],
-          extracurricularActivities: formData.extracurricularActivities ? formData.extracurricularActivities.split(',').map(a => a.trim()) : [],
-          careerInterests: formData.careerInterests,
-          qualifications: {},
-          interests: [],
-          profileComplete: false,
-        });
-
-        if (profileResult.success) {
-          toast.success('Account created successfully!');
-          navigate('/profile');
-        } else {
-          toast.error('Error creating profile. Please try again.');
-        }
+        toast.success('Account created successfully!');
+        navigate('/profile');
       } else {
-        toast.error(authResult.message);
+        toast.error(authResult.message || 'Registration failed. Please try again.');
       }
     } catch {
       toast.error('An error occurred. Please try again.');

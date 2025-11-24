@@ -13,8 +13,9 @@ import { doc, setDoc, getDoc, updateDoc, serverTimestamp } from 'firebase/firest
 
 /**
  * Register a new user with email and password
+ * Creates auth user and Firestore document with email as document ID
  */
-export const registerUser = async (email, password, fullName) => {
+export const registerUser = async (email, password, profileData) => {
   try {
     // Enable persistence for this session
     await setPersistence(auth, browserLocalPersistence);
@@ -23,21 +24,33 @@ export const registerUser = async (email, password, fullName) => {
     const user = userCredential.user;
     
     // Update user profile with display name
+    const fullName = profileData?.fullName || '';
     if (fullName) {
       await updateProfile(user, {
         displayName: fullName,
       });
     }
     
-    // Create user profile document in Firestore
-    await createUserProfile(user.uid, {
-      email: user.email,
-      fullName: fullName || '',
-      displayName: fullName || '',
+    // Create user profile document in Firestore with EMAIL as document ID
+    const userDocData = {
       uid: user.uid,
+      email: user.email,
+      fullName: profileData?.fullName || '',
+      educationLevel: profileData?.educationLevel || '',
+      careerInterests: profileData?.careerInterests || '',
+      skills: profileData?.skills || [],
+      languages: profileData?.languages || [],
+      programmingLanguages: profileData?.programmingLanguages || [],
+      workExperience: profileData?.workExperience || '',
+      extracurricularActivities: profileData?.extracurricularActivities || [],
+      qualifications: profileData?.qualifications || {},
+      interests: profileData?.interests || [],
+      profileComplete: profileData?.profileComplete || false,
       createdAt: serverTimestamp(),
-      profileComplete: false,
-    });
+      updatedAt: serverTimestamp(),
+    };
+    
+    await createUserProfileWithEmailId(email, userDocData);
     
     return {
       success: true,
@@ -139,7 +152,7 @@ export const onAuthChange = (callback) => {
 };
 
 /**
- * Create user profile document in Firestore
+ * Create user profile document in Firestore using UID
  */
 export const createUserProfile = async (uid, userData) => {
   try {
@@ -153,7 +166,22 @@ export const createUserProfile = async (uid, userData) => {
 };
 
 /**
- * Get user profile from Firestore
+ * Create user profile document in Firestore using EMAIL as document ID
+ * This stores the user profile in the 'Users' collection with email as the document name
+ */
+export const createUserProfileWithEmailId = async (email, userData) => {
+  try {
+    const userRef = doc(db, 'Users', email);
+    await setDoc(userRef, userData, { merge: true });
+    return { success: true };
+  } catch (error) {
+    console.error('Error creating user profile with email ID:', error);
+    return { success: false, error: error.message };
+  }
+};
+
+/**
+ * Get user profile from Firestore using UID
  */
 export const getUserProfile = async (uid) => {
   try {
@@ -172,7 +200,27 @@ export const getUserProfile = async (uid) => {
 };
 
 /**
- * Update user profile in Firestore
+ * Get user profile from Firestore using EMAIL as document ID
+ * Retrieves from the 'Users' collection using email as the document name
+ */
+export const getUserProfileByEmail = async (email) => {
+  try {
+    const userRef = doc(db, 'Users', email);
+    const userSnap = await getDoc(userRef);
+    
+    if (userSnap.exists()) {
+      return { success: true, data: userSnap.data() };
+    } else {
+      return { success: false, message: 'User profile not found' };
+    }
+  } catch (error) {
+    console.error('Error fetching user profile by email:', error);
+    return { success: false, error: error.message };
+  }
+};
+
+/**
+ * Update user profile in Firestore using UID
  */
 export const updateUserProfile = async (uid, userData) => {
   try {
@@ -184,6 +232,24 @@ export const updateUserProfile = async (uid, userData) => {
     return { success: true };
   } catch (error) {
     console.error('Error updating user profile:', error);
+    return { success: false, error: error.message };
+  }
+};
+
+/**
+ * Update user profile in Firestore using EMAIL as document ID
+ * Updates the 'Users' collection document using email as the document name
+ */
+export const updateUserProfileByEmail = async (email, userData) => {
+  try {
+    const userRef = doc(db, 'Users', email);
+    await updateDoc(userRef, {
+      ...userData,
+      updatedAt: serverTimestamp(),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Error updating user profile by email:', error);
     return { success: false, error: error.message };
   }
 };
