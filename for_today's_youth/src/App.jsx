@@ -6,6 +6,7 @@ import { Footer } from './components/Footer';
 import { LandingPage } from './pages/LandingPage';
 import { LoginPage } from './pages/LoginPage';
 import { SignUpPage } from './pages/SignUpPage';
+import { DashboardPage } from './pages/DashboardPage';
 import './index.css';
 
 function App() {
@@ -19,9 +20,9 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
               
               {/* Placeholder routes - to be implemented */}
-              <Route path="/dashboard" element={<div className="p-8 text-center"><h1>Dashboard - Coming Soon</h1></div>} />
               <Route path="/profile" element={<div className="p-8 text-center"><h1>Profile - Coming Soon</h1></div>} />
               <Route path="/jobs" element={<div className="p-8 text-center"><h1>Jobs - Coming Soon</h1></div>} />
               <Route path="/skills" element={<div className="p-8 text-center"><h1>Skills - Coming Soon</h1></div>} />
