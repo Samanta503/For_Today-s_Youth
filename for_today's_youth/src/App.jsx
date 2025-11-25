@@ -7,6 +7,7 @@ import { LandingPage } from './pages/LandingPage';
 import { LoginPage } from './pages/LoginPage';
 import { SignUpPage } from './pages/SignUpPage';
 import { DashboardPage } from './pages/DashboardPage';
+import { ProfilePage } from './pages/ProfilePage';
 import './index.css';
 
 function App() {
@@ -21,9 +22,9 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
               
               {/* Placeholder routes - to be implemented */}
-              <Route path="/profile" element={<div className="p-8 text-center"><h1>Profile - Coming Soon</h1></div>} />
               <Route path="/jobs" element={<div className="p-8 text-center"><h1>Jobs - Coming Soon</h1></div>} />
               <Route path="/skills" element={<div className="p-8 text-center"><h1>Skills - Coming Soon</h1></div>} />
               <Route path="/courses" element={<div className="p-8 text-center"><h1>Courses - Coming Soon</h1></div>} />
