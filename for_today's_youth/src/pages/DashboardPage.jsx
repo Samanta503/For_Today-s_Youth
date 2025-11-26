@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { db } from '../config/firebaseConfig';
+import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 
 // Import course images
@@ -81,16 +82,20 @@ const courseImageMap = {
 };
 
 export const DashboardPage = () => {
+  const { user } = useAuth();
   const [courses, setCourses] = useState([]);
+  const [recommendedCourses, setRecommendedCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  // Fetch courses from Firestore
+  // Fetch courses and match with user career interests
   useEffect(() => {
-    const fetchCourses = async () => {
+    const fetchCoursesAndRecommendations = async () => {
       try {
         setLoading(true);
+        
+        // Fetch all courses
         const coursesCollection = collection(db, 'Courses');
         const coursesSnapshot = await getDocs(coursesCollection);
         
@@ -101,8 +106,38 @@ export const DashboardPage = () => {
           ...doc.data(),
         }));
 
-        console.log('Fetched courses:', coursesList);
         setCourses(coursesList);
+
+        // Fetch user's career interests if user is logged in
+        if (user && user.email) {
+          const userDocRef = doc(db, 'Users', user.email);
+          const userDocSnap = await getDoc(userDocRef);
+          
+          if (userDocSnap.exists()) {
+            const userData = userDocSnap.data();
+            const careerInterests = userData.careerInterests || '';
+            
+            console.log('User Career Interests:', careerInterests);
+            console.log('Available Courses:', coursesList.map(c => c.name));
+
+            // Match career interests with course names
+            if (careerInterests) {
+              const interestKeywords = careerInterests.toLowerCase().split(/[\s,&]+/).filter(k => k.length > 0);
+              
+              const recommended = coursesList.filter(course => {
+                const courseName = course.name.toLowerCase();
+                
+                // Check if any interest keyword is in the course name
+                return interestKeywords.some(keyword => 
+                  courseName.includes(keyword)
+                );
+              });
+
+              setRecommendedCourses(recommended);
+              console.log('Recommended courses:', recommended);
+            }
+          }
+        }
       } catch (error) {
         console.error('Error fetching courses:', error);
         toast.error('Failed to load courses. Please try again.');
@@ -111,8 +146,8 @@ export const DashboardPage = () => {
       }
     };
 
-    fetchCourses();
-  }, []);
+    fetchCoursesAndRecommendations();
+  }, [user]);
 
   // Handle learn more click
   const handleLearnMore = (course) => {
@@ -158,9 +193,96 @@ export const DashboardPage = () => {
             </div>
           )}
 
+          {/* Recommended Courses Section */}
+          {!loading && recommendedCourses.length > 0 && (
+            <div className="mb-16">
+              <div className="mb-8">
+                <h2 className="text-3xl font-bold text-green-300 mb-2 flex items-center gap-2">
+                  <span className="text-3xl">🎯</span> Recommended For You
+                </h2>
+                <p className="text-green-100">Based on your career interest: <span className="font-bold text-green-200">{recommendedCourses.length > 0 ? "Great matches found!" : ""}</span></p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {recommendedCourses.map((course, index) => (
+                  <div
+                    key={course.id}
+                    className={`animate-fade-in-up stagger-${(index % 6) + 1} bg-white rounded-2xl shadow-2xl overflow-hidden hover:shadow-2xl transform hover:scale-105 transition-all duration-300 border-t-4 border-green-500 relative cursor-pointer`}
+                    onClick={() => handleLearnMore(course)}
+                  >
+                    {/* Recommended Badge */}
+                    <div className="absolute top-3 right-3 z-10 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                      ✓ Recommended
+                    </div>
+
+                    {/* Course Image */}
+                    <div className="relative h-64 overflow-hidden bg-gradient-to-br from-green-500 to-slate-700">
+                      {getCourseImage(course.name) ? (
+                        <img
+                          src={getCourseImage(course.name)}
+                          alt={course.name}
+                          className="w-full h-full object-cover hover:scale-110 transition-transform duration-300 opacity-90"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-green-500 to-slate-700">
+                          <div className="text-center">
+                            <svg className="w-16 h-16 text-green-200 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" />
+                            </svg>
+                            <p className="text-green-100 font-semibold">No Image</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Course Info */}
+                    <div className="p-6 bg-white">
+                      <h3 className="text-2xl font-bold text-green-900 mb-3 line-clamp-2 hover:text-green-700 transition-all">
+                        {course.name}
+                      </h3>
+
+                      {course.courseDetail?.Description && (
+                        <p className="text-gray-700 text-sm mb-4 line-clamp-2 font-medium">
+                          {course.courseDetail.Description}
+                        </p>
+                      )}
+
+                      <div className="flex gap-4 mb-6 text-sm flex-wrap">
+                        {course.courseDetail?.['Course fee'] && (
+                          <div className="flex items-center gap-2 text-green-700 bg-green-100 px-3 py-2 rounded-full font-semibold border-2 border-green-300">
+                            <span>💰 {course.courseDetail['Course fee']}</span>
+                          </div>
+                        )}
+
+                        {course.courseDetail?.Schedule && (
+                          <div className="flex items-center gap-2 text-green-700 bg-emerald-100 px-3 py-2 rounded-full font-semibold border-2 border-emerald-300">
+                            <span>📅 {course.courseDetail.Schedule}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      <button
+                        className="w-full py-3 px-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold rounded-xl hover:from-green-600 hover:to-green-700 transform hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-green-400/50"
+                        onClick={() => handleLearnMore(course)}
+                      >
+                        Learn More →
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Courses Grid */}
           {!loading && courses.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div>
+              {recommendedCourses.length > 0 && (
+                <div className="mb-8">
+                  <h2 className="text-3xl font-bold text-blue-300 mb-2">All Courses</h2>
+                  <p className="text-blue-200">Explore all available courses</p>
+                </div>
+              )}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {courses.map((course, index) => (
                 <div
                   key={course.id}
@@ -239,6 +361,7 @@ export const DashboardPage = () => {
                   </div>
                 </div>
               ))}
+            </div>
             </div>
           )}
 
