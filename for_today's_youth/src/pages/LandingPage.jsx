@@ -42,6 +42,20 @@ const animationStyles = `
       transform: translateX(0);
     }
   }
+  @keyframes borderGlow {
+    0% {
+      border-color: rgba(34, 211, 238, 0.3);
+      box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.3);
+    }
+    50% {
+      border-color: rgba(34, 211, 238, 0.8);
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.6);
+    }
+    100% {
+      border-color: rgba(6, 182, 212, 1);
+      box-shadow: 0 0 30px rgba(6, 182, 212, 0.8);
+    }
+  }
   .animate-fade-in-up {
     animation: fadeInUp 0.6s ease-out forwards;
   }
@@ -53,6 +67,9 @@ const animationStyles = `
   }
   .animate-slide-in-right {
     animation: slideInRight 0.6s ease-out forwards;
+  }
+  .card-hover:hover {
+    animation: borderGlow 0.6s ease-out forwards;
   }
   .stagger-1 { animation-delay: 0.1s; }
   .stagger-2 { animation-delay: 0.2s; }
@@ -126,20 +143,20 @@ export const LandingPage = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 bg-gradient-to-b from-blue-50 to-white">
+      <section className="py-20 px-4 bg-gradient-to-b from-slate-900 to-blue-900">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-900 to-cyan-700 bg-clip-text text-transparent mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-300 to-sky-300 bg-clip-text text-transparent mb-4">
               How It Works
             </h2>
-            <p className="text-xl text-blue-700 max-w-2xl mx-auto font-medium">
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto font-medium">
               We guide you through every step of your career journey with personalized recommendations.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {/* Feature 1 */}
-            <div className="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-slate-800 to-blue-800 border-l-4 border-cyan-500 hover:border-cyan-400">
+            <div className="card card-hover hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-slate-800 to-blue-800 border-l-4 border-cyan-500 rounded-lg p-6">
               <div className="w-14 h-14 bg-gradient-to-br from-cyan-400 to-sky-400 rounded-lg flex items-center justify-center mb-6 shadow-lg">
                 <svg className="w-8 h-8 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -152,7 +169,7 @@ export const LandingPage = () => {
             </div>
 
             {/* Feature 2 */}
-            <div className="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-blue-800 to-slate-800 border-l-4 border-sky-500 hover:border-sky-400">
+            <div className="card card-hover hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-blue-800 to-slate-800 border-l-4 border-sky-500 rounded-lg p-6">
               <div className="w-14 h-14 bg-gradient-to-br from-sky-400 to-cyan-400 rounded-lg flex items-center justify-center mb-6 shadow-lg">
                 <svg className="w-8 h-8 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -165,7 +182,7 @@ export const LandingPage = () => {
             </div>
 
             {/* Feature 3 */}
-            <div className="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-slate-800 to-blue-800 border-l-4 border-blue-500 hover:border-blue-400">
+            <div className="card card-hover hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-slate-800 to-blue-800 border-l-4 border-blue-500 rounded-lg p-6">
               <div className="w-14 h-14 bg-gradient-to-br from-blue-400 to-sky-400 rounded-lg flex items-center justify-center mb-6 shadow-lg">
                 <svg className="w-8 h-8 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17s4.5 10.747 10 10.747c5.5 0 10-4.998 10-10.747 0-6.002-4.5-10.747-10-10.747z" />
@@ -180,7 +197,7 @@ export const LandingPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Feature 4 */}
-            <div className="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-blue-800 to-slate-800 border-l-4 border-sky-500 hover:border-sky-400">
+            <div className="card card-hover hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-blue-800 to-slate-800 border-l-4 border-sky-500 rounded-lg p-6">
               <div className="w-14 h-14 bg-gradient-to-br from-sky-400 to-blue-400 rounded-lg flex items-center justify-center mb-6 shadow-lg">
                 <svg className="w-8 h-8 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17s4.5 10.747 10 10.747c5.5 0 10-4.998 10-10.747 0-6.002-4.5-10.747-10-10.747z" />
@@ -193,7 +210,7 @@ export const LandingPage = () => {
             </div>
 
             {/* Feature 5 */}
-            <div className="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-slate-800 to-blue-800 border-l-4 border-cyan-500 hover:border-cyan-400">
+            <div className="card card-hover hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-slate-800 to-blue-800 border-l-4 border-cyan-500 rounded-lg p-6">
               <div className="w-14 h-14 bg-gradient-to-br from-cyan-400 to-sky-400 rounded-lg flex items-center justify-center mb-6 shadow-lg">
                 <svg className="w-8 h-8 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -216,7 +233,7 @@ export const LandingPage = () => {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-            <div className="flex gap-4 p-6 bg-gradient-to-br from-slate-800 to-blue-800 rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all border-l-4 border-cyan-500">
+            <div className="flex gap-4 p-6 bg-gradient-to-br from-slate-800 to-blue-800 rounded-lg card-hover hover:shadow-lg transition-all border-l-4 border-cyan-500">
               <div className="flex-shrink-0">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-400 to-sky-400 text-slate-900 flex items-center justify-center font-bold text-xl shadow-lg">
                   ✓
@@ -230,7 +247,7 @@ export const LandingPage = () => {
               </div>
             </div>
 
-            <div className="flex gap-4 p-6 bg-gradient-to-br from-blue-800 to-slate-800 rounded-lg hover:shadow-lg hover:shadow-sky-500/30 transition-all border-l-4 border-sky-500">
+            <div className="flex gap-4 p-6 bg-gradient-to-br from-blue-800 to-slate-800 rounded-lg card-hover hover:shadow-lg transition-all border-l-4 border-sky-500">
               <div className="flex-shrink-0">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-sky-400 to-cyan-400 text-slate-900 flex items-center justify-center font-bold text-xl shadow-lg">
                   ✓
@@ -244,7 +261,7 @@ export const LandingPage = () => {
               </div>
             </div>
 
-            <div className="flex gap-4 p-6 bg-gradient-to-br from-slate-800 to-blue-800 rounded-lg hover:shadow-lg hover:shadow-blue-500/30 transition-all border-l-4 border-blue-500">
+            <div className="flex gap-4 p-6 bg-gradient-to-br from-slate-800 to-blue-800 rounded-lg card-hover hover:shadow-lg transition-all border-l-4 border-blue-500">
               <div className="flex-shrink-0">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-sky-400 text-slate-900 flex items-center justify-center font-bold text-xl shadow-lg">
                   ✓
@@ -258,7 +275,7 @@ export const LandingPage = () => {
               </div>
             </div>
 
-            <div className="flex gap-4 p-6 bg-gradient-to-br from-blue-800 to-slate-800 rounded-lg hover:shadow-lg hover:shadow-sky-500/30 transition-all border-l-4 border-sky-500">
+            <div className="flex gap-4 p-6 bg-gradient-to-br from-blue-800 to-slate-800 rounded-lg card-hover hover:shadow-lg transition-all border-l-4 border-sky-500">
               <div className="flex-shrink-0">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-sky-400 to-blue-400 text-slate-900 flex items-center justify-center font-bold text-xl shadow-lg">
                   ✓
@@ -276,7 +293,7 @@ export const LandingPage = () => {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 bg-gradient-to-b from-blue-900 to-slate-900">
         <div className="container mx-auto">
           <div className="bg-gradient-to-r from-blue-900 via-cyan-800 to-sky-900 rounded-3xl p-12 text-white text-center relative overflow-hidden border border-cyan-500 border-opacity-30 shadow-2xl">
             {/* Background Pattern */}
