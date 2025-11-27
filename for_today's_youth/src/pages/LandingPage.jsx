@@ -63,14 +63,14 @@ const animationStyles = `
 
 export const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-sky-50 to-cyan-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
       <style>{animationStyles}</style>
       {/* Hero Section - Energy Usage Card Inspired Theme */}
       <section className="pt-20 pb-32 px-4">
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto">
             {/* Main Card with Energy Usage Theme */}
-            <div className="bg-gradient-to-br from-blue-950 via-blue-900 to-cyan-900 rounded-3xl shadow-2xl p-12 text-white mb-12 relative overflow-hidden border border-blue-700 animate-fade-in-up transition-all duration-500 hover:shadow-cyan-500/30 hover:shadow-2xl">
+            <div className="bg-gradient-to-br from-slate-800 via-blue-800 to-slate-800 rounded-3xl shadow-2xl p-12 text-white mb-12 relative overflow-hidden border border-cyan-500 border-opacity-30 animate-fade-in-up transition-all duration-500 hover:shadow-cyan-500/50 hover:shadow-2xl hover:border-cyan-400">
               {/* Background Pattern - More vibrant */}
               <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-400 opacity-20 rounded-full -mr-48 -mt-48 blur-3xl"></div>
               <div className="absolute bottom-0 left-0 w-72 h-72 bg-blue-400 opacity-15 rounded-full -ml-36 -mb-36 blur-3xl"></div>
@@ -108,7 +108,7 @@ export const LandingPage = () => {
                 <div className="flex flex-col md:flex-row gap-4 justify-center mt-12 animate-fade-in-up stagger-4">
                   <Link
                     to="/signup"
-                    className="px-8 py-4 text-lg bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 text-blue-900 font-bold rounded-lg shadow-lg hover:shadow-xl hover:shadow-cyan-400/50 transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 active:scale-95"
+                    className="px-8 py-4 text-lg bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 text-slate-900 font-bold rounded-lg shadow-lg hover:shadow-xl hover:shadow-cyan-400/50 transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 active:scale-95"
                   >
                     Get Started Now →
                   </Link>
@@ -139,40 +139,40 @@ export const LandingPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {/* Feature 1 */}
-            <div className="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-blue-50 to-cyan-50 border-l-4 border-cyan-500 hover:border-cyan-600">
-              <div className="w-14 h-14 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center mb-6 shadow-lg">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-slate-800 to-blue-800 border-l-4 border-cyan-500 hover:border-cyan-400">
+              <div className="w-14 h-14 bg-gradient-to-br from-cyan-400 to-sky-400 rounded-lg flex items-center justify-center mb-6 shadow-lg">
+                <svg className="w-8 h-8 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-blue-900 mb-3">Create Your Profile</h3>
-              <p className="text-blue-700">
+              <h3 className="text-xl font-bold text-cyan-300 mb-3">Create Your Profile</h3>
+              <p className="text-gray-300">
                 Tell us about your education, experience, and career interests. We'll use this to provide personalized recommendations.
               </p>
             </div>
 
             {/* Feature 2 */}
-            <div className="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-sky-50 to-blue-50 border-l-4 border-sky-500 hover:border-sky-600">
-              <div className="w-14 h-14 bg-gradient-to-br from-sky-400 to-cyan-500 rounded-lg flex items-center justify-center mb-6 shadow-lg">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-blue-800 to-slate-800 border-l-4 border-sky-500 hover:border-sky-400">
+              <div className="w-14 h-14 bg-gradient-to-br from-sky-400 to-cyan-400 rounded-lg flex items-center justify-center mb-6 shadow-lg">
+                <svg className="w-8 h-8 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-blue-900 mb-3">Get Job Recommendations</h3>
-              <p className="text-blue-700">
+              <h3 className="text-xl font-bold text-sky-300 mb-3">Get Job Recommendations</h3>
+              <p className="text-gray-300">
                 Discover 150+ job opportunities that match your qualifications and career aspirations perfectly.
               </p>
             </div>
 
             {/* Feature 3 */}
-            <div className="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-cyan-50 to-sky-50 border-l-4 border-blue-500 hover:border-blue-600">
-              <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-sky-400 rounded-lg flex items-center justify-center mb-6 shadow-lg">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-slate-800 to-blue-800 border-l-4 border-blue-500 hover:border-blue-400">
+              <div className="w-14 h-14 bg-gradient-to-br from-blue-400 to-sky-400 rounded-lg flex items-center justify-center mb-6 shadow-lg">
+                <svg className="w-8 h-8 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17s4.5 10.747 10 10.747c5.5 0 10-4.998 10-10.747 0-6.002-4.5-10.747-10-10.747z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-blue-900 mb-3">Identify Skill Gaps</h3>
-              <p className="text-blue-700">
+              <h3 className="text-xl font-bold text-blue-300 mb-3">Identify Skill Gaps</h3>
+              <p className="text-gray-300">
                 Know exactly which skills you need to develop and what qualifications will boost your career prospects.
               </p>
             </div>
@@ -180,27 +180,27 @@ export const LandingPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Feature 4 */}
-            <div className="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-blue-50 to-sky-50 border-l-4 border-sky-500 hover:border-sky-600">
-              <div className="w-14 h-14 bg-gradient-to-br from-sky-500 to-blue-400 rounded-lg flex items-center justify-center mb-6 shadow-lg">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-blue-800 to-slate-800 border-l-4 border-sky-500 hover:border-sky-400">
+              <div className="w-14 h-14 bg-gradient-to-br from-sky-400 to-blue-400 rounded-lg flex items-center justify-center mb-6 shadow-lg">
+                <svg className="w-8 h-8 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17s4.5 10.747 10 10.747c5.5 0 10-4.998 10-10.747 0-6.002-4.5-10.747-10-10.747z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-blue-900 mb-3">Learn From Courses</h3>
-              <p className="text-blue-700">
+              <h3 className="text-xl font-bold text-sky-300 mb-3">Learn From Courses</h3>
+              <p className="text-gray-300">
                 Access 50+ curated courses to develop the skills you need. If we don't have it, we'll guide you to external resources.
               </p>
             </div>
 
             {/* Feature 5 */}
-            <div className="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-cyan-50 to-blue-50 border-l-4 border-cyan-500 hover:border-cyan-600">
-              <div className="w-14 h-14 bg-gradient-to-br from-cyan-400 to-sky-500 rounded-lg flex items-center justify-center mb-6 shadow-lg">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-slate-800 to-blue-800 border-l-4 border-cyan-500 hover:border-cyan-400">
+              <div className="w-14 h-14 bg-gradient-to-br from-cyan-400 to-sky-400 rounded-lg flex items-center justify-center mb-6 shadow-lg">
+                <svg className="w-8 h-8 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-blue-900 mb-3">Track Your Progress</h3>
-              <p className="text-blue-700">
+              <h3 className="text-xl font-bold text-cyan-300 mb-3">Track Your Progress</h3>
+              <p className="text-gray-300">
                 Monitor your skill development, course completions, and career readiness all in one place.
               </p>
             </div>
@@ -209,64 +209,64 @@ export const LandingPage = () => {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-20 px-4 bg-gradient-to-b from-white to-blue-50">
+      <section className="py-20 px-4 bg-gradient-to-b from-slate-900 to-blue-900">
         <div className="container mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 bg-gradient-to-r from-blue-900 to-cyan-700 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 bg-gradient-to-r from-cyan-300 to-sky-300 bg-clip-text text-transparent">
             Why Choose For Today's Youth?
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-            <div className="flex gap-4 p-6 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-lg hover:shadow-lg transition-all border-l-4 border-cyan-500">
+            <div className="flex gap-4 p-6 bg-gradient-to-br from-slate-800 to-blue-800 rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all border-l-4 border-cyan-500">
               <div className="flex-shrink-0">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 text-white flex items-center justify-center font-bold text-xl shadow-lg">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-400 to-sky-400 text-slate-900 flex items-center justify-center font-bold text-xl shadow-lg">
                   ✓
                 </div>
               </div>
               <div>
-                <h3 className="text-lg font-bold text-blue-900 mb-2">Personalized Guidance</h3>
-                <p className="text-blue-700">
+                <h3 className="text-lg font-bold text-cyan-300 mb-2">Personalized Guidance</h3>
+                <p className="text-gray-300">
                   Get recommendations tailored to your unique profile, not generic career advice.
                 </p>
               </div>
             </div>
 
-            <div className="flex gap-4 p-6 bg-gradient-to-br from-sky-50 to-blue-50 rounded-lg hover:shadow-lg transition-all border-l-4 border-sky-500">
+            <div className="flex gap-4 p-6 bg-gradient-to-br from-blue-800 to-slate-800 rounded-lg hover:shadow-lg hover:shadow-sky-500/30 transition-all border-l-4 border-sky-500">
               <div className="flex-shrink-0">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-sky-400 to-cyan-500 text-white flex items-center justify-center font-bold text-xl shadow-lg">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-sky-400 to-cyan-400 text-slate-900 flex items-center justify-center font-bold text-xl shadow-lg">
                   ✓
                 </div>
               </div>
               <div>
-                <h3 className="text-lg font-bold text-blue-900 mb-2">Skill Development</h3>
-                <p className="text-blue-700">
+                <h3 className="text-lg font-bold text-sky-300 mb-2">Skill Development</h3>
+                <p className="text-gray-300">
                   Access a comprehensive library of courses to build the skills employers want.
                 </p>
               </div>
             </div>
 
-            <div className="flex gap-4 p-6 bg-gradient-to-br from-cyan-50 to-sky-50 rounded-lg hover:shadow-lg transition-all border-l-4 border-blue-500">
+            <div className="flex gap-4 p-6 bg-gradient-to-br from-slate-800 to-blue-800 rounded-lg hover:shadow-lg hover:shadow-blue-500/30 transition-all border-l-4 border-blue-500">
               <div className="flex-shrink-0">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-sky-400 text-white flex items-center justify-center font-bold text-xl shadow-lg">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-sky-400 text-slate-900 flex items-center justify-center font-bold text-xl shadow-lg">
                   ✓
                 </div>
               </div>
               <div>
-                <h3 className="text-lg font-bold text-blue-900 mb-2">100% Free</h3>
-                <p className="text-blue-700">
+                <h3 className="text-lg font-bold text-blue-300 mb-2">100% Free</h3>
+                <p className="text-gray-300">
                   All recommendations and guidance are completely free for registered users.
                 </p>
               </div>
             </div>
 
-            <div className="flex gap-4 p-6 bg-gradient-to-br from-blue-50 to-sky-50 rounded-lg hover:shadow-lg transition-all border-l-4 border-sky-500">
+            <div className="flex gap-4 p-6 bg-gradient-to-br from-blue-800 to-slate-800 rounded-lg hover:shadow-lg hover:shadow-sky-500/30 transition-all border-l-4 border-sky-500">
               <div className="flex-shrink-0">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-sky-500 to-blue-400 text-white flex items-center justify-center font-bold text-xl shadow-lg">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-sky-400 to-blue-400 text-slate-900 flex items-center justify-center font-bold text-xl shadow-lg">
                   ✓
                 </div>
               </div>
               <div>
-                <h3 className="text-lg font-bold text-blue-900 mb-2">Expert Resources</h3>
-                <p className="text-blue-700">
+                <h3 className="text-lg font-bold text-sky-300 mb-2">Expert Resources</h3>
+                <p className="text-gray-300">
                   External courses from Google, Coursera, Udemy, and more when needed.
                 </p>
               </div>
@@ -292,7 +292,7 @@ export const LandingPage = () => {
               </p>
               <Link
                 to="/signup"
-                className="inline-block px-8 py-4 text-lg bg-white text-cyan-900 hover:bg-cyan-50 font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all"
+                    className="inline-block px-8 py-4 text-lg bg-gradient-to-r from-cyan-400 to-sky-400 text-slate-900 hover:from-cyan-300 hover:to-sky-300 font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all"
               >
                 Get Started Today →
               </Link>
