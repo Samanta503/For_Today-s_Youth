@@ -109,7 +109,6 @@ const courseImageMap = {
 export const DashboardPage = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [courses, setCourses] = useState([]);
   const [recommendedCourses, setRecommendedCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCourse, setSelectedCourse] = useState(null);
@@ -131,8 +130,6 @@ export const DashboardPage = () => {
           courseDetail: doc.data(),
           ...doc.data(),
         }));
-
-        setCourses(coursesList);
 
         // Fetch user's career interests if user is logged in
         if (user && user.email) {
@@ -335,141 +332,7 @@ export const DashboardPage = () => {
             </div>
           )}
 
-          {/* Courses Grid */}
-          {!loading && courses.length > 0 && (
-            <div>
-              {recommendedCourses.length > 0 && (
-                <div className="mb-8">
-                  <h2 className="text-3xl font-bold text-blue-300 mb-2">All Courses</h2>
-                  <p className="text-blue-200">Explore all available courses</p>
-                </div>
-              )}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {courses.map((course, index) => {
-                // Get enrollment count from course data
-                const enrollmentCount = course.courseDetail?.['Number of Students'] || '7';
-                
-                return (
-                  <div
-                    key={course.id}
-                    className={`animate-fade-in-up stagger-${(index % 6) + 1} bg-gradient-to-b from-slate-800 to-blue-900 rounded-3xl shadow-2xl overflow-hidden hover:shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-cyan-500 card-hover relative cursor-pointer group`}
-                  >
-                    {/* Course Image Container */}
-                    <div className="relative h-72 overflow-hidden bg-gradient-to-br from-blue-600 to-slate-700">
-                      {getCourseImage(course.name) ? (
-                        <img
-                          src={getCourseImage(course.name)}
-                          alt={course.name}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-600 to-slate-700">
-                          <div className="text-center">
-                            <svg
-                              className="w-16 h-16 text-blue-200 mx-auto mb-2 opacity-70"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" />
-                            </svg>
-                          </div>
-                        </div>
-                      )}
-                      
-                      {/* Dark Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80"></div>
 
-                      {/* Title Overlay */}
-                      <div className="absolute bottom-0 left-0 right-0 p-6">
-                        <h3 className="text-2xl font-bold text-white line-clamp-2">
-                          {course.name}
-                        </h3>
-                      </div>
-                    </div>
-
-                    {/* Course Info Section */}
-                    <div className="p-6 space-y-4">
-                      {/* Enrollment Count */}
-                      <div className="flex items-center gap-3 text-cyan-300">
-                        <div className="w-10 h-10 rounded-full bg-cyan-500/20 border-2 border-cyan-500/50 flex items-center justify-center">
-                          <svg className="w-5 h-5 text-cyan-300" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
-                          </svg>
-                        </div>
-                        <span className="font-semibold">{enrollmentCount} students enrolled</span>
-                      </div>
-
-                      {/* Instructor/Creator */}
-                      {course.courseDetail?.Instructor && (
-                        <div className="text-cyan-200 text-sm font-medium">
-                          <p className="text-gray-400">By</p>
-                          <p className="text-cyan-300">{course.courseDetail.Instructor}</p>
-                        </div>
-                      )}
-
-                      {/* Course Overview Section */}
-                      {course.courseDetail?.Description && (
-                        <div>
-                          <h4 className="text-cyan-300 font-bold text-sm mb-2">Course Overview</h4>
-                          <p className="text-gray-300 text-sm line-clamp-2">
-                            {course.courseDetail.Description}
-                          </p>
-                        </div>
-                      )}
-
-                      {/* Course Outline/Key Details */}
-                      {course.courseDetail?.['Course fee'] && (
-                        <div>
-                          <h4 className="text-cyan-300 font-bold text-sm mb-2">Course Outline</h4>
-                          <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-3">
-                            <p className="text-cyan-200 text-sm font-medium">{course.courseDetail['Course fee']}</p>
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Buttons */}
-                      <div className="flex gap-3 pt-2">
-                        <button
-                          onClick={() => handleLearnMore(course)}
-                          className="flex-1 py-3 px-4 border-2 border-cyan-500 text-cyan-300 font-bold rounded-xl hover:border-cyan-400 hover:text-cyan-200 hover:bg-cyan-500/10 transition-all duration-200 card-hover"
-                        >
-                          View Details
-                        </button>
-                        <button
-                          onClick={() => navigate('/signup')}
-                          className="flex-1 py-3 px-4 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-bold rounded-xl hover:from-cyan-600 hover:to-cyan-700 transform hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg button-hover"
-                        >
-                          Enroll Now
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            </div>
-          )}
-
-          {/* Empty State */}
-          {!loading && courses.length === 0 && (
-            <div className="text-center py-12">
-              <svg
-                className="w-16 h-16 text-cyan-300 mx-auto mb-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 6v6m0 0v6m0-6h6m0 0h6m0-6H6m0 0H0"
-                />
-              </svg>
-              <h3 className="text-2xl font-bold text-blue-200 mb-2">No Courses Available</h3>
-              <p className="text-blue-300">Please check back later for new courses.</p>
-            </div>
-          )}
         </div>
 
         {/* Modal Backdrop */}
