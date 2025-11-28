@@ -9,7 +9,7 @@ const animationStyles = `
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(40px);
     }
     to {
       opacity: 1;
@@ -28,23 +28,51 @@ const animationStyles = `
   }
   @keyframes borderGlow {
     0% {
-      border-color: rgba(34, 211, 238, 0.3);
-      box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.3);
+      border-color: rgba(34, 211, 238, 0.2);
+      box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.2), inset 0 0 20px rgba(34, 211, 238, 0.05);
     }
     50% {
-      border-color: rgba(34, 211, 238, 0.8);
-      box-shadow: 0 0 20px rgba(34, 211, 238, 0.6);
+      border-color: rgba(34, 211, 238, 0.6);
+      box-shadow: 0 0 25px rgba(34, 211, 238, 0.4), inset 0 0 20px rgba(34, 211, 238, 0.1);
     }
     100% {
       border-color: rgba(6, 182, 212, 1);
-      box-shadow: 0 0 30px rgba(6, 182, 212, 0.8);
+      box-shadow: 0 0 40px rgba(6, 182, 212, 0.6), inset 0 0 20px rgba(6, 182, 212, 0.15);
+    }
+  }
+  @keyframes cardLift {
+    0% {
+      transform: translateY(0px);
+    }
+    100% {
+      transform: translateY(-8px);
+    }
+  }
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
     }
   }
   .job-card {
-    animation: fadeInUp 0.6s ease-out forwards;
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    opacity: 0;
+  }
+  .job-card-hover {
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   .job-card-hover:hover {
-    animation: borderGlow 0.6s ease-out forwards;
+    animation: cardLift 0.5s ease-out forwards, borderGlow 0.8s ease-out forwards;
+    filter: drop-shadow(0 20px 40px rgba(6, 182, 212, 0.3));
+  }
+  .job-header {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(34, 211, 238, 0.1) 100%);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .job-card-hover:hover .job-header {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.25) 0%, rgba(34, 211, 238, 0.2) 100%);
   }
 `;
 
@@ -143,7 +171,7 @@ export const JobsPage = () => {
             placeholder="Search jobs by title or description..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-6 py-3 bg-gradient-to-r from-slate-800 to-blue-800 border-2 border-cyan-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-300 transition-all focus:ring-2 focus:ring-cyan-300/30"
+            className="w-full px-6 py-3 bg-gradient-to-r from-slate-950 to-blue-950 border-2 border-cyan-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-all duration-300 focus:ring-2 focus:ring-cyan-400/30 backdrop-blur-md"
           />
         </div>
       </div>
@@ -159,11 +187,11 @@ export const JobsPage = () => {
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Card */}
-                <div className="h-full bg-gradient-to-br from-slate-800 to-blue-800 rounded-xl overflow-hidden border-2 border-cyan-500 job-card-hover hover:shadow-2xl transition-all duration-300 flex flex-col">
+                <div className="h-full bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 rounded-xl overflow-hidden border-2 border-cyan-600 job-card-hover hover:shadow-2xl transition-all duration-500 flex flex-col backdrop-blur-md bg-opacity-80">
                   {/* Header with Job Title */}
-                  <div className="bg-gradient-to-r from-cyan-600 to-sky-600 p-6 relative overflow-hidden">
-                    <div className="absolute inset-0 opacity-20 bg-pattern"></div>
-                    <h3 className="text-2xl font-bold text-white relative z-10 line-clamp-2">
+                  <div className="job-header bg-gradient-to-r from-blue-950 to-slate-950 p-6 relative overflow-hidden border-b border-cyan-500/30">
+                    <div className="absolute inset-0 opacity-10 bg-pattern"></div>
+                    <h3 className="text-2xl font-bold text-transparent bg-gradient-to-r from-cyan-300 to-sky-300 bg-clip-text relative z-10 line-clamp-2">
                       {job.title}
                     </h3>
                   </div>
@@ -172,31 +200,31 @@ export const JobsPage = () => {
                   <div className="p-6 flex-grow flex flex-col">
                     {/* Salary */}
                     {job.salary && (
-                      <div className="mb-6 pb-6 border-b border-cyan-500/30">
-                        <p className="text-gray-400 text-sm mb-2">Salary Range</p>
-                        <p className="text-2xl font-bold text-cyan-300">
+                      <div className="mb-6 pb-6 border-b border-cyan-500/20 transition-all duration-300">
+                        <p className="text-gray-400 text-sm mb-2 font-medium">Salary Range</p>
+                        <p className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-sky-400 bg-clip-text text-transparent">
                           {job.salary}
                         </p>
                       </div>
                     )}
 
                     {/* Description Preview */}
-                    <div className="mb-6 flex-grow">
-                      <p className="text-gray-300 text-sm line-clamp-4">
+                    <div className="mb-6 flex-grow transition-all duration-300">
+                      <p className="text-gray-300 text-sm line-clamp-4 leading-relaxed">
                         {job.description || 'No description available'}
                       </p>
                     </div>
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="p-6 border-t border-cyan-500/30 flex gap-3">
+                  <div className="p-6 border-t border-cyan-500/20 flex gap-3 transition-all duration-300">
                     <button
                       onClick={() => setSelectedJob(job)}
-                      className="flex-1 px-4 py-2 border-2 border-cyan-400 text-cyan-300 font-bold rounded-lg hover:bg-cyan-400 hover:text-blue-900 transition-all transform hover:scale-105 hover:border-cyan-300 duration-300"
+                      className="flex-1 px-4 py-2 border-2 border-cyan-500 text-cyan-300 font-bold rounded-lg hover:bg-cyan-500/10 hover:border-cyan-400 transition-all transform hover:scale-105 duration-300 backdrop-blur-sm"
                     >
                       View Details
                     </button>
-                    <button className="flex-1 px-4 py-2 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-blue-900 font-bold rounded-lg shadow-lg hover:shadow-cyan-500/50 transition-all transform hover:scale-105 duration-300">
+                    <button className="flex-1 px-4 py-2 bg-gradient-to-r from-cyan-600 to-sky-600 hover:from-cyan-500 hover:to-sky-500 text-blue-950 font-bold rounded-lg shadow-lg hover:shadow-cyan-600/60 transition-all transform hover:scale-105 duration-300 backdrop-blur-sm">
                       Apply Now
                     </button>
                   </div>
@@ -215,17 +243,17 @@ export const JobsPage = () => {
 
       {/* Job Details Modal */}
       {selectedJob && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn">
-          <div className="bg-gradient-to-br from-slate-900 to-blue-900 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border-2 border-cyan-500 shadow-2xl shadow-cyan-500/20 animate-slideInDown">
+        <div className="fixed inset-0 bg-black/90 backdrop-blur-lg z-50 flex items-center justify-center p-4 animate-fadeIn">
+          <div className="bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border-2 border-cyan-600 shadow-2xl shadow-cyan-600/30 backdrop-blur-md">
             {/* Modal Header */}
-            <div className="bg-gradient-to-r from-cyan-600 to-sky-600 p-8 sticky top-0 flex justify-between items-start">
+            <div className="bg-gradient-to-r from-blue-950 to-slate-950 p-8 sticky top-0 flex justify-between items-start border-b border-cyan-500/30">
               <div>
-                <h2 className="text-3xl font-bold text-white mb-2">{selectedJob.title}</h2>
-                <p className="text-cyan-100 font-semibold">Job Details</p>
+                <h2 className="text-3xl font-bold bg-gradient-to-r from-cyan-300 to-sky-300 bg-clip-text text-transparent mb-2">{selectedJob.title}</h2>
+                <p className="text-cyan-300/80 font-semibold text-sm">Job Details</p>
               </div>
               <button
                 onClick={() => setSelectedJob(null)}
-                className="text-white hover:text-gray-200 transition-colors text-2xl font-bold"
+                className="text-cyan-300 hover:text-cyan-200 transition-colors duration-300 text-3xl font-bold hover:scale-110 transform"
               >
                 ×
               </button>
@@ -235,15 +263,15 @@ export const JobsPage = () => {
             <div className="p-8 space-y-6">
               {/* Salary */}
               {selectedJob.salary && (
-                <div>
-                  <h3 className="text-lg font-bold text-cyan-300 mb-2">Salary Range</h3>
-                  <p className="text-2xl font-bold text-sky-300">{selectedJob.salary}</p>
+                <div className="bg-gradient-to-r from-cyan-500/10 to-sky-500/10 p-4 rounded-lg border border-cyan-500/20 transition-all duration-300">
+                  <h3 className="text-lg font-bold bg-gradient-to-r from-cyan-300 to-sky-300 bg-clip-text text-transparent mb-2">Salary Range</h3>
+                  <p className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-sky-400 bg-clip-text text-transparent">{selectedJob.salary}</p>
                 </div>
               )}
 
               {/* Description */}
-              <div>
-                <h3 className="text-lg font-bold text-cyan-300 mb-3">Job Overview</h3>
+              <div className="bg-gradient-to-r from-slate-900/50 to-blue-900/50 p-4 rounded-lg border border-cyan-500/20">
+                <h3 className="text-lg font-bold bg-gradient-to-r from-cyan-300 to-sky-300 bg-clip-text text-transparent mb-3">Job Overview</h3>
                 <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">
                   {selectedJob.description || 'No description available'}
                 </p>
@@ -251,8 +279,8 @@ export const JobsPage = () => {
 
               {/* Additional Fields */}
               {selectedJob.requirements && (
-                <div>
-                  <h3 className="text-lg font-bold text-cyan-300 mb-3">Requirements</h3>
+                <div className="bg-gradient-to-r from-slate-900/50 to-blue-900/50 p-4 rounded-lg border border-cyan-500/20">
+                  <h3 className="text-lg font-bold bg-gradient-to-r from-cyan-300 to-sky-300 bg-clip-text text-transparent mb-3">Requirements</h3>
                   <p className="text-gray-300 leading-relaxed">
                     {selectedJob.requirements}
                   </p>
@@ -260,8 +288,8 @@ export const JobsPage = () => {
               )}
 
               {selectedJob.benefits && (
-                <div>
-                  <h3 className="text-lg font-bold text-cyan-300 mb-3">Benefits</h3>
+                <div className="bg-gradient-to-r from-slate-900/50 to-blue-900/50 p-4 rounded-lg border border-cyan-500/20">
+                  <h3 className="text-lg font-bold bg-gradient-to-r from-cyan-300 to-sky-300 bg-clip-text text-transparent mb-3">Benefits</h3>
                   <p className="text-gray-300 leading-relaxed">
                     {selectedJob.benefits}
                   </p>
@@ -269,14 +297,14 @@ export const JobsPage = () => {
               )}
 
               {/* Action Buttons */}
-              <div className="pt-6 border-t border-cyan-500/30 flex gap-4">
+              <div className="pt-6 border-t border-cyan-500/20 flex gap-4">
                 <button
                   onClick={() => setSelectedJob(null)}
-                  className="flex-1 px-4 py-3 border-2 border-cyan-400 text-cyan-300 font-bold rounded-lg hover:bg-cyan-400/10 transition-all transform hover:scale-105 duration-300"
+                  className="flex-1 px-4 py-3 border-2 border-cyan-500 text-cyan-300 font-bold rounded-lg hover:bg-cyan-500/10 hover:border-cyan-400 transition-all transform hover:scale-105 duration-300 backdrop-blur-sm"
                 >
                   Close
                 </button>
-                <button className="flex-1 px-4 py-3 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-blue-900 font-bold rounded-lg shadow-lg hover:shadow-cyan-500/50 transition-all transform hover:scale-105 duration-300">
+                <button className="flex-1 px-4 py-3 bg-gradient-to-r from-cyan-600 to-sky-600 hover:from-cyan-500 hover:to-sky-500 text-blue-950 font-bold rounded-lg shadow-lg hover:shadow-cyan-600/60 transition-all transform hover:scale-105 duration-300 backdrop-blur-sm">
                   Sign in to Enroll
                 </button>
               </div>
