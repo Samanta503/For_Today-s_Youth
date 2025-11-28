@@ -38,6 +38,17 @@ export const Navbar = () => {
             Home
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-sky-400 group-hover:w-full transition-all duration-300"></span>
           </Link>
+          <Link to="/courses" className="text-cyan-100 hover:text-cyan-300 font-semibold transition-all duration-300 relative group">
+            Courses
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-sky-400 group-hover:w-full transition-all duration-300"></span>
+          </Link>
+          <button
+            onClick={() => isAuthenticated ? navigate('/jobs') : navigate('/signup')}
+            className="text-cyan-100 hover:text-sky-300 font-semibold transition-all duration-300 relative group cursor-pointer bg-none border-none"
+          >
+            Jobs
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-sky-400 to-cyan-400 group-hover:w-full transition-all duration-300"></span>
+          </button>
           {isAuthenticated && (
             <>
               <Link to="/dashboard" className="text-cyan-100 hover:text-sky-300 font-semibold transition-all duration-300 relative group">
@@ -96,6 +107,15 @@ export const Navbar = () => {
             <Link to="/" className="block text-cyan-200 hover:text-cyan-300 font-semibold py-2 px-3 rounded-lg hover:bg-cyan-500 hover:bg-opacity-10 transition-all">
               Home
             </Link>
+            <Link to="/courses" className="block text-cyan-200 hover:text-cyan-300 font-semibold py-2 px-3 rounded-lg hover:bg-cyan-500 hover:bg-opacity-10 transition-all">
+              Courses
+            </Link>
+            <button
+              onClick={() => isAuthenticated ? (setIsOpen(false), navigate('/jobs')) : navigate('/signup')}
+              className="w-full text-left text-cyan-200 hover:text-sky-300 font-semibold py-2 px-3 rounded-lg hover:bg-sky-500 hover:bg-opacity-10 transition-all bg-none border-none cursor-pointer"
+            >
+              Jobs
+            </button>
             {isAuthenticated && (
               <>
                 <Link to="/dashboard" className="block text-cyan-200 hover:text-sky-300 font-semibold py-2 px-3 rounded-lg hover:bg-sky-500 hover:bg-opacity-10 transition-all">

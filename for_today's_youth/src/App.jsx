@@ -8,6 +8,8 @@ import { LoginPage } from './pages/LoginPage';
 import { SignUpPage } from './pages/SignUpPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { ProfilePage } from './pages/ProfilePage';
+import { CoursesPage } from './pages/CoursesPage';
+import { JobsPage } from './pages/JobsPage';
 import './index.css';
 
 function App() {
@@ -21,13 +23,10 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
+              <Route path="/courses" element={<CoursesPage />} />
+              <Route path="/jobs" element={<JobsPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/profile" element={<ProfilePage />} />
-              
-              {/* Placeholder routes - to be implemented */}
-              <Route path="/jobs" element={<div className="p-8 text-center"><h1>Jobs - Coming Soon</h1></div>} />
-              <Route path="/skills" element={<div className="p-8 text-center"><h1>Skills - Coming Soon</h1></div>} />
-              <Route path="/courses" element={<div className="p-8 text-center"><h1>Courses - Coming Soon</h1></div>} />
               
               {/* 404 - Not Found */}
               <Route path="*" element={<Navigate to="/" replace />} />
