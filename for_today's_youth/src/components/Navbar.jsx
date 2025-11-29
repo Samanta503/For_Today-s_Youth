@@ -61,6 +61,10 @@ export const Navbar = () => {
               </Link>
             </>
           )}
+          <Link to="/contact" className="text-cyan-100 hover:text-blue-300 font-semibold transition-all duration-300 relative group">
+            Contact Us
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 group-hover:w-full transition-all duration-300"></span>
+          </Link>
         </div>
 
         {/* Auth Buttons / User Menu */}
@@ -126,6 +130,9 @@ export const Navbar = () => {
                 </Link>
               </>
             )}
+            <Link to="/contact" onClick={() => setIsOpen(false)} className="block text-cyan-200 hover:text-blue-300 font-semibold py-2 px-3 rounded-lg hover:bg-blue-500 hover:bg-opacity-10 transition-all">
+              Contact Us
+            </Link>
             {!isAuthenticated && (
               <>
                 <Link to="/login" className="block text-cyan-200 hover:text-cyan-100 font-semibold py-2 px-3 rounded-lg border border-cyan-300 text-center hover:bg-cyan-500 hover:bg-opacity-10 transition-all">

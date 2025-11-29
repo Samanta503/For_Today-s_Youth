@@ -10,6 +10,7 @@ import { DashboardPage } from './pages/DashboardPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { CoursesPage } from './pages/CoursesPage';
 import { JobsPage } from './pages/JobsPage';
+import { ContactUsPage } from './pages/ContactUsPage';
 import './index.css';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/courses" element={<CoursesPage />} />
               <Route path="/jobs" element={<JobsPage />} />
+              <Route path="/contact" element={<ContactUsPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               
