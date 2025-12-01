@@ -47,7 +47,8 @@ export const SignUpPage = () => {
     confirmPassword: '',
     educationLevel: '12th',
     skills: '',
-    workExperience: '',
+    workExperienceLevel: 'beginner',
+    workExperienceDetails: '',
     languages: '',
     programmingLanguages: '',
     extracurricularActivities: '',
@@ -69,6 +70,11 @@ export const SignUpPage = () => {
   const languageOptions = ['English', 'Hindi', 'Spanish', 'French', 'German', 'Chinese', 'Japanese', 'Portuguese'];
   const programmingLanguageOptions = ['Python', 'JavaScript', 'Java', 'C++', 'C#', 'Ruby', 'PHP', 'Go', 'Rust', 'TypeScript'];
   const activityOptions = ['Sports', 'Debate', 'Art', 'Music', 'Coding', 'Robotics', 'Drama', 'Volunteering', 'Research', 'Entrepreneurship'];
+  const workExperienceLevels = [
+    { value: 'beginner', label: 'Beginner' },
+    { value: 'advance', label: 'Advance' },
+    { value: 'professional', label: 'Professional' },
+  ];
 
   const validateForm = () => {
     const newErrors = {};
@@ -133,7 +139,8 @@ export const SignUpPage = () => {
         skills: formData.skills ? formData.skills.split(',').map(s => s.trim()).filter(s => s) : [],
         languages: formData.languages ? formData.languages.split(',').map(l => l.trim()).filter(l => l) : [],
         programmingLanguages: formData.programmingLanguages ? formData.programmingLanguages.split(',').map(p => p.trim()).filter(p => p) : [],
-        workExperience: formData.workExperience,
+        workExperienceLevel: formData.workExperienceLevel,
+        workExperienceDetails: formData.workExperienceDetails,
         extracurricularActivities: formData.extracurricularActivities ? formData.extracurricularActivities.split(',').map(a => a.trim()).filter(a => a) : [],
         qualifications: {},
         interests: [],
@@ -319,16 +326,34 @@ export const SignUpPage = () => {
                   </div>
 
                   <div className="animate-fade-in-up stagger-4">
-                    <label className="block text-sm font-bold text-cyan-300 mb-2">Work Experience</label>
-                    <textarea
-                      name="workExperience"
-                      value={formData.workExperience}
+                    <label className="block text-sm font-bold text-cyan-300 mb-2">Work Experience Level</label>
+                    <select
+                      name="workExperienceLevel"
+                      value={formData.workExperienceLevel}
                       onChange={handleChange}
-                      placeholder="e.g., Intern at Company XYZ (2023-2024), Freelance Web Developer"
-                      className="w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 transition-all duration-300 hover:border-cyan-500 hover:border-opacity-50 h-24 resize-none"
+                      className="w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 focus:bg-slate-600 text-white transition-all duration-300 hover:border-cyan-500 hover:border-opacity-50"
                       disabled={loading}
-                    />
+                    >
+                      {workExperienceLevels.map((level) => (
+                        <option key={level.value} value={level.value}>
+                          {level.label}
+                        </option>
+                      ))}
+                    </select>
                   </div>
+                </div>
+
+                {/* Row 5.5: Work Experience Details */}
+                <div className="animate-fade-in-up stagger-5">
+                  <label className="block text-sm font-bold text-cyan-300 mb-2">Work Experience Details (comma-separated)</label>
+                  <textarea
+                    name="workExperienceDetails"
+                    value={formData.workExperienceDetails}
+                    onChange={handleChange}
+                    placeholder="e.g., Intern at Company XYZ (2023-2024), Freelance Web Developer (2022-Present)"
+                    className="w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 transition-all duration-300 hover:border-cyan-500 hover:border-opacity-50 h-24 resize-none"
+                    disabled={loading}
+                  />
                 </div>
 
                 {/* Row 6: Extracurricular */}

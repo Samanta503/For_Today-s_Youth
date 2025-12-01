@@ -54,6 +54,20 @@ const animationStyles = `
       opacity: 0.5;
     }
   }
+  @keyframes borderGlow {
+    0% {
+      border-color: rgba(34, 211, 238, 0.3);
+      box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.3);
+    }
+    50% {
+      border-color: rgba(34, 211, 238, 0.8);
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.6);
+    }
+    100% {
+      border-color: rgba(6, 182, 212, 1);
+      box-shadow: 0 0 30px rgba(6, 182, 212, 0.8);
+    }
+  }
   .animate-fade-in-up {
     animation: fadeInUp 0.6s ease-out forwards;
   }
@@ -68,6 +82,9 @@ const animationStyles = `
   }
   .animate-pulse {
     animation: pulse 2s ease-in-out infinite;
+  }
+  .card-hover:hover {
+    animation: borderGlow 0.6s ease-out forwards;
   }
   .stagger-1 { animation-delay: 0.1s; }
   .stagger-2 { animation-delay: 0.2s; }
@@ -245,19 +262,19 @@ export const ProfilePage = () => {
               {/* Profile Summary Cards */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 {/* Full Name Card */}
-                <div className="animate-fade-in-up stagger-1 bg-gradient-to-br from-slate-800 to-blue-800 rounded-2xl p-6 shadow-xl border-l-4 border-cyan-500">
+                <div className="animate-fade-in-up stagger-1 bg-gradient-to-br from-slate-800 to-blue-800 rounded-2xl p-6 shadow-xl border-2 border-cyan-500 card-hover hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                   <p className="text-cyan-300 text-sm font-semibold mb-1">Full Name</p>
                   <h3 className="text-2xl font-bold text-gray-200">{profileData.fullName || 'N/A'}</h3>
                 </div>
 
                 {/* Education Card */}
-                <div className="animate-fade-in-up stagger-2 bg-gradient-to-br from-slate-800 to-blue-800 rounded-2xl p-6 shadow-xl border-l-4 border-sky-500">
+                <div className="animate-fade-in-up stagger-2 bg-gradient-to-br from-slate-800 to-blue-800 rounded-2xl p-6 shadow-xl border-2 border-sky-500 card-hover hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                   <p className="text-sky-300 text-sm font-semibold mb-1">Education Level</p>
                   <h3 className="text-2xl font-bold text-gray-200 capitalize">{profileData.educationLevel || 'N/A'}</h3>
                 </div>
 
                 {/* Career Interests Card */}
-                <div className="animate-fade-in-up stagger-3 bg-gradient-to-br from-slate-800 to-blue-800 rounded-2xl p-6 shadow-xl border-l-4 border-blue-500">
+                <div className="animate-fade-in-up stagger-3 bg-gradient-to-br from-slate-800 to-blue-800 rounded-2xl p-6 shadow-xl border-2 border-blue-500 card-hover hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                   <p className="text-blue-300 text-sm font-semibold mb-1">Career Interests</p>
                   <h3 className="text-2xl font-bold text-gray-200">{profileData.careerInterests || 'N/A'}</h3>
                 </div>
@@ -295,7 +312,7 @@ export const ProfilePage = () => {
               {!isEditing ? (
                 <div className="space-y-6">
                   {/* Skills Section */}
-                  <div className="animate-fade-in-up stagger-1 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-t-4 border-cyan-500 hover:shadow-3xl transition-all duration-300">
+                  <div className="animate-fade-in-up stagger-1 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-cyan-500 card-hover hover:shadow-2xl transition-all duration-300">
                     <div className="flex items-center mb-6">
                       <span className="text-4xl mr-3">🎯</span>
                       <h2 className="text-3xl font-bold text-cyan-300">Skills</h2>
@@ -317,7 +334,7 @@ export const ProfilePage = () => {
                   </div>
 
                   {/* Languages Section */}
-                  <div className="animate-fade-in-up stagger-2 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-t-4 border-blue-500 hover:shadow-3xl transition-all duration-300">
+                  <div className="animate-fade-in-up stagger-2 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-blue-500 card-hover hover:shadow-2xl transition-all duration-300">
                     <div className="flex items-center mb-6">
                       <span className="text-4xl mr-3">🌐</span>
                       <h2 className="text-3xl font-bold text-blue-300">Languages</h2>
@@ -339,7 +356,7 @@ export const ProfilePage = () => {
                   </div>
 
                   {/* Programming Languages Section */}
-                  <div className="animate-fade-in-up stagger-3 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-t-4 border-purple-500 hover:shadow-3xl transition-all duration-300">
+                  <div className="animate-fade-in-up stagger-3 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-purple-500 card-hover hover:shadow-2xl transition-all duration-300">
                     <div className="flex items-center mb-6">
                       <span className="text-4xl mr-3">💻</span>
                       <h2 className="text-3xl font-bold text-purple-300">Programming Languages</h2>
@@ -361,7 +378,7 @@ export const ProfilePage = () => {
                   </div>
 
                   {/* Work Experience Section */}
-                  <div className="animate-fade-in-up stagger-4 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-l-4 border-cyan-500 hover:shadow-3xl transition-all duration-300 hover:border-cyan-400 hover:shadow-cyan-500/20">
+                  <div className="animate-fade-in-up stagger-4 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-cyan-500 card-hover hover:shadow-2xl transition-all duration-300">
                     <div className="flex items-center mb-6">
                       <span className="text-4xl mr-3">💼</span>
                       <h2 className="text-3xl font-bold text-cyan-300">Work Experience</h2>
@@ -372,7 +389,7 @@ export const ProfilePage = () => {
                   </div>
 
                   {/* Extracurricular Activities Section */}
-                  <div className="animate-fade-in-up stagger-5 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-t-4 border-orange-500 hover:shadow-3xl transition-all duration-300">
+                  <div className="animate-fade-in-up stagger-5 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-orange-500 card-hover hover:shadow-2xl transition-all duration-300">
                     <div className="flex items-center mb-6">
                       <span className="text-4xl mr-3">🏆</span>
                       <h2 className="text-3xl font-bold text-orange-300">Extracurricular Activities</h2>
@@ -395,7 +412,7 @@ export const ProfilePage = () => {
                 </div>
               ) : (
                 /* Edit Mode */
-                <div className="space-y-6 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-t-4 border-cyan-500 animate-scale-in">
+                <div className="space-y-6 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-cyan-500 card-hover hover:shadow-2xl transition-all duration-300 animate-scale-in">
                   <h2 className="text-2xl font-bold text-cyan-300 mb-6">Edit Your Profile</h2>
                   {/* Full Name */}
                   <div className="animate-fade-in-up stagger-1">
