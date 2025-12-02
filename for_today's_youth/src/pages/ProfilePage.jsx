@@ -378,18 +378,36 @@ export const ProfilePage = () => {
                   </div>
 
                   {/* Work Experience Section */}
-                  <div className="animate-fade-in-up stagger-4 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-cyan-500 card-hover hover:shadow-2xl transition-all duration-300">
-                    <div className="flex items-center mb-6">
-                      <span className="text-4xl mr-3">💼</span>
-                      <h2 className="text-3xl font-bold text-cyan-300">Work Experience</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Work Experience Level */}
+                    <div className="animate-fade-in-up stagger-4 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-cyan-500 card-hover hover:shadow-2xl transition-all duration-300">
+                      <div className="flex items-center mb-6">
+                        <span className="text-4xl mr-3">📊</span>
+                        <h2 className="text-2xl font-bold text-cyan-300">Experience Level</h2>
+                      </div>
+                      <p className="text-gray-300 text-lg font-semibold capitalize">
+                        {profileData.workExperienceLevel ? (
+                          profileData.workExperienceLevel.charAt(0).toUpperCase() + profileData.workExperienceLevel.slice(1)
+                        ) : (
+                          'Not specified'
+                        )}
+                      </p>
                     </div>
-                    <p className="text-gray-300 whitespace-pre-wrap leading-relaxed text-lg">
-                      {profileData.workExperience || 'No work experience added yet'}
-                    </p>
+
+                    {/* Work Experience Details */}
+                    <div className="animate-fade-in-up stagger-5 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-sky-500 card-hover hover:shadow-2xl transition-all duration-300">
+                      <div className="flex items-center mb-6">
+                        <span className="text-4xl mr-3">💼</span>
+                        <h2 className="text-2xl font-bold text-sky-300">Work Details</h2>
+                      </div>
+                      <p className="text-gray-300 whitespace-pre-wrap leading-relaxed">
+                        {profileData.workExperienceDetails || 'No work experience details added yet'}
+                      </p>
+                    </div>
                   </div>
 
                   {/* Extracurricular Activities Section */}
-                  <div className="animate-fade-in-up stagger-5 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-orange-500 card-hover hover:shadow-2xl transition-all duration-300">
+                  <div className="animate-fade-in-up stagger-6 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-orange-500 card-hover hover:shadow-2xl transition-all duration-300">
                     <div className="flex items-center mb-6">
                       <span className="text-4xl mr-3">🏆</span>
                       <h2 className="text-3xl font-bold text-orange-300">Extracurricular Activities</h2>
@@ -547,15 +565,30 @@ export const ProfilePage = () => {
                     </div>
                   </div>
 
-                  {/* Work Experience */}
-                  <div>
-                    <label className="block text-sm font-bold text-cyan-300 mb-2">Work Experience</label>
+                  {/* Work Experience Level */}
+                  <div className="animate-fade-in-up stagger-6">
+                    <label className="block text-sm font-bold text-cyan-300 mb-2">Work Experience Level</label>
+                    <select
+                      name="workExperienceLevel"
+                      value={editData.workExperienceLevel || 'beginner'}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border-2 border-cyan-500/50 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 text-gray-200 transition-all placeholder-gray-500"
+                    >
+                      <option value="beginner">Beginner</option>
+                      <option value="advance">Advance</option>
+                      <option value="professional">Professional</option>
+                    </select>
+                  </div>
+
+                  {/* Work Experience Details */}
+                  <div className="animate-fade-in-up stagger-1">
+                    <label className="block text-sm font-bold text-sky-300 mb-2">Work Experience Details</label>
                     <textarea
-                      name="workExperience"
-                      value={editData.workExperience || ''}
+                      name="workExperienceDetails"
+                      value={editData.workExperienceDetails || ''}
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 border-2 border-cyan-500/50 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 text-gray-200 transition-all h-24 resize-none placeholder-gray-500"
-                      placeholder="Describe your work experience..."
+                      placeholder="e.g., Intern at Company XYZ (2023-2024), Freelance Web Developer"
                     />
                   </div>
 
