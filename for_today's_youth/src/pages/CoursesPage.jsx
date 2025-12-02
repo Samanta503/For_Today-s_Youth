@@ -144,7 +144,7 @@ export const CoursesPage = () => {
   // Handle enroll button
   const handleEnroll = () => {
     if (isAuthenticated) {
-      toast.success('You are already enrolled!');
+      toast.success('Course enrollment request sent! Check your dashboard for updates.');
     } else {
       navigate('/signup');
     }
@@ -448,7 +448,7 @@ export const CoursesPage = () => {
                       onClick={handleEnroll}
                       className="w-full py-4 px-6 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-slate-900 font-bold text-lg rounded-xl transform hover:scale-105 active:scale-95 transition-all duration-200 shadow-xl button-hover mt-8"
                     >
-                      {isAuthenticated ? 'Already Enrolled ✓' : 'Enroll Now ✨'}
+                      Enroll Now ✨
                     </button>
                   </div>
                 ) : (

@@ -184,6 +184,17 @@ export const DashboardPage = () => {
     setSelectedCourse(null);
   };
 
+  // Handle enroll button
+  const handleEnroll = () => {
+    if (user && user.email) {
+      // User is already authenticated
+      toast.success('Thank you for your interest! You will be enrolled shortly.');
+    } else {
+      // User is not authenticated, navigate to signup
+      navigate('/signup');
+    }
+  };
+
   // Get image for course
   const getCourseImage = (courseName) => {
     return courseImageMap[courseName] || null;
@@ -318,7 +329,7 @@ export const DashboardPage = () => {
                             View Details
                           </button>
                           <button
-                            onClick={() => navigate('/signup')}
+                            onClick={() => handleEnroll()}
                             className="flex-1 py-3 px-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold rounded-xl hover:from-green-600 hover:to-green-700 transform hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg button-hover-green"
                           >
                             Enroll Now
@@ -538,7 +549,7 @@ export const DashboardPage = () => {
                         Close
                       </button>
                       <button
-                        onClick={() => navigate('/signup')}
+                        onClick={() => handleEnroll()}
                         className="flex-1 py-4 px-6 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-bold rounded-xl hover:from-cyan-600 hover:to-cyan-700 transform hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-cyan-500/50"
                       >
                         Sign in to Enroll
