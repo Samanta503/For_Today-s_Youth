@@ -105,10 +105,12 @@ export const JobsPage = () => {
           jobsData.push({
             id: doc.id,
             title: doc.id, // Job title from document name
-            description: jobDoc.description || jobDoc.Description || '',
-            salary: jobDoc.salary || jobDoc.Salary || '',
-            requirements: jobDoc.requirements || jobDoc.Requirements || '',
-            benefits: jobDoc.benefits || jobDoc.Benefits || '',
+            description: jobDoc.Description || jobDoc.description || '',
+            salary: jobDoc.Salary || jobDoc.salary || '',
+            experienceLevel: jobDoc['Experience Level'] || jobDoc.experienceLevel || jobDoc['experience level'] || '',
+            skills: jobDoc.Skills || jobDoc.skills || '',
+            requirements: jobDoc.Requirements || jobDoc.requirements || '',
+            benefits: jobDoc.Benefits || jobDoc.benefits || '',
             ...jobDoc,
           });
         });
@@ -198,19 +200,37 @@ export const JobsPage = () => {
 
                   {/* Content */}
                   <div className="p-6 flex-grow flex flex-col">
+                    {/* Experience Level */}
+                    {job.experienceLevel && (
+                      <div className="mb-4 pb-4 border-b border-cyan-500/20">
+                        <p className="text-gray-400 text-xs mb-1 font-medium uppercase tracking-wide">Experience Level</p>
+                        <p className="text-sm font-semibold text-cyan-300">{job.experienceLevel}</p>
+                      </div>
+                    )}
+
                     {/* Salary */}
                     {job.salary && (
-                      <div className="mb-6 pb-6 border-b border-cyan-500/20 transition-all duration-300">
-                        <p className="text-gray-400 text-sm mb-2 font-medium">Salary Range</p>
-                        <p className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-sky-400 bg-clip-text text-transparent">
+                      <div className="mb-4 pb-4 border-b border-cyan-500/20 transition-all duration-300">
+                        <p className="text-gray-400 text-xs mb-1 font-medium uppercase tracking-wide">Salary Range</p>
+                        <p className="text-lg font-bold bg-gradient-to-r from-cyan-400 to-sky-400 bg-clip-text text-transparent">
                           {job.salary}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Skills */}
+                    {job.skills && (
+                      <div className="mb-4 pb-4 border-b border-cyan-500/20">
+                        <p className="text-gray-400 text-xs mb-2 font-medium uppercase tracking-wide">Required Skills</p>
+                        <p className="text-sm text-gray-300 line-clamp-2">
+                          {job.skills}
                         </p>
                       </div>
                     )}
 
                     {/* Description Preview */}
                     <div className="mb-6 flex-grow transition-all duration-300">
-                      <p className="text-gray-300 text-sm line-clamp-4 leading-relaxed">
+                      <p className="text-gray-300 text-xs line-clamp-3 leading-relaxed">
                         {job.description || 'No description available'}
                       </p>
                     </div>
@@ -261,11 +281,29 @@ export const JobsPage = () => {
 
             {/* Modal Content */}
             <div className="p-8 space-y-6">
+              {/* Experience Level */}
+              {selectedJob.experienceLevel && (
+                <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 p-4 rounded-lg border border-purple-500/20">
+                  <h3 className="text-lg font-bold bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent mb-2">Experience Level</h3>
+                  <p className="text-lg font-semibold text-purple-300">{selectedJob.experienceLevel}</p>
+                </div>
+              )}
+
               {/* Salary */}
               {selectedJob.salary && (
                 <div className="bg-gradient-to-r from-cyan-500/10 to-sky-500/10 p-4 rounded-lg border border-cyan-500/20 transition-all duration-300">
                   <h3 className="text-lg font-bold bg-gradient-to-r from-cyan-300 to-sky-300 bg-clip-text text-transparent mb-2">Salary Range</h3>
                   <p className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-sky-400 bg-clip-text text-transparent">{selectedJob.salary}</p>
+                </div>
+              )}
+
+              {/* Skills */}
+              {selectedJob.skills && (
+                <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 p-4 rounded-lg border border-green-500/20">
+                  <h3 className="text-lg font-bold bg-gradient-to-r from-green-300 to-emerald-300 bg-clip-text text-transparent mb-3">Required Skills</h3>
+                  <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">
+                    {selectedJob.skills}
+                  </p>
                 </div>
               )}
 
