@@ -5,6 +5,36 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
+// Helper function to parse skills from string format
+const parseSkills = (skillsData) => {
+  if (!skillsData) return [];
+  
+  // If it's already an array, return it
+  if (Array.isArray(skillsData)) {
+    return skillsData;
+  }
+  
+  // If it's a string, try to parse it
+  if (typeof skillsData === 'string') {
+    // Try to split by common delimiters or patterns
+    // Pattern 1: "1.Skill 2.Skill 3.Skill"
+    const numberedMatch = skillsData.match(/\d+\.\s*([^0-9.]+)/g);
+    if (numberedMatch) {
+      return numberedMatch.map(item => item.replace(/^\d+\.\s*/, '').trim());
+    }
+    
+    // Pattern 2: Comma-separated
+    if (skillsData.includes(',')) {
+      return skillsData.split(',').map(s => s.trim()).filter(s => s);
+    }
+    
+    // Pattern 3: Return as single skill if no delimiters found
+    return [skillsData.trim()];
+  }
+  
+  return [];
+};
+
 const animationStyles = `
   @keyframes fadeInUp {
     from {
@@ -221,10 +251,15 @@ export const JobsPage = () => {
                     {/* Skills */}
                     {job.skills && (
                       <div className="mb-4 pb-4 border-b border-cyan-500/20">
-                        <p className="text-gray-400 text-xs mb-2 font-medium uppercase tracking-wide">Required Skills</p>
-                        <p className="text-sm text-gray-300 line-clamp-2">
-                          {job.skills}
-                        </p>
+                        <p className="text-gray-400 text-xs mb-3 font-medium uppercase tracking-wide">Required Skills</p>
+                        <ul className="space-y-2">
+                          {parseSkills(job.skills).map((skill, idx) => (
+                            <li key={idx} className="text-sm text-gray-300 flex items-start">
+                              <span className="text-cyan-400 font-bold mr-2">{idx + 1}.</span>
+                              <span>{skill}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     )}
 
@@ -301,9 +336,14 @@ export const JobsPage = () => {
               {selectedJob.skills && (
                 <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 p-4 rounded-lg border border-green-500/20">
                   <h3 className="text-lg font-bold bg-gradient-to-r from-green-300 to-emerald-300 bg-clip-text text-transparent mb-3">Required Skills</h3>
-                  <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">
-                    {selectedJob.skills}
-                  </p>
+                  <ul className="space-y-2">
+                    {parseSkills(selectedJob.skills).map((skill, idx) => (
+                      <li key={idx} className="text-gray-300 flex items-start">
+                        <span className="text-green-400 font-bold mr-3">{idx + 1}.</span>
+                        <span>{skill}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               )}
 

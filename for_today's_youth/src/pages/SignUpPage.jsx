@@ -72,6 +72,7 @@ export const SignUpPage = () => {
   const activityOptions = ['Sports', 'Debate', 'Art', 'Music', 'Coding', 'Robotics', 'Drama', 'Volunteering', 'Research', 'Entrepreneurship'];
   const workExperienceLevels = [
     { value: 'beginner', label: 'Beginner' },
+    { value: 'intermediate', label: 'Intermediate' },
     { value: 'advance', label: 'Advance' },
     { value: 'professional', label: 'Professional' },
   ];
