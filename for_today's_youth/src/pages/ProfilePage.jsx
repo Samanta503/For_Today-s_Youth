@@ -68,6 +68,32 @@ const animationStyles = `
       box-shadow: 0 0 30px rgba(6, 182, 212, 0.8);
     }
   }
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+  @keyframes softGlow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(34, 211, 238, 0.6);
+    }
+  }
   .animate-fade-in-up {
     animation: fadeInUp 0.6s ease-out forwards;
   }
@@ -80,11 +106,23 @@ const animationStyles = `
   .animate-scale-in {
     animation: scaleIn 0.4s ease-out forwards;
   }
+  .animate-fade-in-scale {
+    animation: fadeInScale 0.5s ease-out forwards;
+  }
   .animate-pulse {
     animation: pulse 2s ease-in-out infinite;
   }
   .card-hover:hover {
     animation: borderGlow 0.6s ease-out forwards;
+  }
+  .smooth-transition {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .input-focus:focus {
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.5), inset 0 0 10px rgba(34, 211, 238, 0.1);
+  }
+  .btn-smooth:active {
+    transition: all 0.2s ease;
   }
   .stagger-1 { animation-delay: 0.1s; }
   .stagger-2 { animation-delay: 0.2s; }
@@ -285,36 +323,36 @@ export const ProfilePage = () => {
                 {!isEditing ? (
                   <button
                     onClick={handleEdit}
-                    className="px-8 py-3 bg-gradient-to-r from-cyan-400 to-sky-400 text-blue-900 font-bold rounded-lg hover:from-cyan-300 hover:to-sky-300 transform hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg"
+                    className="px-8 py-3 bg-gradient-to-r from-cyan-400 to-sky-400 text-blue-900 font-bold rounded-lg hover:from-cyan-300 hover:to-sky-300 transform hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-xl smooth-transition btn-smooth"
                   >
                     Edit Profile
                   </button>
                 ) : (
-                  <>
+                  <div className="flex gap-4 animate-fade-in-scale">
                     <button
                       onClick={handleCancel}
-                      className="px-8 py-3 bg-gray-400 hover:bg-gray-500 text-white font-bold rounded-lg transition-all duration-200"
+                      className="px-8 py-3 bg-gray-400 hover:bg-gray-500 text-white font-bold rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95 smooth-transition btn-smooth shadow-md hover:shadow-lg"
                     >
                       Cancel
                     </button>
                     <button
                       onClick={handleSaveProfile}
                       disabled={loading}
-                      className="px-8 py-3 bg-gradient-to-r from-green-400 to-emerald-400 text-white font-bold rounded-lg hover:from-green-300 hover:to-emerald-300 disabled:opacity-50 transition-all duration-200"
+                      className="px-8 py-3 bg-gradient-to-r from-green-400 to-emerald-400 text-white font-bold rounded-lg hover:from-green-300 hover:to-emerald-300 disabled:opacity-50 transition-all duration-300 transform hover:scale-105 active:scale-95 smooth-transition btn-smooth shadow-md hover:shadow-lg"
                     >
                       {loading ? 'Saving...' : 'Save Profile'}
                     </button>
-                  </>
+                  </div>
                 )}
               </div>
 
               {/* Main Content */}
               {!isEditing ? (
-                <div className="space-y-6">
+                <div className="space-y-6 animate-fade-in-scale">
                   {/* Skills Section */}
-                  <div className="animate-fade-in-up stagger-1 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-cyan-500 card-hover hover:shadow-2xl transition-all duration-300">
+                  <div className="animate-fade-in-up stagger-1 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-cyan-500 card-hover hover:shadow-2xl transition-all duration-300 smooth-transition">
                     <div className="flex items-center mb-6">
-                      <span className="text-4xl mr-3">🎯</span>
+                      <span className="text-4xl mr-3 animate-scale-in">🎯</span>
                       <h2 className="text-3xl font-bold text-cyan-300">Skills</h2>
                     </div>
                     <div className="flex flex-wrap gap-3">
@@ -322,7 +360,7 @@ export const ProfilePage = () => {
                         profileData.skills.map((skill, idx) => (
                           <span
                             key={idx}
-                            className="px-5 py-3 bg-gradient-to-r from-cyan-600 to-sky-600 text-white font-bold rounded-full border-2 border-cyan-400 hover:shadow-xl hover:scale-110 transform transition-all duration-300 cursor-default"
+                            className="px-5 py-3 bg-gradient-to-r from-cyan-600 to-sky-600 text-white font-bold rounded-full border-2 border-cyan-400 hover:shadow-xl hover:scale-110 transform transition-all duration-300 cursor-default smooth-transition"
                           >
                             {skill}
                           </span>
@@ -334,9 +372,9 @@ export const ProfilePage = () => {
                   </div>
 
                   {/* Languages Section */}
-                  <div className="animate-fade-in-up stagger-2 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-blue-500 card-hover hover:shadow-2xl transition-all duration-300">
+                  <div className="animate-fade-in-up stagger-2 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-blue-500 card-hover hover:shadow-2xl transition-all duration-300 smooth-transition">
                     <div className="flex items-center mb-6">
-                      <span className="text-4xl mr-3">🌐</span>
+                      <span className="text-4xl mr-3 animate-scale-in">🌐</span>
                       <h2 className="text-3xl font-bold text-blue-300">Languages</h2>
                     </div>
                     <div className="flex flex-wrap gap-3">
@@ -344,7 +382,7 @@ export const ProfilePage = () => {
                         profileData.languages.map((lang, idx) => (
                           <span
                             key={idx}
-                            className="px-5 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold rounded-full border-2 border-blue-400 hover:shadow-xl hover:scale-110 transform transition-all duration-300 cursor-default"
+                            className="px-5 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold rounded-full border-2 border-blue-400 hover:shadow-xl hover:scale-110 transform transition-all duration-300 cursor-default smooth-transition"
                           >
                             {lang}
                           </span>
@@ -356,9 +394,9 @@ export const ProfilePage = () => {
                   </div>
 
                   {/* Programming Languages Section */}
-                  <div className="animate-fade-in-up stagger-3 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-purple-500 card-hover hover:shadow-2xl transition-all duration-300">
+                  <div className="animate-fade-in-up stagger-3 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-purple-500 card-hover hover:shadow-2xl transition-all duration-300 smooth-transition">
                     <div className="flex items-center mb-6">
-                      <span className="text-4xl mr-3">💻</span>
+                      <span className="text-4xl mr-3 animate-scale-in">💻</span>
                       <h2 className="text-3xl font-bold text-purple-300">Programming Languages</h2>
                     </div>
                     <div className="flex flex-wrap gap-3">
@@ -366,7 +404,7 @@ export const ProfilePage = () => {
                         profileData.programmingLanguages.map((lang, idx) => (
                           <span
                             key={idx}
-                            className="px-5 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-full border-2 border-purple-400 hover:shadow-xl hover:scale-110 transform transition-all duration-300 cursor-default"
+                            className="px-5 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-full border-2 border-purple-400 hover:shadow-xl hover:scale-110 transform transition-all duration-300 cursor-default smooth-transition"
                           >
                             {lang}
                           </span>
@@ -430,28 +468,28 @@ export const ProfilePage = () => {
                 </div>
               ) : (
                 /* Edit Mode */
-                <div className="space-y-6 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-cyan-500 card-hover hover:shadow-2xl transition-all duration-300 animate-scale-in">
-                  <h2 className="text-2xl font-bold text-cyan-300 mb-6">Edit Your Profile</h2>
+                <div className="space-y-6 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-cyan-500 card-hover hover:shadow-2xl transition-all duration-500 animate-fade-in-scale">
+                  <h2 className="text-2xl font-bold text-cyan-300 mb-6 animate-fade-in-up">Edit Your Profile</h2>
                   {/* Full Name */}
-                  <div className="animate-fade-in-up stagger-1">
-                    <label className="block text-sm font-bold text-cyan-300 mb-2">Full Name</label>
+                  <div className="animate-fade-in-up stagger-1 smooth-transition">
+                    <label className="block text-sm font-bold text-cyan-300 mb-2 transition-all duration-300">Full Name</label>
                     <input
                       type="text"
                       name="fullName"
                       value={editData.fullName || ''}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border-2 border-cyan-500/50 rounded-lg focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-300/30 bg-slate-700 text-gray-200 transition-all duration-300 hover:border-cyan-400 placeholder-gray-500"
+                      className="w-full px-4 py-3 border-2 border-cyan-500/50 rounded-lg focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-300/50 bg-slate-700 text-gray-200 transition-all duration-300 hover:border-cyan-400 placeholder-gray-500 input-focus smooth-transition"
                     />
                   </div>
 
                   {/* Education Level */}
-                  <div className="animate-fade-in-up stagger-2">
-                    <label className="block text-sm font-bold text-cyan-300 mb-2">Education Level</label>
+                  <div className="animate-fade-in-up stagger-2 smooth-transition">
+                    <label className="block text-sm font-bold text-cyan-300 mb-2 transition-all duration-300">Education Level</label>
                     <select
                       name="educationLevel"
                       value={editData.educationLevel || ''}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border-2 border-cyan-500/50 rounded-lg focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-300/30 bg-slate-700 text-gray-200 transition-all duration-300 hover:border-cyan-400"
+                      className="w-full px-4 py-3 border-2 border-cyan-500/50 rounded-lg focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-300/50 bg-slate-700 text-gray-200 transition-all duration-300 hover:border-cyan-400 input-focus smooth-transition"
                     >
                       <option value="">Select Education Level</option>
                       <option value="10th">10th Standard</option>
@@ -464,33 +502,33 @@ export const ProfilePage = () => {
                   </div>
 
                   {/* Career Interests */}
-                  <div className="animate-fade-in-up stagger-3">
-                    <label className="block text-sm font-bold text-cyan-300 mb-2">Career Interests</label>
+                  <div className="animate-fade-in-up stagger-3 smooth-transition">
+                    <label className="block text-sm font-bold text-cyan-300 mb-2 transition-all duration-300">Career Interests</label>
                     <input
                       type="text"
                       name="careerInterests"
                       value={editData.careerInterests || ''}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border-2 border-cyan-500/50 rounded-lg focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-300/30 bg-slate-700 text-gray-200 transition-all duration-300 hover:border-cyan-400 placeholder-gray-500"
+                      className="w-full px-4 py-3 border-2 border-cyan-500/50 rounded-lg focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-300/50 bg-slate-700 text-gray-200 transition-all duration-300 hover:border-cyan-400 placeholder-gray-500 input-focus smooth-transition"
                     />
                   </div>
 
                   {/* Skills */}
-                  <div className="animate-fade-in-up stagger-4">
-                    <label className="block text-sm font-bold text-cyan-300 mb-3">Skills</label>
+                  <div className="animate-fade-in-up stagger-4 smooth-transition">
+                    <label className="block text-sm font-bold text-cyan-300 mb-3 transition-all duration-300">Skills</label>
                     <div className="space-y-2">
                       {editData.skills && editData.skills.map((skill, idx) => (
-                        <div key={idx} className="flex gap-2">
+                        <div key={idx} className="flex gap-2 animate-fade-in-up smooth-transition">
                           <input
                             type="text"
                             value={skill}
                             onChange={(e) => handleArrayChange(e, 'skills', idx)}
-                            className="flex-1 px-4 py-2 border-2 border-cyan-500/50 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 text-gray-200 transition-all placeholder-gray-500"
+                            className="flex-1 px-4 py-2 border-2 border-cyan-500/50 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 text-gray-200 transition-all placeholder-gray-500 input-focus smooth-transition"
                             placeholder="Skill"
                           />
                           <button
                             onClick={() => handleRemoveArrayItem('skills', idx)}
-                            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-all duration-200 transform hover:scale-105"
+                            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95 smooth-transition btn-smooth"
                           >
                             Remove
                           </button>
@@ -498,7 +536,7 @@ export const ProfilePage = () => {
                       ))}
                       <button
                         onClick={() => handleAddArrayItem('skills')}
-                        className="w-full px-4 py-2 bg-gradient-to-r from-cyan-500 to-sky-500 text-slate-900 font-bold rounded-lg hover:from-cyan-400 hover:to-sky-400 transition-all duration-200 transform hover:scale-105"
+                        className="w-full px-4 py-2 bg-gradient-to-r from-cyan-500 to-sky-500 text-slate-900 font-bold rounded-lg hover:from-cyan-400 hover:to-sky-400 transition-all duration-300 transform hover:scale-105 active:scale-95 smooth-transition btn-smooth"
                       >
                         + Add Skill
                       </button>
@@ -506,21 +544,21 @@ export const ProfilePage = () => {
                   </div>
 
                   {/* Languages */}
-                  <div className="animate-fade-in-up stagger-5">
-                    <label className="block text-sm font-bold text-blue-300 mb-3">Languages</label>
+                  <div className="animate-fade-in-up stagger-5 smooth-transition">
+                    <label className="block text-sm font-bold text-blue-300 mb-3 transition-all duration-300">Languages</label>
                     <div className="space-y-2">
                       {editData.languages && editData.languages.map((lang, idx) => (
-                        <div key={idx} className="flex gap-2">
+                        <div key={idx} className="flex gap-2 animate-fade-in-up smooth-transition">
                           <input
                             type="text"
                             value={lang}
                             onChange={(e) => handleArrayChange(e, 'languages', idx)}
-                            className="flex-1 px-4 py-2 border-2 border-cyan-500/50 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 text-gray-200 transition-all placeholder-gray-500"
+                            className="flex-1 px-4 py-2 border-2 border-cyan-500/50 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 text-gray-200 transition-all placeholder-gray-500 input-focus smooth-transition"
                             placeholder="Language"
                           />
                           <button
                             onClick={() => handleRemoveArrayItem('languages', idx)}
-                            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-all duration-200 transform hover:scale-105"
+                            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95 smooth-transition btn-smooth"
                           >
                             Remove
                           </button>
@@ -528,7 +566,7 @@ export const ProfilePage = () => {
                       ))}
                       <button
                         onClick={() => handleAddArrayItem('languages')}
-                        className="w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold rounded-lg hover:from-blue-400 hover:to-cyan-400 transition-all duration-200 transform hover:scale-105"
+                        className="w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold rounded-lg hover:from-blue-400 hover:to-cyan-400 transition-all duration-300 transform hover:scale-105 active:scale-95 smooth-transition btn-smooth"
                       >
                         + Add Language
                       </button>
@@ -536,21 +574,21 @@ export const ProfilePage = () => {
                   </div>
 
                   {/* Programming Languages */}
-                  <div className="animate-fade-in-up stagger-6">
-                    <label className="block text-sm font-bold text-purple-300 mb-3">Programming Languages</label>
+                  <div className="animate-fade-in-up stagger-6 smooth-transition">
+                    <label className="block text-sm font-bold text-purple-300 mb-3 transition-all duration-300">Programming Languages</label>
                     <div className="space-y-2">
                       {editData.programmingLanguages && editData.programmingLanguages.map((lang, idx) => (
-                        <div key={idx} className="flex gap-2">
+                        <div key={idx} className="flex gap-2 animate-fade-in-up smooth-transition">
                           <input
                             type="text"
                             value={lang}
                             onChange={(e) => handleArrayChange(e, 'programmingLanguages', idx)}
-                            className="flex-1 px-4 py-2 border-2 border-cyan-500/50 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 text-gray-200 transition-all placeholder-gray-500"
+                            className="flex-1 px-4 py-2 border-2 border-cyan-500/50 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 text-gray-200 transition-all placeholder-gray-500 input-focus smooth-transition"
                             placeholder="Programming Language"
                           />
                           <button
                             onClick={() => handleRemoveArrayItem('programmingLanguages', idx)}
-                            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-all duration-200 transform hover:scale-105"
+                            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95 smooth-transition btn-smooth"
                           >
                             Remove
                           </button>
@@ -558,7 +596,7 @@ export const ProfilePage = () => {
                       ))}
                       <button
                         onClick={() => handleAddArrayItem('programmingLanguages')}
-                        className="w-full px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-lg hover:from-purple-400 hover:to-pink-400 transition-all duration-200 transform hover:scale-105"
+                        className="w-full px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-lg hover:from-purple-400 hover:to-pink-400 transition-all duration-300 transform hover:scale-105 active:scale-95 smooth-transition btn-smooth"
                       >
                         + Add Programming Language
                       </button>
@@ -566,13 +604,13 @@ export const ProfilePage = () => {
                   </div>
 
                   {/* Work Experience Level */}
-                  <div className="animate-fade-in-up stagger-6">
-                    <label className="block text-sm font-bold text-cyan-300 mb-2">Work Experience Level</label>
+                  <div className="animate-fade-in-up stagger-6 smooth-transition">
+                    <label className="block text-sm font-bold text-cyan-300 mb-2 transition-all duration-300">Work Experience Level</label>
                     <select
                       name="workExperienceLevel"
                       value={editData.workExperienceLevel || 'beginner'}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border-2 border-cyan-500/50 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 text-gray-200 transition-all placeholder-gray-500"
+                      className="w-full px-4 py-3 border-2 border-cyan-500/50 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 text-gray-200 transition-all placeholder-gray-500 input-focus smooth-transition focus:ring-2 focus:ring-cyan-300/50"
                     >
                       <option value="beginner">Beginner</option>
                       <option value="advance">Advance</option>
@@ -581,13 +619,13 @@ export const ProfilePage = () => {
                   </div>
 
                   {/* Work Experience Details */}
-                  <div className="animate-fade-in-up stagger-1">
-                    <label className="block text-sm font-bold text-sky-300 mb-2">Work Experience Details</label>
+                  <div className="animate-fade-in-up stagger-1 smooth-transition">
+                    <label className="block text-sm font-bold text-sky-300 mb-2 transition-all duration-300">Work Experience Details</label>
                     <textarea
                       name="workExperienceDetails"
                       value={editData.workExperienceDetails || ''}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border-2 border-cyan-500/50 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 text-gray-200 transition-all h-24 resize-none placeholder-gray-500"
+                      className="w-full px-4 py-3 border-2 border-cyan-500/50 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 text-gray-200 transition-all h-24 resize-none placeholder-gray-500 input-focus smooth-transition focus:ring-2 focus:ring-cyan-300/50"
                       placeholder="e.g., Intern at Company XYZ (2023-2024), Freelance Web Developer"
                     />
                   </div>
