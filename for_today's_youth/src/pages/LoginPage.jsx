@@ -96,7 +96,8 @@ export const LoginPage = () => {
       } else {
         toast.error(result.message);
       }
-    } catch {
+    } catch (error) {
+      console.error('Login error:', error);
       toast.error('An error occurred. Please try again.');
     } finally {
       setLoading(false);

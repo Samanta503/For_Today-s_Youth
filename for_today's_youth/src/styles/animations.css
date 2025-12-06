@@ -1,0 +1,254 @@
+/* ============================================
+   SMOOTH PAGE TRANSITIONS & ANIMATIONS
+   ============================================ */
+
+/* Page Enter/Exit Animations */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pageExit {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Apply to main content */
+main {
+  animation: pageEnter 0.5s ease-in-out;
+}
+
+/* ============================================
+   OPTIMIZED HOVER ANIMATIONS
+   ============================================ */
+
+/* Button Hover Effects - Smooth */
+button,
+a[role="button"],
+.btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+button:hover:not(:disabled),
+a[role="button"]:hover,
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+button:active:not(:disabled),
+a[role="button"]:active,
+.btn:active {
+  transform: translateY(0px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================
+   LINK ANIMATIONS
+   ============================================ */
+
+a {
+  transition: color 0.3s ease-out;
+}
+
+/* ============================================
+   CARD HOVER ANIMATIONS
+   ============================================ */
+
+.card,
+[role="article"],
+.hover-card {
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card:hover,
+[role="article"]:hover,
+.hover-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+/* ============================================
+   INPUT FOCUS ANIMATIONS
+   ============================================ */
+
+input,
+textarea,
+select {
+  transition: all 0.3s ease-out;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  transform: scale(1.01);
+}
+
+/* ============================================
+   SMOOTH LOADING STATE
+   ============================================ */
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.loading,
+[aria-busy="true"] {
+  animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ============================================
+   GRADIENT TEXT ANIMATIONS
+   ============================================ */
+
+.gradient-text {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ============================================
+   SMOOTH SCROLL BEHAVIOR
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  scroll-padding-top: 5rem;
+}
+
+/* ============================================
+   BACKDROP & MODAL ANIMATIONS
+   ============================================ */
+
+@keyframes fadeInBackdrop {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(4px);
+  }
+}
+
+@keyframes slideUpModal {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-backdrop {
+  animation: fadeInBackdrop 0.3s ease-out;
+}
+
+.modal-content {
+  animation: slideUpModal 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ============================================
+   PREVENT FLICKERING
+   ============================================ */
+
+/* Use will-change sparingly for smooth animations */
+.will-animate {
+  will-change: transform, opacity;
+}
+
+/* Remove will-change after animation */
+.will-animate.done {
+  will-change: auto;
+}
+
+/* ============================================
+   SMOOTH TRANSITIONS FOR DIFFERENT STATES
+   ============================================ */
+
+.transition-smooth {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.transition-smooth-fast {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-smooth-slow {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
+}
+
+/* ============================================
+   DISABLED STATE - SMOOTH
+   ============================================ */
+
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transition: opacity 0.3s ease-out;
+}
+
+/* ============================================
+   FOCUS VISIBLE - ACCESSIBLE ANIMATIONS
+   ============================================ */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid rgba(34, 211, 238, 0.8);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZATION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

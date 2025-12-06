@@ -27,7 +27,7 @@ const animationStyles = `
   @keyframes slideInDown {
     from {
       opacity: 0;
-      transform: translateY(-30px);
+      transform: translateY(-20px);
     }
     to {
       opacity: 1;
@@ -45,43 +45,33 @@ const animationStyles = `
   @keyframes scaleIn {
     from {
       opacity: 0;
-      transform: scale(0.95);
+      transform: scale(0.98);
     }
     to {
       opacity: 1;
       transform: scale(1);
     }
   }
-  .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out forwards;
+  .course-card {
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    opacity: 0;
+  }
+  .course-card-hover {
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .course-card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(6, 182, 212, 0.3);
   }
   .animate-slide-in-down {
-    animation: slideInDown 0.6s ease-out forwards;
+    animation: slideInDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   }
   .animate-fade-in {
-    animation: fadeIn 0.4s ease-out forwards;
+    animation: fadeIn 0.5s ease-out forwards;
   }
   .animate-scale-in {
-    animation: scaleIn 0.4s ease-out forwards;
+    animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   }
-  .stagger-1 { animation-delay: 0.1s; }
-  .stagger-2 { animation-delay: 0.2s; }
-  .stagger-3 { animation-delay: 0.3s; }
-  .stagger-4 { animation-delay: 0.4s; }
-  .stagger-5 { animation-delay: 0.5s; }
-  .stagger-6 { animation-delay: 0.6s; }
-  @keyframes borderGlow {
-    0% { border-color: rgba(34, 211, 238, 0.3); box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.3); }
-    50% { border-color: rgba(34, 211, 238, 0.8); box-shadow: 0 0 20px rgba(34, 211, 238, 0.6); }
-    100% { border-color: rgba(6, 182, 212, 1); box-shadow: 0 0 30px rgba(6, 182, 212, 0.8); }
-  }
-  @keyframes buttonGlow {
-    0% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.4); }
-    50% { box-shadow: 0 0 15px rgba(34, 211, 238, 0.6); }
-    100% { box-shadow: 0 0 25px rgba(6, 182, 212, 0.8); }
-  }
-  .card-hover:hover { animation: borderGlow 0.6s ease-out forwards; }
-  .button-hover:hover { animation: buttonGlow 0.6s ease-out forwards; }
 `;
 
 // Mapping of course names to images
@@ -189,16 +179,19 @@ export const CoursesPage = () => {
                 {courses.map((course, index) => (
                   <div
                     key={course.id}
-                    className={`animate-fade-in-up stagger-${(index % 6) + 1} bg-gradient-to-br from-slate-800 to-blue-800 rounded-2xl shadow-2xl overflow-hidden hover:shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-cyan-500 card-hover cursor-pointer`}
-                    onClick={() => handleLearnMore(course)}
+                    className="course-card"
+                    style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    {/* Course Image */}
+                  >
+                    {/* Card Container */}
+                    <div className="h-full bg-gradient-to-br from-slate-800 to-blue-800 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 border-2 border-cyan-500 hover:border-cyan-400 course-card-hover cursor-pointer" onClick={() => handleLearnMore(course)}>
+                      {/* Course Image */}
                     <div className="relative h-64 overflow-hidden bg-gradient-to-br from-cyan-600 to-slate-700">
                       {getCourseImage(course.name) ? (
                         <img
                           src={getCourseImage(course.name)}
                           alt={course.name}
-                          className="w-full h-full object-cover hover:scale-110 transition-transform duration-300 opacity-90"
+                          className="w-full h-full object-cover transition-transform duration-300 opacity-90 hover:scale-102"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-cyan-500 to-slate-700">
@@ -214,7 +207,7 @@ export const CoursesPage = () => {
 
                     {/* Course Info */}
                     <div className="p-6">
-                      <h3 className="text-2xl font-bold text-cyan-300 mb-3 line-clamp-2 hover:text-sky-300 transition-all">
+                      <h3 className="text-2xl font-bold text-cyan-300 mb-3 line-clamp-2 hover:text-sky-300 transition-colors duration-300">
                         {course.name}
                       </h3>
 
@@ -226,24 +219,25 @@ export const CoursesPage = () => {
 
                       <div className="flex gap-4 mb-6 text-sm flex-wrap">
                         {course.courseDetail?.['Course fee'] && (
-                          <div className="flex items-center gap-2 text-cyan-300 bg-cyan-500 bg-opacity-10 px-3 py-2 rounded-full font-semibold border border-cyan-500 border-opacity-30">
+                          <div className="flex items-center gap-2 text-cyan-300 bg-cyan-500 bg-opacity-10 px-3 py-2 rounded-full font-semibold border border-cyan-500 border-opacity-30 transition-all duration-300 hover:bg-opacity-20 hover:border-opacity-50">
                             <span>💰 {course.courseDetail['Course fee']}</span>
                           </div>
                         )}
 
                         {course.courseDetail?.Schedule && (
-                          <div className="flex items-center gap-2 text-sky-300 bg-sky-500 bg-opacity-10 px-3 py-2 rounded-full font-semibold border border-sky-500 border-opacity-30">
+                          <div className="flex items-center gap-2 text-sky-300 bg-sky-500 bg-opacity-10 px-3 py-2 rounded-full font-semibold border border-sky-500 border-opacity-30 transition-all duration-300 hover:bg-opacity-20 hover:border-opacity-50">
                             <span>📅 {course.courseDetail.Schedule}</span>
                           </div>
                         )}
                       </div>
 
                       <button
-                        className="w-full py-3 px-4 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-slate-900 font-bold rounded-xl transform hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg button-hover"
+                        className="w-full py-3 px-4 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-slate-900 font-bold rounded-xl transform hover:scale-102 active:scale-98 transition-all duration-300 shadow-lg hover:shadow-xl"
                         onClick={() => handleLearnMore(course)}
                       >
                         Learn More →
                       </button>
+                    </div>
                     </div>
                   </div>
                 ))}
@@ -276,7 +270,7 @@ export const CoursesPage = () => {
         {/* Modal Backdrop */}
         {showModal && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-40 animate-fade-in"
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 animate-fade-in transition-all duration-300"
             onClick={handleCloseModal}
           ></div>
         )}
@@ -285,15 +279,15 @@ export const CoursesPage = () => {
         {showModal && selectedCourse && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
             <div
-              className="bg-gradient-to-b from-slate-800 to-blue-900 rounded-3xl shadow-2xl max-w-2xl w-full max-h-screen overflow-y-auto animate-scale-in pointer-events-auto border-2 border-cyan-500"
+              className="bg-gradient-to-b from-slate-800 to-blue-900 rounded-3xl shadow-2xl max-w-2xl w-full max-h-screen overflow-y-auto animate-scale-in pointer-events-auto border-2 border-cyan-500 transition-all duration-300"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 p-8 flex items-center justify-between sticky top-0 z-10 shadow-lg border-b-2 border-cyan-400">
+              <div className="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 p-8 flex items-center justify-between sticky top-0 z-10 shadow-lg border-b-2 border-cyan-400 transition-all duration-300">
                 <h2 className="text-3xl font-bold text-cyan-300">{selectedCourse.name}</h2>
                 <button
                   onClick={handleCloseModal}
-                  className="text-cyan-300 hover:bg-cyan-300 hover:bg-opacity-20 rounded-full p-2 transition-all"
+                  className="text-cyan-300 hover:bg-cyan-300 hover:bg-opacity-20 rounded-full p-2 transition-all duration-300"
                 >
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                     <path
@@ -312,7 +306,7 @@ export const CoursesPage = () => {
                   <img
                     src={getCourseImage(selectedCourse.name)}
                     alt={selectedCourse.name}
-                    className="w-full h-64 object-cover rounded-2xl mb-8 shadow-lg border-4 border-cyan-500"
+                    className="w-full h-64 object-cover rounded-2xl mb-8 shadow-lg border-4 border-cyan-500 transition-transform duration-300 hover:scale-102"
                   />
                 )}
 
@@ -321,7 +315,7 @@ export const CoursesPage = () => {
                   <div className="space-y-6">
                     {/* Description */}
                     {selectedCourse.courseDetail.Description && (
-                      <div className="bg-gradient-to-r from-cyan-900 to-blue-900 p-6 rounded-xl border-l-4 border-cyan-500">
+                      <div className="bg-gradient-to-r from-cyan-900 to-blue-900 p-6 rounded-xl border-l-4 border-cyan-500 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30">
                         <h3 className="text-2xl font-bold text-cyan-300 mb-3">About This Course</h3>
                         <p className="text-gray-300 leading-relaxed text-lg">
                           {selectedCourse.courseDetail.Description}
@@ -332,7 +326,7 @@ export const CoursesPage = () => {
                     {/* Course Fee & Schedule */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {selectedCourse.courseDetail['Course fee'] && (
-                        <div className="bg-gradient-to-br from-cyan-900 to-blue-900 p-6 rounded-xl border-l-4 border-cyan-600 shadow-md hover:shadow-lg transition-shadow">
+                        <div className="bg-gradient-to-br from-cyan-900 to-blue-900 p-6 rounded-xl border-l-4 border-cyan-600 shadow-md transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/50 hover:-translate-y-1 hover:scale-102">
                           <p className="text-sm text-cyan-400 font-bold uppercase tracking-wide mb-2">💰 Course Fee</p>
                           <p className="text-2xl font-bold text-cyan-300">
                             {selectedCourse.courseDetail['Course fee']}
@@ -340,7 +334,7 @@ export const CoursesPage = () => {
                         </div>
                       )}
                       {selectedCourse.courseDetail.Schedule && (
-                        <div className="bg-gradient-to-br from-sky-900 to-blue-900 p-6 rounded-xl border-l-4 border-sky-600 shadow-md hover:shadow-lg transition-shadow">
+                        <div className="bg-gradient-to-br from-sky-900 to-blue-900 p-6 rounded-xl border-l-4 border-sky-600 shadow-md transition-all duration-300 hover:shadow-lg hover:shadow-sky-500/50 hover:-translate-y-1 hover:scale-102">
                           <p className="text-sm text-sky-400 font-bold uppercase tracking-wide mb-2">📅 Schedule</p>
                           <p className="text-sky-300 font-semibold leading-relaxed">
                             {selectedCourse.courseDetail.Schedule}
@@ -351,12 +345,12 @@ export const CoursesPage = () => {
 
                     {/* Objectives */}
                     {selectedCourse.courseDetail.Objectives && (
-                      <div>
+                      <div className="transition-all duration-300">
                         <h4 className="font-bold text-cyan-300 mb-3">Course Objectives</h4>
                         <ul className="space-y-2">
                           {Array.isArray(selectedCourse.courseDetail.Objectives) ? (
                             selectedCourse.courseDetail.Objectives.map((objective, idx) => (
-                              <li key={idx} className="flex items-start gap-3 text-gray-300">
+                              <li key={idx} className="flex items-start gap-3 text-gray-300 transition-all duration-300 hover:text-gray-100 hover:translate-x-1">
                                 <svg className="w-5 h-5 text-cyan-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                   <path
                                     fillRule="evenodd"
@@ -368,7 +362,7 @@ export const CoursesPage = () => {
                               </li>
                             ))
                           ) : (
-                            <li className="flex items-start gap-3 text-gray-300">
+                            <li className="flex items-start gap-3 text-gray-300 transition-all duration-300 hover:text-gray-100 hover:translate-x-1">
                               <svg className="w-5 h-5 text-cyan-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                 <path
                                   fillRule="evenodd"
@@ -446,7 +440,7 @@ export const CoursesPage = () => {
                     {/* Enrollment Button */}
                     <button
                       onClick={handleEnroll}
-                      className="w-full py-4 px-6 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-slate-900 font-bold text-lg rounded-xl transform hover:scale-105 active:scale-95 transition-all duration-200 shadow-xl button-hover mt-8"
+                      className="w-full py-4 px-6 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-slate-900 font-bold text-lg rounded-xl transform hover:scale-102 active:scale-98 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/50 mt-8"
                     >
                       Enroll Now ✨
                     </button>

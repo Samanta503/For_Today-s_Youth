@@ -81,6 +81,8 @@ export const loginUser = async (email, password) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     
+    console.log('Login successful for user:', user.email);
+    
     return {
       success: true,
       user: {
@@ -91,6 +93,7 @@ export const loginUser = async (email, password) => {
       message: 'Login successful!',
     };
   } catch (error) {
+    console.error('Login error details:', error.code, error.message);
     return {
       success: false,
       error: error.message,

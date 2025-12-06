@@ -5,7 +5,7 @@ const animationStyles = `
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(20px);
     }
     to {
       opacity: 1;
@@ -15,7 +15,7 @@ const animationStyles = `
   @keyframes fadeInDown {
     from {
       opacity: 0;
-      transform: translateY(-30px);
+      transform: translateY(-20px);
     }
     to {
       opacity: 1;
@@ -25,7 +25,7 @@ const animationStyles = `
   @keyframes slideInLeft {
     from {
       opacity: 0;
-      transform: translateX(-50px);
+      transform: translateX(-30px);
     }
     to {
       opacity: 1;
@@ -35,47 +35,30 @@ const animationStyles = `
   @keyframes slideInRight {
     from {
       opacity: 0;
-      transform: translateX(50px);
+      transform: translateX(30px);
     }
     to {
       opacity: 1;
       transform: translateX(0);
     }
   }
-  @keyframes borderGlow {
-    0% {
-      border-color: rgba(34, 211, 238, 0.3);
-      box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.3);
-    }
-    50% {
-      border-color: rgba(34, 211, 238, 0.8);
-      box-shadow: 0 0 20px rgba(34, 211, 238, 0.6);
-    }
-    100% {
-      border-color: rgba(6, 182, 212, 1);
-      box-shadow: 0 0 30px rgba(6, 182, 212, 0.8);
-    }
-  }
   .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out forwards;
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   }
   .animate-fade-in-down {
-    animation: fadeInDown 0.6s ease-out forwards;
+    animation: fadeInDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   }
   .animate-slide-in-left {
-    animation: slideInLeft 0.6s ease-out forwards;
+    animation: slideInLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   }
   .animate-slide-in-right {
-    animation: slideInRight 0.6s ease-out forwards;
+    animation: slideInRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   }
-  .card-hover:hover {
-    animation: borderGlow 0.6s ease-out forwards;
-  }
-  .stagger-1 { animation-delay: 0.1s; }
-  .stagger-2 { animation-delay: 0.2s; }
-  .stagger-3 { animation-delay: 0.3s; }
-  .stagger-4 { animation-delay: 0.4s; }
-  .stagger-5 { animation-delay: 0.5s; }
+  .stagger-1 { animation-delay: 0.05s; }
+  .stagger-2 { animation-delay: 0.1s; }
+  .stagger-3 { animation-delay: 0.15s; }
+  .stagger-4 { animation-delay: 0.2s; }
+  .stagger-5 { animation-delay: 0.25s; }
 `;
 
 export const LandingPage = () => {
@@ -87,7 +70,7 @@ export const LandingPage = () => {
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto">
             {/* Main Card with Energy Usage Theme */}
-            <div className="bg-gradient-to-br from-slate-800 via-blue-800 to-slate-800 rounded-3xl shadow-2xl p-12 text-white mb-12 relative overflow-hidden border border-cyan-500 border-opacity-30 animate-fade-in-up transition-all duration-500 hover:shadow-cyan-500/50 hover:shadow-2xl hover:border-cyan-400">
+            <div className="bg-gradient-to-br from-slate-800 via-blue-800 to-slate-800 rounded-3xl shadow-2xl p-12 text-white mb-12 relative overflow-hidden border border-cyan-500 border-opacity-30 animate-fade-in-up transition-all duration-500 hover:shadow-cyan-500/50 hover:shadow-2xl hover:border-cyan-400 hover:-translate-y-1">
               {/* Background Pattern - More vibrant */}
               <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-400 opacity-20 rounded-full -mr-48 -mt-48 blur-3xl"></div>
               <div className="absolute bottom-0 left-0 w-72 h-72 bg-blue-400 opacity-15 rounded-full -ml-36 -mb-36 blur-3xl"></div>
@@ -105,16 +88,16 @@ export const LandingPage = () => {
 
                 {/* Stats Display */}
                 <div className="grid grid-cols-2 md:grid-cols-2 gap-8 mt-12 mb-12">
-                  <div className="text-center bg-blue-900 bg-opacity-50 p-6 rounded-2xl border border-cyan-500 border-opacity-30 hover:border-cyan-400 transition-all duration-500 animate-slide-in-left stagger-2 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50 hover:-translate-y-1">
+                  <div className="text-center bg-blue-900 bg-opacity-50 p-6 rounded-2xl border border-cyan-500 border-opacity-30 hover:border-cyan-400 transition-all duration-500 animate-slide-in-left stagger-2 hover:scale-102 hover:shadow-lg hover:shadow-cyan-500/50 hover:-translate-y-1">
                     <div className="text-sm text-cyan-300 mb-2 font-semibold animate-pulse">Suitable Jobs</div>
-                    <div className="text-5xl md:text-6xl font-bold text-transparent bg-gradient-to-r from-cyan-300 to-sky-300 bg-clip-text mb-1 hover:scale-110 transition-transform duration-300">
+                    <div className="text-5xl md:text-6xl font-bold text-transparent bg-gradient-to-r from-cyan-300 to-sky-300 bg-clip-text mb-1 transition-transform duration-300">
                       150+
                     </div>
                     <div className="text-xs text-cyan-200">Based on Your Skills</div>
                   </div>
-                  <div className="text-center bg-blue-900 bg-opacity-50 p-6 rounded-2xl border border-sky-500 border-opacity-30 hover:border-sky-400 transition-all duration-500 animate-slide-in-right stagger-3 hover:scale-105 hover:shadow-lg hover:shadow-sky-500/50 hover:-translate-y-1">
+                  <div className="text-center bg-blue-900 bg-opacity-50 p-6 rounded-2xl border border-sky-500 border-opacity-30 hover:border-sky-400 transition-all duration-500 animate-slide-in-right stagger-3 hover:scale-102 hover:shadow-lg hover:shadow-sky-500/50 hover:-translate-y-1">
                     <div className="text-sm text-sky-300 mb-2 font-semibold animate-pulse">Recommended Courses</div>
-                    <div className="text-5xl md:text-6xl font-bold text-transparent bg-gradient-to-r from-sky-300 to-cyan-300 bg-clip-text mb-1 hover:scale-110 transition-transform duration-300">
+                    <div className="text-5xl md:text-6xl font-bold text-transparent bg-gradient-to-r from-sky-300 to-cyan-300 bg-clip-text mb-1 transition-transform duration-300">
                       50+
                     </div>
                     <div className="text-xs text-sky-200">For Skill Enhancement</div>
@@ -125,13 +108,13 @@ export const LandingPage = () => {
                 <div className="flex flex-col md:flex-row gap-4 justify-center mt-12 animate-fade-in-up stagger-4">
                   <Link
                     to="/signup"
-                    className="px-8 py-4 text-lg bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 text-slate-900 font-bold rounded-lg shadow-lg hover:shadow-xl hover:shadow-cyan-400/50 transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 active:scale-95"
+                    className="px-8 py-4 text-lg bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 text-slate-900 font-bold rounded-lg shadow-lg hover:shadow-xl hover:shadow-cyan-400/50 transform hover:-translate-y-1 hover:scale-102 transition-all duration-300 active:scale-98"
                   >
                     Get Started Now →
                   </Link>
                   <Link
                     to="/login"
-                    className="px-8 py-4 text-lg border-2 border-cyan-300 text-cyan-300 hover:bg-cyan-500 hover:bg-opacity-10 font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 hover:-translate-y-1 hover:border-cyan-200 active:scale-95"
+                    className="px-8 py-4 text-lg border-2 border-cyan-300 text-cyan-300 hover:bg-cyan-500 hover:bg-opacity-10 font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 hover:-translate-y-1 hover:border-cyan-200 active:scale-98"
                   >
                     I'm Already a Member
                   </Link>
@@ -156,7 +139,7 @@ export const LandingPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {/* Feature 1 */}
-            <div className="card card-hover hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-slate-800 to-blue-800 border-l-4 border-cyan-500 rounded-lg p-6">
+            <div className="card card-hover hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-slate-800 to-blue-800 border-l-4 border-cyan-500 rounded-lg p-6 hover:scale-102">
               <div className="w-14 h-14 bg-gradient-to-br from-cyan-400 to-sky-400 rounded-lg flex items-center justify-center mb-6 shadow-lg">
                 <svg className="w-8 h-8 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -169,7 +152,7 @@ export const LandingPage = () => {
             </div>
 
             {/* Feature 2 */}
-            <div className="card card-hover hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-blue-800 to-slate-800 border-l-4 border-sky-500 rounded-lg p-6">
+            <div className="card card-hover hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-blue-800 to-slate-800 border-l-4 border-sky-500 rounded-lg p-6 hover:scale-102">
               <div className="w-14 h-14 bg-gradient-to-br from-sky-400 to-cyan-400 rounded-lg flex items-center justify-center mb-6 shadow-lg">
                 <svg className="w-8 h-8 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -182,7 +165,7 @@ export const LandingPage = () => {
             </div>
 
             {/* Feature 3 */}
-            <div className="card card-hover hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-slate-800 to-blue-800 border-l-4 border-blue-500 rounded-lg p-6">
+            <div className="card card-hover hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-slate-800 to-blue-800 border-l-4 border-blue-500 rounded-lg p-6 hover:scale-102">
               <div className="w-14 h-14 bg-gradient-to-br from-blue-400 to-sky-400 rounded-lg flex items-center justify-center mb-6 shadow-lg">
                 <svg className="w-8 h-8 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17s4.5 10.747 10 10.747c5.5 0 10-4.998 10-10.747 0-6.002-4.5-10.747-10-10.747z" />
@@ -197,7 +180,7 @@ export const LandingPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Feature 4 */}
-            <div className="card card-hover hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-blue-800 to-slate-800 border-l-4 border-sky-500 rounded-lg p-6">
+            <div className="card card-hover hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-blue-800 to-slate-800 border-l-4 border-sky-500 rounded-lg p-6 hover:scale-102">
               <div className="w-14 h-14 bg-gradient-to-br from-sky-400 to-blue-400 rounded-lg flex items-center justify-center mb-6 shadow-lg">
                 <svg className="w-8 h-8 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17s4.5 10.747 10 10.747c5.5 0 10-4.998 10-10.747 0-6.002-4.5-10.747-10-10.747z" />
@@ -210,7 +193,7 @@ export const LandingPage = () => {
             </div>
 
             {/* Feature 5 */}
-            <div className="card card-hover hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-slate-800 to-blue-800 border-l-4 border-cyan-500 rounded-lg p-6">
+            <div className="card card-hover hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-slate-800 to-blue-800 border-l-4 border-cyan-500 rounded-lg p-6 hover:scale-102">
               <div className="w-14 h-14 bg-gradient-to-br from-cyan-400 to-sky-400 rounded-lg flex items-center justify-center mb-6 shadow-lg">
                 <svg className="w-8 h-8 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { onAuthChange, getUserProfile } from '../services/authService';
+import { onAuthChange, getUserProfileByEmail } from '../services/authService';
 
 const AuthContext = createContext();
 
@@ -19,9 +19,9 @@ export const AuthProvider = ({ children }) => {
           photoURL: authUser.photoURL,
         });
         
-        // Fetch user profile from Firestore
+        // Fetch user profile from Firestore using email
         try {
-          const profileResult = await getUserProfile(authUser.uid);
+          const profileResult = await getUserProfileByEmail(authUser.email);
           if (profileResult.success) {
             setUserProfile(profileResult.data);
           }

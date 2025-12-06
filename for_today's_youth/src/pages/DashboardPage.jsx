@@ -17,7 +17,7 @@ const animationStyles = `
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(20px);
     }
     to {
       opacity: 1;
@@ -27,7 +27,7 @@ const animationStyles = `
   @keyframes slideInDown {
     from {
       opacity: 0;
-      transform: translateY(-30px);
+      transform: translateY(-20px);
     }
     to {
       opacity: 1;
@@ -52,8 +52,17 @@ const animationStyles = `
       transform: scale(1);
     }
   }
-  .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out forwards;
+  .dashboard-card {
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    opacity: 0;
+  }
+  .dashboard-card-hover {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, border-color 0.3s ease-out;
+  }
+  .dashboard-card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.6), 0 0 30px rgba(34, 197, 94, 0.4), 0 0 50px rgba(34, 197, 94, 0.3), inset 0 0 20px rgba(34, 197, 94, 0.15);
+    border-color: rgba(34, 197, 94, 1);
   }
   .animate-slide-in-down {
     animation: slideInDown 0.6s ease-out forwards;
@@ -64,36 +73,6 @@ const animationStyles = `
   .animate-scale-in {
     animation: scaleIn 0.4s ease-out forwards;
   }
-  .stagger-1 { animation-delay: 0.1s; }
-  .stagger-2 { animation-delay: 0.2s; }
-  .stagger-3 { animation-delay: 0.3s; }
-  .stagger-4 { animation-delay: 0.4s; }
-  .stagger-5 { animation-delay: 0.5s; }
-  .stagger-6 { animation-delay: 0.6s; }
-  @keyframes borderGlow {
-    0% { border-color: rgba(34, 211, 238, 0.3); box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.3); }
-    50% { border-color: rgba(34, 211, 238, 0.8); box-shadow: 0 0 20px rgba(34, 211, 238, 0.6); }
-    100% { border-color: rgba(6, 182, 212, 1); box-shadow: 0 0 30px rgba(6, 182, 212, 0.8); }
-  }
-  @keyframes borderGlowGreen {
-    0% { border-color: rgba(34, 197, 94, 0.3); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.3); }
-    50% { border-color: rgba(34, 197, 94, 0.8); box-shadow: 0 0 20px rgba(34, 197, 94, 0.6); }
-    100% { border-color: rgba(22, 163, 74, 1); box-shadow: 0 0 30px rgba(22, 163, 74, 0.8); }
-  }
-  @keyframes buttonGlow {
-    0% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.4); }
-    50% { box-shadow: 0 0 15px rgba(34, 211, 238, 0.6); }
-    100% { box-shadow: 0 0 25px rgba(6, 182, 212, 0.8); }
-  }
-  @keyframes buttonGlowGreen {
-    0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-    50% { box-shadow: 0 0 15px rgba(34, 197, 94, 0.6); }
-    100% { box-shadow: 0 0 25px rgba(22, 163, 74, 0.8); }
-  }
-  .card-hover-green:hover { animation: borderGlowGreen 0.6s ease-out forwards; }
-  .button-hover-green:hover { animation: buttonGlowGreen 0.6s ease-out forwards; }
-  .card-hover:hover { animation: borderGlow 0.6s ease-out forwards; }
-  .button-hover:hover { animation: buttonGlow 0.6s ease-out forwards; }
 `;
 
 // Mapping of course names to images
@@ -244,7 +223,8 @@ export const DashboardPage = () => {
                   return (
                     <div
                       key={course.id}
-                      className={`animate-fade-in-up stagger-${(index % 6) + 1} bg-gradient-to-b from-slate-800 to-blue-900 rounded-3xl shadow-2xl overflow-hidden hover:shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-green-500 card-hover-green relative cursor-pointer group`}
+                      className="dashboard-card dashboard-card-hover bg-gradient-to-b from-slate-800 to-blue-900 rounded-3xl overflow-hidden border-2 border-green-500 relative cursor-pointer group flex flex-col"
+                      style={{ animationDelay: `${index * 0.1}s` }}
                     >
                       {/* Recommended Badge */}
                       <div className="absolute top-4 right-4 z-20 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
@@ -324,13 +304,13 @@ export const DashboardPage = () => {
                         <div className="flex gap-3 pt-2">
                           <button
                             onClick={() => handleLearnMore(course)}
-                            className="flex-1 py-3 px-4 border-2 border-green-500 text-green-300 font-bold rounded-xl hover:border-green-400 hover:text-green-200 hover:bg-green-500/10 transition-all duration-200 card-hover-green"
+                            className="flex-1 py-3 px-4 border-2 border-green-500 text-green-300 font-bold rounded-xl hover:border-green-400 hover:text-green-200 hover:bg-green-500/10 transition-all duration-300"
                           >
                             View Details
                           </button>
                           <button
                             onClick={() => handleEnroll()}
-                            className="flex-1 py-3 px-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold rounded-xl hover:from-green-600 hover:to-green-700 transform hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg button-hover-green"
+                            className="flex-1 py-3 px-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg"
                           >
                             Enroll Now
                           </button>
