@@ -45,6 +45,7 @@ export const LoginPage = () => {
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
 
   const validateForm = () => {
     const newErrors = {};
@@ -144,15 +145,35 @@ export const LoginPage = () => {
               {/* Password Field */}
               <div className="animate-fade-in-up stagger-3 transition-all duration-500">
                 <label className="block text-sm font-bold text-cyan-300 mb-2 hover:text-cyan-200 transition-colors duration-300">Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="••••••••"
-                  className="w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 transition-all duration-300 hover:border-cyan-500 hover:border-opacity-50"
-                  disabled={loading}
-                />
+                <div className="relative">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="••••••••"
+                    className="w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 transition-all duration-300 hover:border-cyan-500 hover:border-opacity-50 pr-14"
+                    disabled={loading}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-cyan-300 hover:text-cyan-100 cursor-pointer"
+                    disabled={loading}
+                  >
+                    {showPassword ? (
+                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                        <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
+                      </svg>
+                    ) : (
+                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z" clipRule="evenodd" />
+                        <path d="M15.171 13.576l1.474 1.474a1 1 0 001.414-1.414l-1.474-1.474m2.287-5.882a10.026 10.026 0 01-1.455 3.285l2.114 2.115c1.142-1.371 2.132-3.003 2.835-4.824C17.732 5.943 13.942 3 10 3c-1.669 0-3.288.358-4.738 1.007l2.637 2.637c.87-.215 1.783-.333 2.701-.333 4.478 0 8.268 2.943 9.542 7z" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
                 {errors.password && <span className="text-red-400 text-sm mt-1 block animate-fade-in-up">{errors.password}</span>}
               </div>
 
