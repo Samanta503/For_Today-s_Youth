@@ -9,7 +9,7 @@ const animationStyles = `
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(20px);
     }
     to {
       opacity: 1;
@@ -19,7 +19,7 @@ const animationStyles = `
   @keyframes slideInDown {
     from {
       opacity: 0;
-      transform: translateY(-30px);
+      transform: translateY(-20px);
     }
     to {
       opacity: 1;
@@ -29,7 +29,7 @@ const animationStyles = `
   @keyframes slideInLeft {
     from {
       opacity: 0;
-      transform: translateX(-30px);
+      transform: translateX(-20px);
     }
     to {
       opacity: 1;
@@ -56,16 +56,24 @@ const animationStyles = `
   }
   @keyframes borderGlow {
     0% {
-      border-color: rgba(34, 211, 238, 0.3);
-      box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.3);
+      border-color: rgba(34, 211, 238, 0.2);
+      box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.2), inset 0 0 20px rgba(34, 211, 238, 0.05);
     }
     50% {
-      border-color: rgba(34, 211, 238, 0.8);
-      box-shadow: 0 0 20px rgba(34, 211, 238, 0.6);
+      border-color: rgba(34, 211, 238, 0.6);
+      box-shadow: 0 0 25px rgba(34, 211, 238, 0.4), inset 0 0 20px rgba(34, 211, 238, 0.1);
     }
     100% {
       border-color: rgba(6, 182, 212, 1);
-      box-shadow: 0 0 30px rgba(6, 182, 212, 0.8);
+      box-shadow: 0 0 40px rgba(6, 182, 212, 0.6), inset 0 0 20px rgba(6, 182, 212, 0.15);
+    }
+  }
+  @keyframes cardLift {
+    0% {
+      transform: translateY(0px);
+    }
+    100% {
+      transform: translateY(-8px);
     }
   }
   @keyframes fadeInScale {
@@ -94,8 +102,22 @@ const animationStyles = `
       box-shadow: 0 0 30px rgba(34, 211, 238, 0.6);
     }
   }
+  .profile-card {
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    opacity: 0;
+  }
+  .profile-card-hover {
+    transition: all 0.2s ease-out;
+  }
+  .profile-card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(34, 211, 238, 0.4);
+    border-color: rgba(34, 211, 238, 0.9);
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+  }
   .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out forwards;
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    opacity: 0;
   }
   .animate-slide-in-down {
     animation: slideInDown 0.6s ease-out forwards;
@@ -116,7 +138,7 @@ const animationStyles = `
     animation: borderGlow 0.6s ease-out forwards;
   }
   .smooth-transition {
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   .input-focus:focus {
     box-shadow: 0 0 20px rgba(34, 211, 238, 0.5), inset 0 0 10px rgba(34, 211, 238, 0.1);
@@ -300,19 +322,19 @@ export const ProfilePage = () => {
               {/* Profile Summary Cards */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 {/* Full Name Card */}
-                <div className="animate-fade-in-up stagger-1 bg-gradient-to-br from-slate-800 to-blue-800 rounded-2xl p-6 shadow-xl border-2 border-cyan-500 card-hover hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="profile-card profile-card-hover bg-gradient-to-br from-slate-800 to-blue-800 rounded-2xl p-6 shadow-xl border-2 border-cyan-500" style={{ animationDelay: '0.1s' }}>
                   <p className="text-cyan-300 text-sm font-semibold mb-1">Full Name</p>
                   <h3 className="text-2xl font-bold text-gray-200">{profileData.fullName || 'N/A'}</h3>
                 </div>
 
                 {/* Education Card */}
-                <div className="animate-fade-in-up stagger-2 bg-gradient-to-br from-slate-800 to-blue-800 rounded-2xl p-6 shadow-xl border-2 border-sky-500 card-hover hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="profile-card profile-card-hover bg-gradient-to-br from-slate-800 to-blue-800 rounded-2xl p-6 shadow-xl border-2 border-sky-500" style={{ animationDelay: '0.2s' }}>
                   <p className="text-sky-300 text-sm font-semibold mb-1">Education Level</p>
                   <h3 className="text-2xl font-bold text-gray-200 capitalize">{profileData.educationLevel || 'N/A'}</h3>
                 </div>
 
                 {/* Career Interests Card */}
-                <div className="animate-fade-in-up stagger-3 bg-gradient-to-br from-slate-800 to-blue-800 rounded-2xl p-6 shadow-xl border-2 border-blue-500 card-hover hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="profile-card profile-card-hover bg-gradient-to-br from-slate-800 to-blue-800 rounded-2xl p-6 shadow-xl border-2 border-blue-500" style={{ animationDelay: '0.3s' }}>
                   <p className="text-blue-300 text-sm font-semibold mb-1">Career Interests</p>
                   <h3 className="text-2xl font-bold text-gray-200">{profileData.careerInterests || 'N/A'}</h3>
                 </div>
@@ -350,7 +372,7 @@ export const ProfilePage = () => {
               {!isEditing ? (
                 <div className="space-y-6 animate-fade-in-scale">
                   {/* Skills Section */}
-                  <div className="animate-fade-in-up stagger-1 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-cyan-500 card-hover hover:shadow-2xl transition-all duration-300 smooth-transition">
+                  <div className="profile-card profile-card-hover bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-cyan-500" style={{ animationDelay: '0.4s' }}>
                     <div className="flex items-center mb-6">
                       <span className="text-4xl mr-3 animate-scale-in">🎯</span>
                       <h2 className="text-3xl font-bold text-cyan-300">Skills</h2>
@@ -372,7 +394,7 @@ export const ProfilePage = () => {
                   </div>
 
                   {/* Languages Section */}
-                  <div className="animate-fade-in-up stagger-2 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-blue-500 card-hover hover:shadow-2xl transition-all duration-300 smooth-transition">
+                  <div className="profile-card profile-card-hover bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-blue-500" style={{ animationDelay: '0.5s' }}>
                     <div className="flex items-center mb-6">
                       <span className="text-4xl mr-3 animate-scale-in">🌐</span>
                       <h2 className="text-3xl font-bold text-blue-300">Languages</h2>
@@ -394,7 +416,7 @@ export const ProfilePage = () => {
                   </div>
 
                   {/* Programming Languages Section */}
-                  <div className="animate-fade-in-up stagger-3 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-purple-500 card-hover hover:shadow-2xl transition-all duration-300 smooth-transition">
+                  <div className="profile-card profile-card-hover bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-purple-500" style={{ animationDelay: '0.6s' }}>
                     <div className="flex items-center mb-6">
                       <span className="text-4xl mr-3 animate-scale-in">💻</span>
                       <h2 className="text-3xl font-bold text-purple-300">Programming Languages</h2>
@@ -418,7 +440,7 @@ export const ProfilePage = () => {
                   {/* Work Experience Section */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Work Experience Level */}
-                    <div className="animate-fade-in-up stagger-4 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-cyan-500 card-hover hover:shadow-2xl transition-all duration-300">
+                    <div className="bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-cyan-500 hover:border-cyan-400 hover:bg-gradient-to-br hover:from-slate-700 hover:to-blue-700 hover:shadow-lg transition-all duration-200">
                       <div className="flex items-center mb-6">
                         <span className="text-4xl mr-3">📊</span>
                         <h2 className="text-2xl font-bold text-cyan-300">Experience Level</h2>
@@ -433,7 +455,7 @@ export const ProfilePage = () => {
                     </div>
 
                     {/* Work Experience Details */}
-                    <div className="animate-fade-in-up stagger-5 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-sky-500 card-hover hover:shadow-2xl transition-all duration-300">
+                    <div className="bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-sky-500 hover:border-sky-400 hover:bg-gradient-to-br hover:from-slate-700 hover:to-blue-700 hover:shadow-lg transition-all duration-200">
                       <div className="flex items-center mb-6">
                         <span className="text-4xl mr-3">💼</span>
                         <h2 className="text-2xl font-bold text-sky-300">Work Details</h2>
@@ -445,7 +467,7 @@ export const ProfilePage = () => {
                   </div>
 
                   {/* Extracurricular Activities Section */}
-                  <div className="animate-fade-in-up stagger-6 bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-orange-500 card-hover hover:shadow-2xl transition-all duration-300">
+                  <div className="bg-gradient-to-br from-slate-800 to-blue-800 rounded-3xl p-8 shadow-2xl border-2 border-orange-500 hover:border-orange-400 hover:bg-gradient-to-br hover:from-slate-700 hover:to-blue-700 hover:shadow-lg transition-all duration-200">
                     <div className="flex items-center mb-6">
                       <span className="text-4xl mr-3">🏆</span>
                       <h2 className="text-3xl font-bold text-orange-300">Extracurricular Activities</h2>
