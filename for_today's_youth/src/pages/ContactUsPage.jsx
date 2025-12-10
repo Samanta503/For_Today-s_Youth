@@ -8,7 +8,7 @@ const animationStyles = `
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(20px);
     }
     to {
       opacity: 1;
@@ -18,7 +18,7 @@ const animationStyles = `
   @keyframes slideInDown {
     from {
       opacity: 0;
-      transform: translateY(-30px);
+      transform: translateY(-20px);
     }
     to {
       opacity: 1;
@@ -27,26 +27,33 @@ const animationStyles = `
   }
   @keyframes borderGlow {
     0% {
-      border-color: rgba(34, 211, 238, 0.3);
-      box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.3);
+      border-color: rgba(34, 211, 238, 0.2);
+      box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.2), inset 0 0 20px rgba(34, 211, 238, 0.05);
     }
     50% {
-      border-color: rgba(34, 211, 238, 0.8);
-      box-shadow: 0 0 20px rgba(34, 211, 238, 0.6);
+      border-color: rgba(34, 211, 238, 0.6);
+      box-shadow: 0 0 25px rgba(34, 211, 238, 0.4), inset 0 0 20px rgba(34, 211, 238, 0.1);
     }
     100% {
       border-color: rgba(6, 182, 212, 1);
-      box-shadow: 0 0 30px rgba(6, 182, 212, 0.8);
+      box-shadow: 0 0 40px rgba(6, 182, 212, 0.6), inset 0 0 20px rgba(6, 182, 212, 0.15);
     }
   }
   .contact-card {
-    animation: fadeInUp 0.6s ease-out forwards;
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    opacity: 0;
   }
-  .contact-card:hover {
-    animation: borderGlow 0.6s ease-out forwards;
+  .contact-card-hover {
+    transition: all 0.2s ease-out;
+  }
+  .contact-card-hover:hover {
+    border-color: rgba(34, 211, 238, 1) !important;
+    box-shadow: 0 0 30px rgba(34, 211, 238, 0.5), inset 0 0 20px rgba(34, 211, 238, 0.1) !important;
+    background: linear-gradient(to bottom right, rgba(15, 23, 42, 0.8), rgba(30, 58, 138, 0.8)) !important;
   }
   .form-group {
-    animation: slideInDown 0.6s ease-out forwards;
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    opacity: 0;
   }
 `;
 
@@ -141,7 +148,7 @@ export const ContactUsPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Email Card */}
           <div
-            className="contact-card h-full bg-gradient-to-br from-slate-800 to-blue-800 rounded-xl p-8 border-2 border-cyan-500 hover:shadow-2xl hover:shadow-cyan-500/30 transition-all duration-300"
+            className="contact-card contact-card-hover h-full bg-gradient-to-br from-slate-800 to-blue-800 rounded-xl p-8 border-2 border-cyan-500 transition-all duration-300"
             style={{ animationDelay: '0s' }}
           >
             <div className="flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-sky-500 mb-6 mx-auto">
@@ -156,7 +163,7 @@ export const ContactUsPage = () => {
 
           {/* Phone Card */}
           <div
-            className="contact-card h-full bg-gradient-to-br from-blue-800 to-slate-800 rounded-xl p-8 border-2 border-sky-500 hover:shadow-2xl hover:shadow-sky-500/30 transition-all duration-300"
+            className="contact-card contact-card-hover h-full bg-gradient-to-br from-blue-800 to-slate-800 rounded-xl p-8 border-2 border-sky-500 transition-all duration-300"
             style={{ animationDelay: '0.1s' }}
           >
             <div className="flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-sky-500 to-cyan-500 mb-6 mx-auto">
@@ -171,7 +178,7 @@ export const ContactUsPage = () => {
 
           {/* Location Card */}
           <div
-            className="contact-card h-full bg-gradient-to-br from-slate-800 to-blue-800 rounded-xl p-8 border-2 border-blue-500 hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-300"
+            className="contact-card contact-card-hover h-full bg-gradient-to-br from-slate-800 to-blue-800 rounded-xl p-8 border-2 border-blue-500 transition-all duration-300"
             style={{ animationDelay: '0.2s' }}
           >
             <div className="flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-sky-500 mb-6 mx-auto">
@@ -264,7 +271,7 @@ export const ContactUsPage = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full px-6 py-3 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-blue-900 font-bold rounded-lg shadow-lg hover:shadow-cyan-500/50 transition-all transform hover:scale-105 duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="w-full px-6 py-3 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-blue-900 font-bold rounded-lg shadow-lg hover:shadow-cyan-500/50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
