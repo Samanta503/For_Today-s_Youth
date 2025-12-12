@@ -7,7 +7,7 @@ const animationStyles = `
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(20px);
     }
     to {
       opacity: 1;
@@ -17,7 +17,7 @@ const animationStyles = `
   @keyframes slideInDown {
     from {
       opacity: 0;
-      transform: translateY(-30px);
+      transform: translateY(-20px);
     }
     to {
       opacity: 1;
@@ -25,10 +25,23 @@ const animationStyles = `
     }
   }
   .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out forwards;
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    opacity: 0;
   }
   .animate-slide-in-down {
-    animation: slideInDown 0.6s ease-out forwards;
+    animation: slideInDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    opacity: 0;
+  }
+  .form-field {
+    transition: all 0.2s ease-out;
+  }
+  .form-field:hover {
+    border-color: rgba(34, 211, 238, 1) !important;
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.3) !important;
+  }
+  .form-field:focus {
+    border-color: rgba(34, 211, 238, 1) !important;
+    box-shadow: 0 0 25px rgba(34, 211, 238, 0.4) !important;
   }
   .stagger-1 { animation-delay: 0.1s; }
   .stagger-2 { animation-delay: 0.2s; }
@@ -110,7 +123,7 @@ export const LoginPage = () => {
       <style>{animationStyles}</style>
       <div className="w-full max-w-md">
         {/* Card */}
-        <div className="bg-gradient-to-br from-slate-800 to-blue-900 rounded-3xl shadow-2xl overflow-hidden border-t-4 border-cyan-500 border-opacity-50 hover:border-opacity-100 hover:border-cyan-400 animate-fade-in-up transition-all duration-500 hover:shadow-cyan-500/50 hover:shadow-2xl">
+        <div className="bg-gradient-to-br from-slate-800 to-blue-900 rounded-3xl shadow-2xl overflow-hidden border-t-4 border-cyan-500 border-opacity-50 animate-fade-in-up transition-all duration-200 hover:border-cyan-400 hover:border-opacity-100 hover:shadow-2xl hover:shadow-cyan-500/40">
           {/* Gradient Header */}
           <div className="bg-gradient-to-r from-slate-900 via-blue-800 to-slate-900 p-8 text-white animate-slide-in-down">
             <div className="flex items-center justify-center gap-4 mb-4">
@@ -136,7 +149,7 @@ export const LoginPage = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="you@example.com"
-                  className="w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 transition-all duration-300 hover:border-cyan-500 hover:border-opacity-50"
+                  className="form-field w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400"
                   disabled={loading}
                 />
                 {errors.email && <span className="text-red-400 text-sm mt-1 block animate-fade-in-up">{errors.email}</span>}
@@ -152,7 +165,7 @@ export const LoginPage = () => {
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="••••••••"
-                    className="w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 transition-all duration-300 hover:border-cyan-500 hover:border-opacity-50 pr-14"
+                    className="form-field w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 pr-14"
                     disabled={loading}
                   />
                   <button
@@ -188,7 +201,7 @@ export const LoginPage = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-4 text-lg font-bold text-slate-900 bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 rounded-lg shadow-lg hover:shadow-xl hover:shadow-cyan-400/50 transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed animate-fade-in-up stagger-4 active:scale-95"
+                className="w-full py-4 text-lg font-bold text-slate-900 bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 rounded-lg shadow-lg hover:shadow-xl hover:shadow-cyan-400/50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed animate-fade-in-up stagger-4"
               >
                 {loading ? 'Logging in...' : 'Login to Your Account'}
               </button>
