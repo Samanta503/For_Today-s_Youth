@@ -7,7 +7,7 @@ const animationStyles = `
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(20px);
     }
     to {
       opacity: 1;
@@ -17,18 +17,39 @@ const animationStyles = `
   @keyframes slideInDown {
     from {
       opacity: 0;
-      transform: translateY(-30px);
+      transform: translateY(-20px);
     }
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
+  @keyframes cardLift {
+    0% {
+      transform: translateY(0px);
+    }
+    100% {
+      transform: translateY(-6px);
+    }
+  }
   .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out forwards;
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    opacity: 0;
   }
   .animate-slide-in-down {
-    animation: slideInDown 0.6s ease-out forwards;
+    animation: slideInDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    opacity: 0;
+  }
+  .form-field {
+    transition: all 0.2s ease-out;
+  }
+  .form-field:hover {
+    border-color: rgba(34, 211, 238, 1) !important;
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.3) !important;
+  }
+  .form-field:focus {
+    border-color: rgba(34, 211, 238, 1) !important;
+    box-shadow: 0 0 25px rgba(34, 211, 238, 0.4) !important;
   }
   .stagger-1 { animation-delay: 0.1s; }
   .stagger-2 { animation-delay: 0.2s; }
@@ -170,7 +191,7 @@ export const SignUpPage = () => {
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center px-4 py-8">
         <div className="w-full max-w-3xl">
           {/* Card */}
-          <div className="bg-gradient-to-br from-slate-800 to-blue-900 rounded-3xl shadow-2xl overflow-hidden border-t-4 border-cyan-500 border-opacity-50 hover:border-cyan-400 hover:border-opacity-100 animate-fade-in-up transition-all duration-300 hover:shadow-cyan-500/50 hover:shadow-2xl">
+          <div className="bg-gradient-to-br from-slate-800 to-blue-900 rounded-3xl shadow-2xl overflow-hidden border-t-4 border-cyan-500 border-opacity-50 animate-fade-in-up transition-all duration-200 hover:border-cyan-400 hover:border-opacity-100 hover:shadow-2xl hover:shadow-cyan-500/40">
             {/* Gradient Header */}
             <div className="bg-gradient-to-r from-slate-900 via-blue-800 to-slate-900 p-8 text-white animate-slide-in-down">
               <div className="flex items-center justify-center gap-4 mb-4">
@@ -197,7 +218,7 @@ export const SignUpPage = () => {
                       value={formData.fullName}
                       onChange={handleChange}
                       placeholder="John Doe"
-                      className="w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 transition-all duration-300 hover:border-cyan-500 hover:border-opacity-50"
+                      className="form-field w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400"
                       disabled={loading}
                     />
                     {errors.fullName && <span className="text-red-400 text-sm mt-1">{errors.fullName}</span>}
@@ -211,7 +232,7 @@ export const SignUpPage = () => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="you@example.com"
-                      className="w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 transition-all duration-300 hover:border-cyan-500 hover:border-opacity-50"
+                      className="form-field w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400"
                       disabled={loading}
                     />
                     {errors.email && <span className="text-red-400 text-sm mt-1">{errors.email}</span>}
@@ -228,7 +249,7 @@ export const SignUpPage = () => {
                       value={formData.password}
                       onChange={handleChange}
                       placeholder="••••••••"
-                      className="w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 transition-all duration-300 hover:border-cyan-500 hover:border-opacity-50"
+                      className="form-field w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400"
                       disabled={loading}
                     />
                     {errors.password && <span className="text-red-400 text-sm mt-1">{errors.password}</span>}
@@ -242,7 +263,7 @@ export const SignUpPage = () => {
                       value={formData.confirmPassword}
                       onChange={handleChange}
                       placeholder="••••••••"
-                      className="w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 transition-all duration-300 hover:border-cyan-500 hover:border-opacity-50"
+                      className="form-field w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400"
                       disabled={loading}
                     />
                     {errors.confirmPassword && <span className="text-red-400 text-sm mt-1">{errors.confirmPassword}</span>}
@@ -257,7 +278,7 @@ export const SignUpPage = () => {
                       name="educationLevel"
                       value={formData.educationLevel}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 focus:bg-slate-600 text-white transition-all duration-300 hover:border-cyan-500 hover:border-opacity-50"
+                      className="form-field w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none bg-slate-700 focus:bg-slate-600 text-white"
                       disabled={loading}
                     >
                       {educationLevels.map((level) => (
@@ -276,7 +297,7 @@ export const SignUpPage = () => {
                       value={formData.careerInterests}
                       onChange={handleChange}
                       placeholder="e.g., Web Development, Data Science"
-                      className="w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 transition-all duration-300 hover:border-cyan-500 hover:border-opacity-50"
+                      className="form-field w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400"
                       disabled={loading}
                     />
                   </div>
@@ -291,7 +312,7 @@ export const SignUpPage = () => {
                       value={formData.skills}
                       onChange={handleChange}
                       placeholder={`e.g., ${skillOptions.slice(0, 3).join(', ')}`}
-                      className="w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 transition-all duration-300 hover:border-cyan-500 hover:border-opacity-50 h-24 resize-none"
+                      className="form-field w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 h-24 resize-none"
                       disabled={loading}
                     />
                     <p className="text-xs text-cyan-400 mt-1">Popular: {skillOptions.join(', ')}</p>
@@ -304,7 +325,7 @@ export const SignUpPage = () => {
                       value={formData.languages}
                       onChange={handleChange}
                       placeholder={`e.g., ${languageOptions.slice(0, 3).join(', ')}`}
-                      className="w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 transition-all duration-300 hover:border-cyan-500 hover:border-opacity-50 h-24 resize-none"
+                      className="form-field w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 h-24 resize-none"
                       disabled={loading}
                     />
                     <p className="text-xs text-cyan-400 mt-1">Popular: {languageOptions.join(', ')}</p>
@@ -320,7 +341,7 @@ export const SignUpPage = () => {
                       value={formData.programmingLanguages}
                       onChange={handleChange}
                       placeholder={`e.g., ${programmingLanguageOptions.slice(0, 3).join(', ')}`}
-                      className="w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 transition-all duration-300 hover:border-cyan-500 hover:border-opacity-50 h-24 resize-none"
+                      className="form-field w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 h-24 resize-none"
                       disabled={loading}
                     />
                     <p className="text-xs text-cyan-400 mt-1">Popular: {programmingLanguageOptions.join(', ')}</p>
@@ -332,7 +353,7 @@ export const SignUpPage = () => {
                       name="workExperienceLevel"
                       value={formData.workExperienceLevel}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 focus:bg-slate-600 text-white transition-all duration-300 hover:border-cyan-500 hover:border-opacity-50"
+                      className="form-field w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none bg-slate-700 focus:bg-slate-600 text-white"
                       disabled={loading}
                     >
                       {workExperienceLevels.map((level) => (
@@ -352,7 +373,7 @@ export const SignUpPage = () => {
                     value={formData.workExperienceDetails}
                     onChange={handleChange}
                     placeholder="e.g., Intern at Company XYZ (2023-2024), Freelance Web Developer (2022-Present)"
-                    className="w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 transition-all duration-300 hover:border-cyan-500 hover:border-opacity-50 h-24 resize-none"
+                    className="form-field w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 h-24 resize-none"
                     disabled={loading}
                   />
                 </div>
@@ -365,7 +386,7 @@ export const SignUpPage = () => {
                     value={formData.extracurricularActivities}
                     onChange={handleChange}
                     placeholder={`e.g., ${activityOptions.slice(0, 4).join(', ')}`}
-                    className="w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none focus:border-cyan-400 bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 transition-all duration-300 hover:border-cyan-500 hover:border-opacity-50 h-24 resize-none"
+                    className="form-field w-full px-4 py-3 border-2 border-cyan-500 border-opacity-30 rounded-lg focus:outline-none bg-slate-700 focus:bg-slate-600 text-white placeholder-gray-400 h-24 resize-none"
                     disabled={loading}
                   />
                   <p className="text-xs text-cyan-400 mt-1">Popular: {activityOptions.join(', ')}</p>
@@ -375,7 +396,7 @@ export const SignUpPage = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-4 text-lg font-bold text-slate-900 bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 rounded-lg shadow-lg hover:shadow-xl hover:shadow-cyan-400/50 transform hover:scale-105 hover:-translate-y-1 active:scale-95 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed mt-8 animate-fade-in-up stagger-6"
+                  className="w-full py-4 text-lg font-bold text-slate-900 bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 rounded-lg shadow-lg hover:shadow-xl hover:shadow-cyan-400/50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-8 animate-fade-in-up stagger-6"
                 >
                   {loading ? 'Creating Account...' : 'Create Account & Get Started'}
                 </button>
