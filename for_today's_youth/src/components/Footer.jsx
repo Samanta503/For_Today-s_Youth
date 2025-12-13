@@ -26,9 +26,9 @@ export const Footer = () => {
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm text-gray-400">
               <li><Link to="/" className="hover:text-sky-400 transition">Home</Link></li>
-              <li><Link to="/" className="hover:text-sky-400 transition">About</Link></li>
-              <li><Link to="/" className="hover:text-sky-400 transition">Contact</Link></li>
-              <li><Link to="/" className="hover:text-sky-400 transition">Blog</Link></li>
+              <li><Link to="/courses" className="hover:text-sky-400 transition">Courses</Link></li>
+              <li><Link to="/jobs" className="hover:text-sky-400 transition">Jobs</Link></li>
+              <li><Link to="/contact" className="hover:text-sky-400 transition">Contact</Link></li>
             </ul>
           </div>
 
