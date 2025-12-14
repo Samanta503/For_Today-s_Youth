@@ -35,6 +35,23 @@ const parseSkills = (skillsData) => {
   return [];
 };
 
+// Helper function to extract skills from Skill_1, Skill_2 format
+const extractSkillsFromJob = (jobDoc) => {
+  const skills = [];
+  let skillIndex = 1;
+  
+  // Extract skills from Skill_1, Skill_2, Skill_3, etc.
+  while (jobDoc[`Skill_${skillIndex}`]) {
+    const skill = jobDoc[`Skill_${skillIndex}`];
+    if (skill && skill.trim()) {
+      skills.push(skill.trim());
+    }
+    skillIndex++;
+  }
+  
+  return skills;
+};
+
 const animationStyles = `
   @keyframes fadeInUp {
     from {
@@ -132,13 +149,17 @@ export const JobsPage = () => {
         querySnapshot.forEach((doc) => {
           const jobDoc = doc.data();
           console.log(`Job: ${doc.id}`, jobDoc); // Debug log to see all fields
+          
+          // Extract skills from Skill_1, Skill_2 format
+          const extractedSkills = extractSkillsFromJob(jobDoc);
+          
           jobsData.push({
             id: doc.id,
             title: doc.id, // Job title from document name
             description: jobDoc.Description || jobDoc.description || '',
             salary: jobDoc.Salary || jobDoc.salary || '',
             experienceLevel: jobDoc['Experience Level'] || jobDoc.experienceLevel || jobDoc['experience level'] || '',
-            skills: jobDoc.Skills || jobDoc.skills || '',
+            skills: extractedSkills.length > 0 ? extractedSkills : (jobDoc.Skills || jobDoc.skills || ''),
             requirements: jobDoc.Requirements || jobDoc.requirements || '',
             benefits: jobDoc.Benefits || jobDoc.benefits || '',
             ...jobDoc,
@@ -253,7 +274,7 @@ export const JobsPage = () => {
                       <div className="mb-4 pb-4 border-b border-cyan-500/20">
                         <p className="text-gray-400 text-xs mb-3 font-medium uppercase tracking-wide">Required Skills</p>
                         <ul className="space-y-2">
-                          {parseSkills(job.skills).map((skill, idx) => (
+                          {(Array.isArray(job.skills) ? job.skills : parseSkills(job.skills)).map((skill, idx) => (
                             <li key={idx} className="text-sm text-gray-300 flex items-start">
                               <span className="text-cyan-400 font-bold mr-2">{idx + 1}.</span>
                               <span>{skill}</span>
