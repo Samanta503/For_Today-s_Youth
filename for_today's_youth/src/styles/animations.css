@@ -85,13 +85,13 @@ a {
 input,
 textarea,
 select {
-  transition: all 0.3s ease-out;
+  transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out, background-color 0.2s ease-out;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
-  transform: scale(1.01);
+  /* No scale transform - prevents layout shift and flicker */
 }
 
 /* ============================================
