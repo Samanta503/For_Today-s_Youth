@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { db } from '../config/firebaseConfig';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -50,6 +50,108 @@ const extractSkillsFromJob = (jobDoc) => {
   }
   
   return skills;
+};
+
+// Function to calculate skill match percentage (50% of total)
+const calculateSkillMatch = (jobRequiredSkills, userSkills, userProgrammingLanguages) => {
+  if (!jobRequiredSkills || jobRequiredSkills.length === 0) return 0;
+  
+  // Combine user's skills and programming languages and normalize
+  const userAllSkills = [
+    ...(Array.isArray(userSkills) ? userSkills : []),
+    ...(Array.isArray(userProgrammingLanguages) ? userProgrammingLanguages : [])
+  ].map(skill => skill.toLowerCase().trim());
+  
+  // Normalize job required skills
+  const requiredSkills = (Array.isArray(jobRequiredSkills) ? jobRequiredSkills : [])
+    .map(skill => skill.toLowerCase().trim());
+  
+  if (requiredSkills.length === 0) return 0;
+  
+  // Count matching skills (exact or partial match)
+  const matchedSkills = requiredSkills.filter(reqSkill => 
+    userAllSkills.some(userSkill => 
+      userSkill.includes(reqSkill) || reqSkill.includes(userSkill)
+    )
+  );
+  
+  // Calculate percentage: (matched skills / total required skills) * 50%
+  const skillMatchPercentage = (matchedSkills.length / requiredSkills.length) * 50;
+  
+  return Math.round(skillMatchPercentage);
+};
+
+// Function to calculate experience level match percentage (50% of total)
+const calculateExperienceMatch = (jobRequiredLevel, userExperienceLevel) => {
+  if (!jobRequiredLevel || !userExperienceLevel) return 0;
+  
+  // Normalize levels to lowercase for comparison
+  const jobLevel = jobRequiredLevel.toLowerCase().trim();
+  const userLevel = userExperienceLevel.toLowerCase().trim();
+  
+  // Experience level hierarchy: beginner < advance < professional
+  const levelScore = {
+    'beginner': 1,
+    'advance': 2,
+    'professional': 3
+  };
+  
+  const userScore = levelScore[userLevel] || 0;
+  const jobScore = levelScore[jobLevel] || 0;
+  
+  if (jobScore === 0) return 0;
+  
+  // Calculate match: if user level meets or exceeds job requirement, it's a better match
+  // If user level < job level: (userScore / jobScore) * (50 / 3)
+  // If user level >= job level: full 50/3 for that level
+  let experienceMatchPercentage;
+  
+  if (userScore >= jobScore) {
+    // User meets or exceeds requirement
+    experienceMatchPercentage = (50 / 3); // Full points for matching or exceeding requirement
+  } else {
+    // User is below requirement, calculate proportional match
+    experienceMatchPercentage = (userScore / jobScore) * (50 / 3);
+  }
+  
+  return Math.round(experienceMatchPercentage);
+};
+
+// Function to calculate total job match percentage
+const calculateTotalJobMatch = (jobRequiredSkills, jobRequiredLevel, userSkills, userProgrammingLanguages, userExperienceLevel) => {
+  const skillMatch = calculateSkillMatch(jobRequiredSkills, userSkills, userProgrammingLanguages);
+  const experienceMatch = calculateExperienceMatch(jobRequiredLevel, userExperienceLevel);
+  const totalMatch = skillMatch + experienceMatch;
+  
+  return Math.round(totalMatch);
+};
+
+// Function to get color based on match percentage
+const getMatchColor = (percentage) => {
+  if (percentage >= 80) return 'from-green-500 to-emerald-500';
+  if (percentage >= 40) return 'from-yellow-500 to-amber-500';
+  return 'from-red-500 to-rose-500';
+};
+
+// Function to get circle background color based on match percentage
+const getCircleColor = (percentage) => {
+  if (percentage >= 80) return 'bg-green-900/40';
+  if (percentage >= 40) return 'bg-yellow-900/40';
+  return 'bg-red-900/40';
+};
+
+// Function to get shadow color based on match percentage
+const getCircleShadowColor = (percentage) => {
+  if (percentage >= 80) return 'shadow-lg shadow-green-500/60';
+  if (percentage >= 40) return 'shadow-lg shadow-yellow-500/60';
+  return 'shadow-lg shadow-red-500/60';
+};
+
+// Function to get glow color for circular badge
+const getCircleGlowColor = (percentage) => {
+  if (percentage >= 80) return 'drop-shadow(0 0 20px rgba(34, 197, 94, 0.7))';
+  if (percentage >= 40) return 'drop-shadow(0 0 20px rgba(234, 179, 8, 0.7))';
+  return 'drop-shadow(0 0 20px rgba(239, 68, 68, 0.7))';
 };
 
 const animationStyles = `
@@ -103,6 +205,34 @@ const animationStyles = `
       background-position: 1000px 0;
     }
   }
+  @keyframes circlePulse {
+    0% {
+      box-shadow: 0 0 0 0 currentColor;
+      opacity: 0.8;
+    }
+    50% {
+      box-shadow: 0 0 25px 10px rgba(255, 255, 255, 0.05);
+      opacity: 1;
+    }
+    100% {
+      box-shadow: 0 0 0 0 currentColor;
+      opacity: 0.8;
+    }
+  }
+  @keyframes circleGlow {
+    0% {
+      filter: drop-shadow(0 0 10px currentColor);
+    }
+    50% {
+      filter: drop-shadow(0 0 25px currentColor);
+    }
+    100% {
+      filter: drop-shadow(0 0 10px currentColor);
+    }
+  }
+  .match-circle {
+    animation: circlePulse 3s ease-in-out infinite, circleGlow 3s ease-in-out infinite;
+  }
   .job-card {
     animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     opacity: 0;
@@ -124,12 +254,16 @@ const animationStyles = `
 `;
 
 export const JobsPage = () => {
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading, user } = useAuth();
   const navigate = useNavigate();
   const [jobs, setJobs] = useState([]);
   const [jobsLoading, setJobsLoading] = useState(true);
   const [selectedJob, setSelectedJob] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [userSkills, setUserSkills] = useState([]);
+  const [userProgrammingLanguages, setUserProgrammingLanguages] = useState([]);
+  const [userExperienceLevel, setUserExperienceLevel] = useState('');
+  const [jobMatches, setJobMatches] = useState({});
 
   useEffect(() => {
     if (!loading && !isAuthenticated) {
@@ -180,6 +314,48 @@ export const JobsPage = () => {
       fetchJobs();
     }
   }, [isAuthenticated]);
+
+  // Fetch user skills from Firebase
+  useEffect(() => {
+    const fetchUserSkills = async () => {
+      if (!user || !user.email) return;
+      
+      try {
+        const userDocRef = doc(db, 'Users', user.email);
+        const userDocSnap = await getDoc(userDocRef);
+        
+        if (userDocSnap.exists()) {
+          const userData = userDocSnap.data();
+          setUserSkills(userData.skills || []);
+          setUserProgrammingLanguages(userData.programmingLanguages || []);
+          setUserExperienceLevel(userData.workExperienceLevel || '');
+        }
+      } catch (error) {
+        console.error('Error fetching user skills:', error);
+      }
+    };
+    
+    if (isAuthenticated && user) {
+      fetchUserSkills();
+    }
+  }, [isAuthenticated, user]);
+
+  // Calculate job matches when jobs or user skills change
+  useEffect(() => {
+    if (jobs.length > 0 && (userSkills.length > 0 || userProgrammingLanguages.length > 0 || userExperienceLevel)) {
+      const matches = {};
+      jobs.forEach(job => {
+        matches[job.id] = calculateTotalJobMatch(
+          job.skills, 
+          job.experienceLevel,
+          userSkills, 
+          userProgrammingLanguages,
+          userExperienceLevel
+        );
+      });
+      setJobMatches(matches);
+    }
+  }, [jobs, userSkills, userProgrammingLanguages, userExperienceLevel]);
 
   const filteredJobs = jobs.filter((job) =>
     job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -242,15 +418,78 @@ export const JobsPage = () => {
                 {/* Card */}
                 <div className="h-full bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 rounded-xl overflow-hidden border-2 border-cyan-600 job-card-hover hover:shadow-2xl transition-all duration-500 flex flex-col backdrop-blur-md bg-opacity-80">
                   {/* Header with Job Title */}
-                  <div className="job-header bg-gradient-to-r from-blue-950 to-slate-950 p-6 relative overflow-hidden border-b border-cyan-500/30">
+                  <div className="job-header bg-gradient-to-r from-blue-950 to-slate-950 p-6 relative overflow-visible border-b border-cyan-500/30">
                     <div className="absolute inset-0 opacity-10 bg-pattern"></div>
-                    <h3 className="text-2xl font-bold text-transparent bg-gradient-to-r from-cyan-300 to-sky-300 bg-clip-text relative z-10 line-clamp-2">
-                      {job.title}
-                    </h3>
+                    
+                    <div className="flex items-flex-start justify-between gap-6 relative z-10">
+                      {/* Title Section */}
+                      <h3 className="text-2xl font-bold text-transparent bg-gradient-to-r from-cyan-300 to-sky-300 bg-clip-text flex-1 line-clamp-3">
+                        {job.title}
+                      </h3>
+                      
+                      {/* Job Match Badge - Circular SVG */}
+                      <div className="flex-shrink-0">
+                        <div className={`relative w-28 h-28 rounded-full match-circle ${getCircleShadowColor(jobMatches[job.id] || 0)}`} style={{ filter: getCircleGlowColor(jobMatches[job.id] || 0) }}>
+                          <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                            {/* Background circle - very subtle */}
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(100, 116, 139, 0.15)" strokeWidth="2" />
+                            {/* Progress circle */}
+                            <circle 
+                              cx="50" 
+                              cy="50" 
+                              r="45" 
+                              fill="none" 
+                              stroke={jobMatches[job.id] >= 80 ? '#22c55e' : jobMatches[job.id] >= 40 ? '#eab308' : '#ef4444'} 
+                              strokeWidth="4" 
+                              strokeDasharray={`${(jobMatches[job.id] || 0) * 2.83} 283`}
+                              strokeLinecap="round"
+                              className="transition-all duration-500"
+                            />
+                          </svg>
+                          {/* Center background circle with gradient */}
+                          <div className={`absolute inset-0 rounded-full ${getCircleColor(jobMatches[job.id] || 0)} backdrop-blur-sm border border-opacity-20 ${
+                            jobMatches[job.id] >= 80 ? 'border-green-400' : 
+                            jobMatches[job.id] >= 40 ? 'border-yellow-400' : 
+                            'border-red-400'
+                          }`} style={{
+                            boxShadow: `inset 0 0 40px ${jobMatches[job.id] >= 80 ? 'rgba(34, 197, 94, 0.3)' : jobMatches[job.id] >= 40 ? 'rgba(234, 179, 8, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`
+                          }} />
+                          {/* Center text */}
+                          <div className="absolute inset-0 flex flex-col items-center justify-center">
+                            <div className={`text-2xl font-black bg-gradient-to-r ${getMatchColor(jobMatches[job.id] || 0)} bg-clip-text text-transparent`}>
+                              {jobMatches[job.id] || 0}%
+                            </div>
+                            <span className="text-xs font-bold text-gray-300">MATCH</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   {/* Content */}
                   <div className="p-6 flex-grow flex flex-col">
+                    {/* Match Breakdown */}
+                    <div className="mb-6 pb-6 border-b border-cyan-500/30">
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-400 text-xs font-medium">Skills: {calculateSkillMatch(job.skills, userSkills, userProgrammingLanguages)}%</span>
+                          <span className="text-gray-400 text-xs font-medium">Experience: {calculateExperienceMatch(job.experienceLevel, userExperienceLevel)}%</span>
+                        </div>
+                        <p className="text-xs text-gray-500">(50% skills + 50% experience)</p>
+                      </div>
+                      
+                      {/* Qualification Status */}
+                      <div className="mt-3">
+                        <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${
+                          jobMatches[job.id] >= 80 ? 'bg-green-900/40 text-green-300 border border-green-500/50' :
+                          jobMatches[job.id] >= 40 ? 'bg-yellow-900/40 text-yellow-300 border border-yellow-500/50' :
+                          'bg-red-900/40 text-red-300 border border-red-500/50'
+                        }`}>
+                          {jobMatches[job.id] >= 80 ? '✓ Qualified' : jobMatches[job.id] >= 40 ? '⚠ Partial' : '✗ Limited Match'}
+                        </span>
+                      </div>
+                    </div>
+
                     {/* Experience Level */}
                     {job.experienceLevel && (
                       <div className="mb-4 pb-4 border-b border-cyan-500/20">
