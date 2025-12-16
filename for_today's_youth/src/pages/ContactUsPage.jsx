@@ -210,7 +210,7 @@ export const ContactUsPage = () => {
                 value={formData.name}
                 onChange={handleInputChange}
                 placeholder="Your full name"
-                className="w-full px-4 py-3 bg-gradient-to-r from-slate-700 to-blue-700 border-2 border-cyan-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-300 focus:ring-2 focus:ring-cyan-300/30 transition-all"
+                className="w-full px-4 py-3 bg-gradient-to-r from-slate-700 to-blue-700 border-2 border-cyan-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-300 focus:ring-2 focus:ring-cyan-300/50 hover:border-cyan-300 hover:shadow-lg hover:shadow-cyan-400/40 focus:shadow-xl focus:shadow-cyan-500/60 transition-all duration-300"
               />
             </div>
 
@@ -223,7 +223,7 @@ export const ContactUsPage = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder="your.email@example.com"
-                className="w-full px-4 py-3 bg-gradient-to-r from-slate-700 to-blue-700 border-2 border-cyan-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-300 focus:ring-2 focus:ring-cyan-300/30 transition-all"
+                className="w-full px-4 py-3 bg-gradient-to-r from-slate-700 to-blue-700 border-2 border-cyan-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-300 focus:ring-2 focus:ring-cyan-300/50 hover:border-cyan-300 hover:shadow-lg hover:shadow-cyan-400/40 focus:shadow-xl focus:shadow-cyan-500/60 transition-all duration-300"
               />
             </div>
 
@@ -236,7 +236,7 @@ export const ContactUsPage = () => {
                 value={formData.phone}
                 onChange={handleInputChange}
                 placeholder="+880 1234-567890"
-                className="w-full px-4 py-3 bg-gradient-to-r from-slate-700 to-blue-700 border-2 border-cyan-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-300 focus:ring-2 focus:ring-cyan-300/30 transition-all"
+                className="w-full px-4 py-3 bg-gradient-to-r from-slate-700 to-blue-700 border-2 border-cyan-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-300 focus:ring-2 focus:ring-cyan-300/50 hover:border-cyan-300 hover:shadow-lg hover:shadow-cyan-400/40 focus:shadow-xl focus:shadow-cyan-500/60 transition-all duration-300"
               />
             </div>
 
@@ -249,7 +249,7 @@ export const ContactUsPage = () => {
                 value={formData.subject}
                 onChange={handleInputChange}
                 placeholder="What is this about?"
-                className="w-full px-4 py-3 bg-gradient-to-r from-slate-700 to-blue-700 border-2 border-cyan-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-300 focus:ring-2 focus:ring-cyan-300/30 transition-all"
+                className="w-full px-4 py-3 bg-gradient-to-r from-slate-700 to-blue-700 border-2 border-cyan-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-300 focus:ring-2 focus:ring-cyan-300/50 hover:border-cyan-300 hover:shadow-lg hover:shadow-cyan-400/40 focus:shadow-xl focus:shadow-cyan-500/60 transition-all duration-300"
               />
             </div>
 
@@ -262,7 +262,7 @@ export const ContactUsPage = () => {
                 onChange={handleInputChange}
                 placeholder="Your message here..."
                 rows="6"
-                className="w-full px-4 py-3 bg-gradient-to-r from-slate-700 to-blue-700 border-2 border-cyan-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-300 focus:ring-2 focus:ring-cyan-300/30 transition-all resize-none"
+                className="w-full px-4 py-3 bg-gradient-to-r from-slate-700 to-blue-700 border-2 border-cyan-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-300 focus:ring-2 focus:ring-cyan-300/50 hover:border-cyan-300 hover:shadow-lg hover:shadow-cyan-400/40 focus:shadow-xl focus:shadow-cyan-500/60 transition-all duration-300 resize-none"
               />
             </div>
 
