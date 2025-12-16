@@ -184,7 +184,7 @@ export const CoursesPage = () => {
                   >
                   >
                     {/* Card Container */}
-                    <div className="h-full bg-gradient-to-br from-slate-800 to-blue-800 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 border-2 border-cyan-500 hover:border-cyan-400 course-card-hover cursor-pointer" onClick={() => handleLearnMore(course)}>
+                    <div className="h-full flex flex-col bg-gradient-to-br from-slate-800 to-blue-800 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 border-2 border-cyan-500 hover:border-cyan-400 course-card-hover cursor-pointer" onClick={() => handleLearnMore(course)}>
                       {/* Course Image */}
                     <div className="relative h-64 overflow-hidden bg-gradient-to-br from-cyan-600 to-slate-700">
                       {getCourseImage(course.name) ? (
@@ -206,33 +206,35 @@ export const CoursesPage = () => {
                     </div>
 
                     {/* Course Info */}
-                    <div className="p-6">
-                      <h3 className="text-2xl font-bold text-cyan-300 mb-3 line-clamp-2 hover:text-sky-300 transition-colors duration-300">
-                        {course.name}
-                      </h3>
+                    <div className="p-6 flex flex-col flex-grow">
+                      <div className="flex-grow">
+                        <h3 className="text-2xl font-bold text-cyan-300 mb-3 line-clamp-2 hover:text-sky-300 transition-colors duration-300">
+                          {course.name}
+                        </h3>
 
-                      {course.courseDetail?.Description && (
-                        <p className="text-gray-300 text-sm mb-4 line-clamp-2 font-medium">
-                          {course.courseDetail.Description}
-                        </p>
-                      )}
-
-                      <div className="flex gap-4 mb-6 text-sm flex-wrap">
-                        {course.courseDetail?.['Course fee'] && (
-                          <div className="flex items-center gap-2 text-cyan-300 bg-cyan-500 bg-opacity-10 px-3 py-2 rounded-full font-semibold border border-cyan-500 border-opacity-30 transition-all duration-300 hover:bg-opacity-20 hover:border-opacity-50">
-                            <span>💰 {course.courseDetail['Course fee']}</span>
-                          </div>
+                        {course.courseDetail?.Description && (
+                          <p className="text-gray-300 text-sm mb-4 line-clamp-2 font-medium">
+                            {course.courseDetail.Description}
+                          </p>
                         )}
 
-                        {course.courseDetail?.Schedule && (
-                          <div className="flex items-center gap-2 text-sky-300 bg-sky-500 bg-opacity-10 px-3 py-2 rounded-full font-semibold border border-sky-500 border-opacity-30 transition-all duration-300 hover:bg-opacity-20 hover:border-opacity-50">
-                            <span>📅 {course.courseDetail.Schedule}</span>
-                          </div>
-                        )}
+                        <div className="flex gap-4 mb-6 text-sm flex-wrap">
+                          {course.courseDetail?.['Course fee'] && (
+                            <div className="flex items-center gap-2 text-cyan-300 bg-cyan-500 bg-opacity-10 px-3 py-2 rounded-full font-semibold border border-cyan-500 border-opacity-30 transition-all duration-300 hover:bg-opacity-20 hover:border-opacity-50">
+                              <span>💰 {course.courseDetail['Course fee']}</span>
+                            </div>
+                          )}
+
+                          {course.courseDetail?.Schedule && (
+                            <div className="flex items-center gap-2 text-sky-300 bg-sky-500 bg-opacity-10 px-3 py-2 rounded-full font-semibold border border-sky-500 border-opacity-30 transition-all duration-300 hover:bg-opacity-20 hover:border-opacity-50">
+                              <span>📅 {course.courseDetail.Schedule}</span>
+                            </div>
+                          )}
+                        </div>
                       </div>
 
                       <button
-                        className="w-full py-3 px-4 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-slate-900 font-bold rounded-xl transform hover:scale-102 active:scale-98 transition-all duration-300 shadow-lg hover:shadow-xl"
+                        className="w-full py-3 px-4 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-slate-900 font-bold rounded-xl transform hover:scale-102 active:scale-98 transition-all duration-300 shadow-lg hover:shadow-xl mt-auto"
                         onClick={() => handleLearnMore(course)}
                       >
                         Learn More →
