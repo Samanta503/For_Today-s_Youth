@@ -382,7 +382,7 @@ export const ProfilePage = () => {
                         profileData.skills.map((skill, idx) => (
                           <span
                             key={idx}
-                            className="px-5 py-3 bg-gradient-to-r from-cyan-600 to-sky-600 text-white font-bold rounded-full border-2 border-cyan-400 hover:shadow-xl hover:scale-110 transform transition-all duration-300 cursor-default smooth-transition"
+                            className="px-5 py-3 bg-gradient-to-r from-cyan-600 to-sky-600 text-white font-bold rounded-full border-2 border-cyan-400 hover:shadow-xl hover:scale-105 transform transition-all duration-300 cursor-default smooth-transition"
                           >
                             {skill}
                           </span>
@@ -404,7 +404,7 @@ export const ProfilePage = () => {
                         profileData.languages.map((lang, idx) => (
                           <span
                             key={idx}
-                            className="px-5 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold rounded-full border-2 border-blue-400 hover:shadow-xl hover:scale-110 transform transition-all duration-300 cursor-default smooth-transition"
+                            className="px-5 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold rounded-full border-2 border-blue-400 hover:shadow-xl hover:scale-105 transform transition-all duration-300 cursor-default smooth-transition"
                           >
                             {lang}
                           </span>
@@ -426,7 +426,7 @@ export const ProfilePage = () => {
                         profileData.programmingLanguages.map((lang, idx) => (
                           <span
                             key={idx}
-                            className="px-5 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-full border-2 border-purple-400 hover:shadow-xl hover:scale-110 transform transition-all duration-300 cursor-default smooth-transition"
+                            className="px-5 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-full border-2 border-purple-400 hover:shadow-xl hover:scale-105 transform transition-all duration-300 cursor-default smooth-transition"
                           >
                             {lang}
                           </span>
@@ -477,7 +477,7 @@ export const ProfilePage = () => {
                         profileData.extracurricularActivities.map((activity, idx) => (
                           <span
                             key={idx}
-                            className="px-5 py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white font-bold rounded-full border-2 border-orange-400 hover:shadow-xl hover:scale-110 transform transition-all duration-300 cursor-default"
+                            className="px-5 py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white font-bold rounded-full border-2 border-orange-400 hover:shadow-xl hover:scale-105 transform transition-all duration-300 cursor-default"
                           >
                             {activity}
                           </span>
