@@ -59,6 +59,11 @@ export const Navbar = () => {
                 Profile
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400 group-hover:w-full transition-all duration-300"></span>
               </Link>
+              <Link to="/chatbot" className="text-cyan-100 hover:text-purple-300 font-semibold transition-all duration-300 relative group flex items-center gap-2">
+                <span>🤖</span>
+                <span>AI Chat</span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 group-hover:w-full transition-all duration-300"></span>
+              </Link>
             </>
           )}
           <Link to="/contact" className="text-cyan-100 hover:text-blue-300 font-semibold transition-all duration-300 relative group">

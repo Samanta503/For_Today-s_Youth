@@ -11,6 +11,7 @@ import { ProfilePage } from './pages/ProfilePage';
 import { CoursesPage } from './pages/CoursesPage';
 import { JobsPage } from './pages/JobsPage';
 import { ContactUsPage } from './pages/ContactUsPage';
+import ChatbotPage from './pages/ChatbotPage';
 import './index.css';
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
               <Route path="/contact" element={<ContactUsPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/chatbot" element={<ChatbotPage />} />
               
               {/* 404 - Not Found */}
               <Route path="*" element={<Navigate to="/" replace />} />
