@@ -33,7 +33,7 @@ const animationStyles = `
     opacity: 0;
   }
   .form-field {
-    transition: all 0.2s ease-out;
+    transition: border-color 0.2s ease-out, background-color 0.2s ease-out;
   }
   .form-field:hover {
     border-color: rgba(34, 211, 238, 1) !important;
@@ -171,18 +171,18 @@ export const LoginPage = () => {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-cyan-300 hover:text-cyan-100 cursor-pointer"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-cyan-400 hover:text-cyan-300 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={loading}
+                    title={showPassword ? "Hide password" : "Show password"}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
                   >
                     {showPassword ? (
-                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                        <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 5C7 5 2.73 8.11 1 12.46c1.73 4.35 6 7.54 11 7.54s9.27-3.19 11-7.54C21.27 8.11 17 5 12 5zm0 12c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm0-7c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
                       </svg>
                     ) : (
-                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z" clipRule="evenodd" />
-                        <path d="M15.171 13.576l1.474 1.474a1 1 0 001.414-1.414l-1.474-1.474m2.287-5.882a10.026 10.026 0 01-1.455 3.285l2.114 2.115c1.142-1.371 2.132-3.003 2.835-4.824C17.732 5.943 13.942 3 10 3c-1.669 0-3.288.358-4.738 1.007l2.637 2.637c.87-.215 1.783-.333 2.701-.333 4.478 0 8.268 2.943 9.542 7z" />
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46A11.804 11.804 0 001 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3M7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm5.31-7.78L11 5.07c-.39-.04-.8-.07-1.2-.07-5 0-9.27 3.11-11 7.5 1.73 4.39 6 7.5 11 7.5 4 0 7.54-1.98 9.57-5l-3.48-3.48c-.87 1.17-2.23 1.95-3.75 1.95-3.31 0-6-2.69-6-6 0-1.52.78-2.88 1.95-3.75z" />
                       </svg>
                     )}
                   </button>
