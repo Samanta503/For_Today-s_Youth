@@ -9,7 +9,7 @@ const ChatbotPage = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hello!! 👋 I'm the For Today's Youth AI Assistant. I can help you with questions about courses, job opportunities, career guidance, and more. What would you like to know?",
+      text: "Hello!!! 👋 I'm the For Today's Youth AI Assistant. I can help you with questions about courses, job opportunities, career guidance, and more. What would you like to know?",
       sender: 'bot',
       timestamp: new Date(),
     },
