@@ -182,7 +182,6 @@ export const CoursesPage = () => {
                     className="course-card"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                  >
                     {/* Card Container */}
                     <div className="h-full flex flex-col bg-gradient-to-br from-slate-800 to-blue-800 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 border-2 border-cyan-500 hover:border-cyan-400 course-card-hover cursor-pointer" onClick={() => handleLearnMore(course)}>
                       {/* Course Image */}
